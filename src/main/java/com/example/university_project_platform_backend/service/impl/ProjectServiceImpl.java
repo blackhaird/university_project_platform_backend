@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
 import com.example.university_project_platform_backend.entity.Project;
 import com.example.university_project_platform_backend.entity.ProjectManagement;
 import com.example.university_project_platform_backend.entity.StudentGroup;
@@ -97,7 +98,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     @Override
     public Map<String, Object> getProjectWithStudentMentorData() {
         Map<String, Object> projectMap = new HashMap<>();
-        List<Project> projectList = this.baseMapper.getProjectWithStudentMentorData();
+        List<ProjectAddDataDTO> projectList = this.baseMapper.getProjectWithStudentMentorData();
         projectMap.put("data",projectList);
         return projectMap;
     }

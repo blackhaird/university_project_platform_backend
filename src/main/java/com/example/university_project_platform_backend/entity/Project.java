@@ -74,15 +74,7 @@ public class Project implements Serializable {
      */
     private String projectBelong;
 
-    private Long groupId;
-    private String groupName;
 
-    private Long mentorId;
-
-    private String mentorName;
-
-    private Long studentId;
-    private String studentName;
 
 
 }

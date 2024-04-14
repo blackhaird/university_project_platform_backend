@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.common.JsonResult;
+import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.Student;
 import com.example.university_project_platform_backend.service.IProjectService;
 import com.example.university_project_platform_backend.service.IStudentService;
@@ -71,7 +72,7 @@ public class StudentController {
     }
 
     @PostMapping("/showStudentProject")
-    public JsonResult<Map<String,Object>> studentShowStudentProject(@RequestBody Student student){
+    public JsonResult<Map<String,Object>> studentShowStudentProject(@RequestBody StudentMentorDTO student){
         Map<String,Object> data = iProjectService.getStudentsProjectByStudentId(student.getStudentId());
         if (data!=null){
             return JsonResult.ResultSuccess(data);
@@ -81,7 +82,7 @@ public class StudentController {
     }
 
     @PostMapping("/showStudentMentor")
-    public JsonResult<Map<String,Object>> studentShowStudentTeacher(@RequestBody Student student){
+    public JsonResult<Map<String,Object>> studentShowStudentTeacher(@RequestBody StudentMentorDTO student){
         Map<String,Object> data = iStudentService.getStudentTeacherByStudentId(student.getStudentId());
         if (data!=null){
             return JsonResult.ResultSuccess(data);

@@ -178,7 +178,6 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
 //                .eq(Project::getProjectCreateTime,project.getProjectCreateTime())
 //                .eq(Project::getProjectIntroduction,project.getProjectIntroduction())
 
-        System.out.println("!!11");
         List<ProjectManagement> projectList = this.list(wrapper);
         if (!projectList.isEmpty()){
             projectMap.put("data",projectList);

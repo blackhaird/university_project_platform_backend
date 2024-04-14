@@ -1,5 +1,6 @@
 package com.example.university_project_platform_backend.mapper;
 
+import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
 import com.example.university_project_platform_backend.entity.Project;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -17,5 +18,5 @@ public interface ProjectMapper extends BaseMapper<Project> {
     List<Project> getStudentsProjectByStudentId(Long studentId);
 
 
-    List<Project> getProjectWithStudentMentorData();
+    List<ProjectAddDataDTO> getProjectWithStudentMentorData();
 }

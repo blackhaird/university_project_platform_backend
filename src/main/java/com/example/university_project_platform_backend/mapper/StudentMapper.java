@@ -1,5 +1,6 @@
 package com.example.university_project_platform_backend.mapper;
 
+import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.Project;
 import com.example.university_project_platform_backend.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -16,5 +17,5 @@ import java.util.Map;
  * @since 2024-03-03
  */
 public interface StudentMapper extends BaseMapper<Student> {
-    List<Student> getStudentTeacherByStudentId(Long studentId);
+    List<StudentMentorDTO> getStudentTeacherByStudentId(Long studentId);
 }

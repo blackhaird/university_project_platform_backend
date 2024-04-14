@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
+import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.service.*;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -221,7 +222,7 @@ public class MentorController {
     }
 
     @PostMapping("/showMentorStudent")
-    public JsonResult<Map<String,Object>> studentShowStudentTeacher(@RequestBody Student student){
+    public JsonResult<Map<String,Object>> studentShowStudentTeacher(@RequestBody StudentMentorDTO student){
         Map<String,Object> data = iMentorService.getStudentTeacherByStudentId(student.getMentorId());
         if (data!=null){
             return JsonResult.ResultSuccess(data);

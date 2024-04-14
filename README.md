@@ -493,6 +493,85 @@ create table student(
         "studentClass": null,
         "mentorId": 11001000001,
         "mentorName": "猴赛雷"
+      },
+      {
+        "studentId": 12240020001,
+        "studentName": "张三",
+        "studentSex": null,
+        "studentAdmissionTime": null,
+        "studentAge": null,
+        "studentPhoneNumber": null,
+        "studentEmail": null,
+        "studentClass": null,
+        "mentorId": 11001000001,
+        "mentorName": "猴赛雷"
+      }
+    ]
+  }
+}
+```
+
+### /student/showStudentProject
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "projectId": 31000000001,
+        "projectName": "大学生创新创业服务平台",
+        "projectIntroduction": null,
+        "projectCreateTime": null,
+        "projectEndTime": null,
+        "projectProposalLink": null,
+        "projectCreator": null,
+        "projectScope": null,
+        "projectTag": null,
+        "projectBelong": null,
+        "groupId": null,
+        "groupName": null,
+        "mentorId": null,
+        "mentorName": null,
+        "studentId": 12240020001,
+        "studentName": "张三"
+      },
+      {
+        "projectId": 31000000002,
+        "projectName": "花园宝宝电影制作",
+        "projectIntroduction": null,
+        "projectCreateTime": null,
+        "projectEndTime": null,
+        "projectProposalLink": null,
+        "projectCreator": null,
+        "projectScope": null,
+        "projectTag": null,
+        "projectBelong": null,
+        "groupId": null,
+        "groupName": null,
+        "mentorId": null,
+        "mentorName": null,
+        "studentId": 12240020001,
+        "studentName": "张三"
+      },
+      {
+        "projectId": 31000000003,
+        "projectName": "小熊维尼图像设计",
+        "projectIntroduction": null,
+        "projectCreateTime": null,
+        "projectEndTime": null,
+        "projectProposalLink": null,
+        "projectCreator": null,
+        "projectScope": null,
+        "projectTag": null,
+        "projectBelong": null,
+        "groupId": null,
+        "groupName": null,
+        "mentorId": null,
+        "mentorName": null,
+        "studentId": 12240020001,
+        "studentName": "张三"
       }
     ]
   }
@@ -989,7 +1068,7 @@ create table mentor(
 
 ```json
 {
-  "studentId": "12240020001"
+  "mentorId": 11001000001
 }
 ```
 
@@ -1010,11 +1089,22 @@ create table mentor(
         "studentClass": null,
         "mentorId": 11001000001,
         "mentorName": "猴赛雷"
+      },
+      {
+        "studentId": 12240020001,
+        "studentName": "张三",
+        "studentSex": null,
+        "studentAdmissionTime": null,
+        "studentAge": null,
+        "studentPhoneNumber": null,
+        "studentEmail": null,
+        "studentClass": null,
+        "mentorId": 11001000001,
+        "mentorName": "猴赛雷"
       }
     ]
   }
 }
-
 ```
 
 ### /mentor/projectManagementSearch
