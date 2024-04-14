@@ -14,6 +14,7 @@
     * [/student/del](#studentdel)
     * [/student/change](#studentchange)
     * [/student/showStudentMentor](#studentshowstudentmentor)
+    * [/student/showStudentProject](#studentshowstudentproject)
   * [Mentor](#mentor)
     * [/mentor/show &amp; add &amp; del &amp; change](#mentorshow--add--del--change)
     * [/mentor/studentGroupShow](#mentorstudentgroupshow)
@@ -69,6 +70,8 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
 | mysql数据库    | 3306 | 数据库端口           |
 | Redis          | 6379 | localhost            |
 
+## 版本说明
+
 | 设备       | 版本     | 说明 |
 | ---------- | -------- | ---- |
 | JDK        | 21       |      |
@@ -77,10 +80,6 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
 | Redis      | 5.0.14.1 |      |
 | Mysql      | 5.7.36   |      |
 |            |          |      |
-
-## 版本说明
-
-
 
 
 
@@ -1815,7 +1814,7 @@ const websocketUser = {
 将其中发送的forId修改为以逗号为分界的字符串 `,` ，如下
 
 ```
-11,12
+10,12
 ```
 
 后端通过，分割账号id数据，发送给账号11和12
