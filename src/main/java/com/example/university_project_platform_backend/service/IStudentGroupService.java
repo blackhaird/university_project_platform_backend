@@ -29,4 +29,8 @@ public interface IStudentGroupService extends IService<StudentGroup> {
     boolean studentGroupDeleteByMentorId(Long groupMentorId, Long groupId);
 
     Map<String, Object> studentGroupUpdateByMentorId(Long groupMentorId, StudentGroup studentGroup);
+
+    Map<String, Object> joinStudentGroup(Long groupStudentId,StudentGroup studentGroup);
+
+    Map<String, Object> studentGroupShowByStudentID(Long groupStudentId);
 }

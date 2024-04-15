@@ -1,14 +1,20 @@
 package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.common.JsonResult;
+import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
 import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
+import com.example.university_project_platform_backend.entity.ProjectManagement;
 import com.example.university_project_platform_backend.entity.Student;
+import com.example.university_project_platform_backend.entity.StudentGroup;
+import com.example.university_project_platform_backend.service.IProjectManagementService;
 import com.example.university_project_platform_backend.service.IProjectService;
+import com.example.university_project_platform_backend.service.IStudentGroupService;
 import com.example.university_project_platform_backend.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +33,10 @@ public class StudentController {
     private IStudentService iStudentService;
     @Autowired
     private IProjectService iProjectService;
+
+    @Autowired
+    private IStudentGroupService iStudentGroupService;
+
 
     @PostMapping("/test")
     public JsonResult<Object> studentTest(@RequestBody String studentId){
@@ -72,7 +82,7 @@ public class StudentController {
     }
 
     @PostMapping("/showStudentProject")
-    public JsonResult<Map<String,Object>> studentShowStudentProject(@RequestBody StudentMentorDTO student){
+    public JsonResult<Map<String,Object>> studentShowStudentProject(@RequestBody ProjectAddDataDTO student){
         Map<String,Object> data = iProjectService.getStudentsProjectByStudentId(student.getStudentId());
         if (data!=null){
             return JsonResult.ResultSuccess(data);
@@ -90,4 +100,32 @@ public class StudentController {
             return JsonResult.ResultFail();
         }
     }
+
+
+    @PostMapping("/joinStudentGroup")
+    public JsonResult<Map<String,Object>> studentJoinStudentGroup(@RequestBody StudentGroup studentGroup){
+        if (studentGroup.getGroupCreateTime()==null){
+            studentGroup.setGroupCreateTime(LocalDateTime.now());
+        }
+        Map<String,Object> data = iStudentGroupService.joinStudentGroup(studentGroup.getGroupStudentId(),studentGroup);
+        if (data.get("data")!=null){
+            return JsonResult.ResultSuccess(data);
+        }else {
+            return JsonResult.ResultFail(data.get("message").toString());
+        }
+    }
+
+    @PostMapping("/studentGroupShow")
+    public JsonResult<Map<String, Object>> mentorStudentGroupShow(@RequestBody StudentGroup studentGroup) {
+        Map<String, Object> studentGroupList = iStudentGroupService.studentGroupShowByStudentID(studentGroup.getGroupStudentId());
+        System.out.println(studentGroupList.toString());
+        if (!studentGroupList.isEmpty()) {
+            System.out.println("success");
+            return JsonResult.ResultSuccess(studentGroupList);
+        } else {
+            return JsonResult.ResultSuccess();
+        }
+    }
+
+
 }

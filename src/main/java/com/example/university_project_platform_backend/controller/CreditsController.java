@@ -87,4 +87,12 @@ public class CreditsController {
         return JsonResult.ResultSuccess(creditsList);
     }
 
+    @PostMapping("/getCreditsWithDoneData")
+    public JsonResult<Map<String, Object>> getCreditsWithDoneData(@RequestBody Student student) {
+        Long studentId = student.getStudentId();
+        Map<String,Object> creditsList = iCreditsService.getCreditsByStudentId(studentId);
+        System.out.println(creditsList);
+        return JsonResult.ResultSuccess(creditsList);
+    }
+
 }

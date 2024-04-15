@@ -27,4 +27,6 @@ public interface IProjectService extends IService<Project> {
     Map<String,Object> getStudentsProjectByStudentId(Long studentId);
 
     Map<String, Object> getProjectWithStudentMentorData();
+
+    Map<String, Object> getStudentsProjectByMentorId(Long studentId);
 }

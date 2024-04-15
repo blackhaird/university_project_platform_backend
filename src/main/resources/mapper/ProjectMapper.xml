@@ -3,7 +3,7 @@
 <mapper namespace="com.example.university_project_platform_backend.mapper.ProjectMapper">
     <select id="getStudentsProjectByStudentId"
             resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
-        select student.student_id, student_name, project.project_id, project_name
+        select student.student_id, student_name, project.*
         from project,
              project_management,
              student_group,
@@ -33,6 +33,17 @@
         from project,
              project_management,mentor,student_group
         where project_management.project_id = project.project_id and project_management.Group_id = student_group.group_id and project_management.mentor_id = mentor.mentor_id;
+
+    </select>
+    <select id="getStudentsProjectByMentorId"
+            resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
+        select mentor.mentor_id, mentor_name, project.*
+        from project,
+             project_management,
+             mentor
+        where project_management.mentor_id = mentor.mentor_id
+          and project.project_id = project_management.project_id
+          and mentor.mentor_id = #{mentorId};
 
     </select>
 

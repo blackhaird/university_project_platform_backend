@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
 import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.service.*;
@@ -238,6 +239,17 @@ public class MentorController {
             return JsonResult.ResultSuccess(data);
         }else {
             return JsonResult.ResultFail("查询不到该数据，请检查查询参数");
+        }
+    }
+
+    @PostMapping("/showMentorProject")
+    public JsonResult<Map<String,Object>> studentShowMentorProject(@RequestBody ProjectAddDataDTO mentorDTO){
+        System.out.println(mentorDTO.getMentorId());
+        Map<String,Object> data = iProjectService.getStudentsProjectByMentorId(mentorDTO.getMentorId());
+        if (data!=null){
+            return JsonResult.ResultSuccess(data);
+        }else {
+            return JsonResult.ResultFail();
         }
     }
 }

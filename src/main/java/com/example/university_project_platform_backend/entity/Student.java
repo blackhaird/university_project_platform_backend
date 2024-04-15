@@ -13,7 +13,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-11
+ * @since 2024-04-15
  */
 @Getter
 @Setter
@@ -33,7 +33,7 @@ public class Student implements Serializable {
     private String studentName;
 
     /**
-     * 学生性别(男1 女2)
+     * 学生性别(男1 女0)
      */
     private Boolean studentSex;
 
@@ -61,6 +61,4 @@ public class Student implements Serializable {
      * 学生班级
      */
     private String studentClass;
-
-
 }

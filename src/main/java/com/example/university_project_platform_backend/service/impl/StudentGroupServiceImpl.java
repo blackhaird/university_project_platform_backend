@@ -129,4 +129,41 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
         return null;
     }
 
+    @Override
+    public Map<String, Object> joinStudentGroup(Long groupStudentId, StudentGroup studentGroup) {
+        Map<String,Object> studentGroupMap = new HashMap<>();
+        LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StudentGroup::getGroupStudentId,groupStudentId);
+        wrapper.eq(StudentGroup::getGroupId,studentGroup.getGroupId());
+        StudentGroup studentGroupGET = this.getOne(wrapper);
+        if (studentGroupGET!=null){
+            studentGroupMap.put("message","已找到同名同组数据源，你已经加入过该组");
+            return studentGroupMap;
+        }else {
+            boolean dataFlag = this.save(studentGroup);
+            if (dataFlag){
+                studentGroupMap.put("data",studentGroup);
+                return studentGroupMap;
+            }else {
+                studentGroupMap.put("message","加入失败，请检查数据项");
+                return studentGroupMap;
+            }
+        }
+    }
+
+    @Override
+    public Map<String, Object> studentGroupShowByStudentID(Long groupStudentId) {
+        Map<String,Object> studentGroupMap = new HashMap<>();
+        LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StudentGroup::getGroupStudentId,groupStudentId);
+        List<StudentGroup> studentGroupList = this.list(wrapper);
+        if (studentGroupList!=null){
+            System.out.println("success");
+            studentGroupMap.put("data",studentGroupList);
+            return studentGroupMap;
+        }else {
+            return null;
+        }
+    }
+
 }

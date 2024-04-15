@@ -15,8 +15,10 @@ import java.util.List;
  * @since 2024-03-03
  */
 public interface ProjectMapper extends BaseMapper<Project> {
-    List<Project> getStudentsProjectByStudentId(Long studentId);
+    List<ProjectAddDataDTO> getStudentsProjectByStudentId(Long studentId);
 
 
     List<ProjectAddDataDTO> getProjectWithStudentMentorData();
+
+    List<ProjectAddDataDTO> getStudentsProjectByMentorId(Long mentorId);
 }

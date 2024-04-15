@@ -14,7 +14,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-11
+ * @since 2024-04-15
  */
 @Getter
 @Setter
@@ -26,7 +26,9 @@ public class StudentGroup implements Serializable {
     /**
      * 小组id
      */
-    @TableId(value = "group_id", type = IdType.AUTO)
+    @TableId(value = "group_number", type = IdType.AUTO)
+    private Long groupNumber;
+
     private Long groupId;
 
     /**

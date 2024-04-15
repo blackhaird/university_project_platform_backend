@@ -1,4 +1,4 @@
-# mysql-0.2.8.sql
+# mysql-0.3.2.sql
 # create database university_project_platform_db default character set utf8mb4 collate utf8mb4_unicode_ci;
 use university_project_platform_db;
 create table mentor
@@ -6,7 +6,7 @@ create table mentor
     mentor_id              bigint(11) auto_increment not null primary key comment '导师ID',
     mentor_name            varchar(30)               not null comment '导师姓名',
     mentor_Professional_id tinyint(1)                not null comment '导师职称(辅导员1 教师2 系副主任3 系主任4 副院长5 院长6)',
-    mentor_sex             tinyint(1)                not null comment '导师性别(男1 女2)',
+    mentor_sex             tinyint(1)                not null comment '导师性别(男1 女0)',
     mentor_phone_number    varchar(11) comment '导师手机号码',
     mentor_email           varchar(255) comment '导师邮箱(固定格式:xxx@graduation)'
 );
@@ -31,7 +31,7 @@ create table student
 (
     student_id             bigint(11) auto_increment   not null primary key comment '学生id',
     student_name           varchar(30)                 not null comment '学生姓名',
-    student_sex            tinyint(1)                  not null default 0 comment '学生性别(男1 女2)',
+    student_sex            tinyint(1)                  not null default 0 comment '学生性别(男1 女0)',
     student_Admission_time DATETIME comment '入学年份' not null,
     student_age            int(3)                      not null comment '学生年龄',
     student_phone_number   varchar(11) comment '手机号码',
@@ -66,13 +66,16 @@ create table project
     project_id            bigint(11) auto_increment not null primary key comment '项目id',
     project_name          varchar(30)               not null comment '项目姓名',
     project_Introduction  varchar(2000) comment '项目简介',
+    project_credits int default 0 comment '项目学分',
     project_create_time   datetime default now() comment '项目创建时间',
     project_end_time      datetime comment '项目结束时间',
     project_proposal_link varchar(255) comment '项目连接',
     project_Creator       bigint(11)                not null comment '创建者ID',
     project_Scope         varchar(100) comment '项目范围',
     project_tag           tinyint(1) comment '项目标签',
-    project_belong        varchar(100) comment '项目归属地'
+    project_belong        varchar(100) comment '项目归属地',
+    project_done_status  tinyint(1) default 0 comment '项目完成状态，未完成0，完成1',
+    project_done_description varchar(255) default null comment '项目完成状态描述'
 );
 
 INSERT INTO project(project_id, project_name, project_Introduction, project_end_time, project_proposal_link,
@@ -93,7 +96,8 @@ VALUES (31000000001, '大学生创新创业服务平台',
 
 create table student_group
 (
-    group_id          bigint(11) auto_increment not null primary key comment '小组id',
+    group_number bigint(11) auto_increment not null  primary key  comment '小组自增id',
+    group_id          bigint(11)  not null  comment '小组id',
     group_name        varchar(40) comment '小组队名',
     group_mentor_id   bigint(11) comment '创建老师ID',
     group_captain_id  bigint(11) comment '小组队长ID',

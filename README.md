@@ -15,6 +15,8 @@
     * [/student/change](#studentchange)
     * [/student/showStudentMentor](#studentshowstudentmentor)
     * [/student/showStudentProject](#studentshowstudentproject)
+    * [/student/joinStudentGroup](#studentjoinstudentgroup)
+    * [/student/studentGroupShow](#studentstudentgroupshow)
   * [Mentor](#mentor)
     * [/mentor/show &amp; add &amp; del &amp; change](#mentorshow--add--del--change)
     * [/mentor/studentGroupShow](#mentorstudentgroupshow)
@@ -30,6 +32,7 @@
     * [/mentor/projectUpdate](#mentorprojectupdate)
     * [/mentor/showMentorStudent](#mentorshowmentorstudent)
     * [/mentor/projectManagementSearch](#mentorprojectmanagementsearch)
+    * [/mentor/showMentorProject](#mentorshowmentorproject)
   * [StudentGroup](#studentgroup)
     * [/studentGroup/show &amp; add &amp; del &amp; change](#studentgroupshow--add--del--change)
   * [Competition](#competition)
@@ -43,7 +46,7 @@
     * [/project/getProjectNew](#projectgetprojectnew)
     * [/project/showWithData](#projectshowwithdata)
   * [Credits](#credits)
-    * [/credits/show](#creditsshow)
+    * [/credits/show &amp; add &amp; del &amp; change](#creditsshow--add--del--change)
     * [/credits/getCredits](#creditsgetcredits)
   * [ProjectManagementOperation](#projectmanagementoperation)
     * [/projectManagementOperation/show](#projectmanagementoperationshow)
@@ -512,6 +515,16 @@ create table student(
 
 ### /student/showStudentProject
 
+`post`
+
+```json
+{
+  "studentId": 12240020001
+}
+```
+
+
+
 ```json
 {
   "code": 200,
@@ -521,14 +534,17 @@ create table student(
       {
         "projectId": 31000000001,
         "projectName": "大学生创新创业服务平台",
-        "projectIntroduction": null,
-        "projectCreateTime": null,
-        "projectEndTime": null,
-        "projectProposalLink": null,
-        "projectCreator": null,
-        "projectScope": null,
-        "projectTag": null,
-        "projectBelong": null,
+        "projectIntroduction": "大学生创业创意公共服务平台是是由政府主导并投资建设的以帮助大学生就业创业为主导的公益性服务机构，是依托各级政府优惠政策及数娱广场园区资源、高校、产业、研究机构和金融机构为中心致力于打造全方位服务大学生、企业的网络服务平台。",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-15T02:23:36",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\大学生创新创业服务平台.doc",
+        "projectCreator": 10001001001,
+        "projectScope": "高校服务",
+        "projectTag": false,
+        "projectBelong": "阳光学院",
+        "projectDoneStatus": false,
+        "projectDoneDescription": null,
         "groupId": null,
         "groupName": null,
         "mentorId": null,
@@ -539,14 +555,17 @@ create table student(
       {
         "projectId": 31000000002,
         "projectName": "花园宝宝电影制作",
-        "projectIntroduction": null,
-        "projectCreateTime": null,
-        "projectEndTime": null,
-        "projectProposalLink": null,
-        "projectCreator": null,
-        "projectScope": null,
-        "projectTag": null,
-        "projectBelong": null,
+        "projectIntroduction": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-15T02:23:36",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\花园宝宝电影制作.doc",
+        "projectCreator": 10001001001,
+        "projectScope": "电影制作",
+        "projectTag": false,
+        "projectBelong": "阳光学院",
+        "projectDoneStatus": false,
+        "projectDoneDescription": null,
         "groupId": null,
         "groupName": null,
         "mentorId": null,
@@ -557,20 +576,99 @@ create table student(
       {
         "projectId": 31000000003,
         "projectName": "小熊维尼图像设计",
-        "projectIntroduction": null,
-        "projectCreateTime": null,
-        "projectEndTime": null,
-        "projectProposalLink": null,
-        "projectCreator": null,
-        "projectScope": null,
-        "projectTag": null,
-        "projectBelong": null,
+        "projectIntroduction": "sbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsb",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-15T02:23:36",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\小熊维尼图像设计.doc",
+        "projectCreator": 10001001002,
+        "projectScope": "图像设计",
+        "projectTag": false,
+        "projectBelong": "北京大学",
+        "projectDoneStatus": false,
+        "projectDoneDescription": null,
         "groupId": null,
         "groupName": null,
         "mentorId": null,
         "mentorName": null,
         "studentId": 12240020001,
         "studentName": "张三"
+      }
+    ]
+  }
+}
+```
+
+### /student/joinStudentGroup
+
+`post`
+
+```json
+//[0.3.2] 新增学生组主键为Group_number，groupCreateTime修改为学生加入时间
+//其中的 groupCreateTime 可空，空为获取当时时间
+{
+  "groupId": 22000000001,
+  "groupName": "一窝咸鱼",
+  "groupMentorId": 11001000001,
+  "groupCaptainId": 12240020001,
+  "groupStudentId": 12240120003,
+  
+  "groupCreateTime": "2024-04-15T16:24:44.3666734"
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": {
+      "groupNumber": 6,
+      "groupId": 22000000001,
+      "groupName": "一窝咸鱼",
+      "groupMentorId": 11001000001,
+      "groupCaptainId": 12240020001,
+      "groupStudentId": 12240120003,
+      "groupCreateTime": "2024-04-15T16:24:44.3666734"
+    }
+  }
+}
+```
+
+```json
+{
+  "code": 204,
+  "message": "已找到同名同组数据源，你已经加入过该组",
+  "data": null
+}
+```
+
+
+
+### /student/studentGroupShow
+
+`post`
+
+```json
+{
+  "groupStudentId": 12240020001
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "groupNumber": 1,
+        "groupId": 22000000001,
+        "groupName": "一窝咸鱼",
+        "groupMentorId": 11001000001,
+        "groupCaptainId": 12240020001,
+        "groupStudentId": 12240020001,
+        "groupCreateTime": "2024-04-15T16:15:57"
       }
     ]
   }
@@ -1148,6 +1246,111 @@ create table mentor(
 }
 ```
 
+### /mentor/showMentorProject
+
+`post`
+
+```json
+{
+  "mentorId": 11001000001
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "projectId": 31000000001,
+        "projectName": "大学生创新创业服务平台",
+        "projectIntroduction": "大学生创业创意公共服务平台是是由政府主导并投资建设的以帮助大学生就业创业为主导的公益性服务机构，是依托各级政府优惠政策及数娱广场园区资源、高校、产业、研究机构和金融机构为中心致力于打造全方位服务大学生、企业的网络服务平台。",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-15T02:23:36",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\大学生创新创业服务平台.doc",
+        "projectCreator": 10001001001,
+        "projectScope": "高校服务",
+        "projectTag": false,
+        "projectBelong": "阳光学院",
+        "projectDoneStatus": false,
+        "projectDoneDescription": null,
+        "groupId": null,
+        "groupName": null,
+        "mentorId": 11001000001,
+        "mentorName": "猴赛雷",
+        "studentId": null,
+        "studentName": null
+      },
+      {
+        "projectId": 31000000002,
+        "projectName": "花园宝宝电影制作",
+        "projectIntroduction": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-15T02:23:36",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\花园宝宝电影制作.doc",
+        "projectCreator": 10001001001,
+        "projectScope": "电影制作",
+        "projectTag": false,
+        "projectBelong": "阳光学院",
+        "projectDoneStatus": false,
+        "projectDoneDescription": null,
+        "groupId": null,
+        "groupName": null,
+        "mentorId": 11001000001,
+        "mentorName": "猴赛雷",
+        "studentId": null,
+        "studentName": null
+      },
+      {
+        "projectId": 31000000003,
+        "projectName": "小熊维尼图像设计",
+        "projectIntroduction": "sbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsbsbsbsbsbsbsbsbsbsbsbsbsbssbsb",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-15T02:23:36",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\小熊维尼图像设计.doc",
+        "projectCreator": 10001001002,
+        "projectScope": "图像设计",
+        "projectTag": false,
+        "projectBelong": "北京大学",
+        "projectDoneStatus": false,
+        "projectDoneDescription": null,
+        "groupId": null,
+        "groupName": null,
+        "mentorId": 11001000001,
+        "mentorName": "猴赛雷",
+        "studentId": null,
+        "studentName": null
+      },
+      {
+        "projectId": 31000000004,
+        "projectName": "灰太狼大战变形金刚模型设计",
+        "projectIntroduction": "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-15T02:23:36",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\灰太狼大战变形金刚模型设计.doc",
+        "projectCreator": 10001001003,
+        "projectScope": "模型设计",
+        "projectTag": true,
+        "projectBelong": "上海交通大学",
+        "projectDoneStatus": false,
+        "projectDoneDescription": null,
+        "groupId": null,
+        "groupName": null,
+        "mentorId": 11001000001,
+        "mentorName": "猴赛雷",
+        "studentId": null,
+        "studentName": null
+      }
+    ]
+  }
+}
+```
+
 
 
 ## StudentGroup
@@ -1426,6 +1629,27 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
 
 ## Project
 
+[0.3.2]改版project，修改为
+
+```mysql
+project_id            bigint(11) auto_increment not null primary key comment '项目id',
+project_name          varchar(30)               not null comment '项目姓名',
+project_Introduction  varchar(2000) comment '项目简介',
+project_credits int default 0 comment '项目学分',
+project_create_time   datetime default now() comment '项目创建时间',
+project_end_time      datetime comment '项目结束时间',
+project_proposal_link varchar(255) comment '项目连接',
+project_Creator       bigint(11)                not null comment '创建者ID',
+project_Scope         varchar(100) comment '项目范围',
+project_tag           tinyint(1) comment '项目标签',
+project_belong        varchar(100) comment '项目归属地',
+project_done_status  tinyint(1) default 0 comment '项目完成状态，未完成0，完成1',
+project_done_time    datetime comment '项目完成时间',
+project_done_description varchar(255) default null comment '项目完成状态描述'
+```
+
+以下为旧版
+
 ```mysql
 create table project(
                         project_id bigint(11) auto_increment not null  primary key comment '项目id',
@@ -1643,41 +1867,14 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
 
 
 
-### /credits/show
+### /credits/show & add & del & change
 
-`get`
-
-```json
-{
-  "code": 200,
-  "message": "Success",
-  "data": [
-    {
-      "creditsId": 1,
-      "studentId": 12240020001,
-      "creditsValue": 2,
-      "creditsDescription": null
-    },
-    {
-      "creditsId": 2,
-      "studentId": 12240020002,
-      "creditsValue": 1,
-      "creditsDescription": null
-    },
-    {
-      "creditsId": 3,
-      "studentId": 12240110001,
-      "creditsValue": 1,
-      "creditsDescription": null
-    },
-    {
-      "creditsId": 4,
-      "studentId": 12240120001,
-      "creditsValue": 0,
-      "creditsDescription": null
-    }
-  ]
-}
+```
+/credits/show
+/credits/add
+/credits/del
+/credits/change
+接口与Student同理 
 ```
 
 
@@ -1709,6 +1906,8 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
 }
 ```
 
+
+
 ## ProjectManagementOperation
 
 ### /projectManagementOperation/show
@@ -1716,6 +1915,8 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
 `get`
 
 显示操作projectManagement的数据记录
+
+
 
 ## CreditsOperation
 
