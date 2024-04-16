@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>文件上传示例</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
 <input type="file" id="fileInput">
 <button onclick="uploadFile()">上传</button>
+<img src="" style="width: 500px ;height: 500px" id="myImage">
 
 <script>
     function uploadFile() {
-        var fileInput = document.getElementById('fileInput');
+        var fileInput = $('#fileInput')[0];
         var file = fileInput.files[0];
 
         var formData = new FormData();
         formData.append('file', file);
 
-        fetch('/api/upload', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-            .then(data => {
-                console.log('文件上传成功，网址为：' + data.url);
-            }).catch(error => {
-            console.error('文件上传失败：' + error.message);
+        $.ajax({
+            url: 'http://localhost:8408/file/upload',
+            type: 'POST',
+            data: formData,
+            contentType: false, // 必须指定为false，否则jQuery会自动处理Content-Type
+            processData: false, // 必须指定为false，否则jQuery会尝试对FormData进行序列化
+            success: function(data) {
+                console.log('文件上传成功，网址为：' + data.data.url);
+                // 通过ID选择元素并更改src属性
+                var $imageById = $('#myImage');
+                $imageById.attr('src', data.data.url);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('文件上传失败：' + jqXHR.responseText || textStatus);
+            }
         });
     }
 </script>

@@ -9,6 +9,7 @@ import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.mapper.ProjectManagementMapper;
 import com.example.university_project_platform_backend.mapper.ProjectMapper;
 import com.example.university_project_platform_backend.mapper.StudentMapper;
+import com.example.university_project_platform_backend.service.IFileService;
 import com.example.university_project_platform_backend.service.IProjectManagementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.university_project_platform_backend.service.IProjectService;

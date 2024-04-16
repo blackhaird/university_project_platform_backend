@@ -43,6 +43,8 @@ public class MentorController {
     private IProjectService iProjectService;
     @Autowired
     private IProjectManagementOperationService iProjectManagementOperationService;
+    @Autowired
+    private IFileService iFileService;
     @PostMapping("/test")
     public JsonResult<Object> mentorTest(@RequestBody String mentorId) {
         System.out.println("mentorTest Running ：" + mentorId);
@@ -164,6 +166,7 @@ public class MentorController {
     @PostMapping("/projectManagementAdd")
     public JsonResult<Map<String, Object>> projectManagementAdd(@RequestBody MentorProjectDTO mentorProjectDTO) {
         Long userId = mentorProjectDTO.getProjectCreator();
+
         Map<String,Object> projectManageMap = iProjectManagementService.projectManagementSubmitByProjectMentorDTO(mentorProjectDTO);
         if (projectManageMap.get("data")==null){
             iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO,false,"/mentor/projectManagementAdd");
