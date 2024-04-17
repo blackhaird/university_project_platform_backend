@@ -167,10 +167,10 @@ public class MentorController {
 
     //目前
     @PostMapping("/projectManagementAdd")
-    public JsonResult<Map<String, Object>> projectManagementAdd(@RequestParam("file") MultipartFile file,@RequestBody MentorProjectDTO mentorProjectDTO) throws IOException {
+    public JsonResult<Map<String, Object>> projectManagementAdd(@RequestBody MentorProjectDTO mentorProjectDTO) throws IOException {
         Long userId = mentorProjectDTO.getProjectCreator();
-        String url = iFileService.uploadFile(file, UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
-        mentorProjectDTO.setProjectProposalLink(url);
+//        String url = iFileService.uploadFile(file, UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
+//        mentorProjectDTO.setProjectProposalLink(url);
         Map<String,Object> projectManageMap = iProjectManagementService.projectManagementSubmitByProjectMentorDTO(mentorProjectDTO);
         if (projectManageMap.get("data")==null){
             iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO,false,"/mentor/projectManagementAdd");
