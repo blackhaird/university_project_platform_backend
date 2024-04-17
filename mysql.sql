@@ -1,4 +1,4 @@
-# mysql-0.3.2.sql
+# mysql-0.3.3.sql
 # create database university_project_platform_db default character set utf8mb4 collate utf8mb4_unicode_ci;
 use university_project_platform_db;
 create table mentor
@@ -75,6 +75,7 @@ create table project
     project_tag           tinyint(1) comment '项目标签',
     project_belong        varchar(100) comment '项目归属地',
     project_done_status  tinyint(1) default 0 comment '项目完成状态，未完成0，完成1',
+    project_done_time    datetime comment '项目完成时间',
     project_done_description varchar(255) default null comment '项目完成状态描述'
 );
 
@@ -107,8 +108,8 @@ create table student_group
 
 INSERT INTO student_group(group_id, group_name, group_mentor_id, group_captain_id, group_student_id)
 VALUES (22000000001, '一窝咸鱼', 11001000001, 12240020001, 12240020001),
-       (22000000002, '一窝咸鱼', 11001000001, 12240020001, 12240020002),
-       (22000000003, '一窝咸鱼', 11001000002, 12240020001, 12240020003),
+       (22000000001, '一窝咸鱼', 11001000001, 12240020001, 12240020002),
+       (22000000001, '一窝咸鱼', 11001000001, 12240020001, 12240020003),
        (22000000004, '烂泥扶不上墙', 11001000002, 12240020004, 12240020004);
 
 
@@ -139,6 +140,8 @@ INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (12240110001, 123456, 2);
 INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (12240110002, 123456, 2);
+INSERT INTO user(user_name, user_password, user_Permission)
+VALUES (41001000001, 123456, 3);
 
 
 create table websocket(
