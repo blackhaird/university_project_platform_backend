@@ -1,5 +1,6 @@
 package com.example.university_project_platform_backend.service;
 
+import com.example.university_project_platform_backend.common.CreditsStudentDTO;
 import com.example.university_project_platform_backend.controller.dto.UserCreditsDTO;
 import com.example.university_project_platform_backend.entity.Credits;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -23,4 +24,6 @@ public interface ICreditsService extends IService<Credits> {
     Map<String,Object> getCreditsByStudentId(long studentId);
 
     boolean creditsAdd(long userId, UserCreditsDTO credits);
+
+    List<CreditsStudentDTO> getCredits();
 }

@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.university_project_platform_backend.mapper.CreditsMapper">
 
+    <select id="getCreditsWithStudent"
+            resultType="com.example.university_project_platform_backend.common.CreditsStudentDTO">
+        select student.*, credits.*
+        from student,
+             credits
+        where student.student_id = credits.student_id
+          and student.student_id = #{studentId};
+    </select>
+    <select id="getCredits"
+            resultType="com.example.university_project_platform_backend.common.CreditsStudentDTO">
+        select student.*, credits.*
+        from student,
+             credits
+        where student.student_id = credits.student_id;
+    </select>
 </mapper>

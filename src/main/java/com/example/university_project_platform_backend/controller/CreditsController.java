@@ -1,5 +1,6 @@
 package com.example.university_project_platform_backend.controller;
 
+import com.example.university_project_platform_backend.common.CreditsStudentDTO;
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.controller.dto.UserCreditsDTO;
 import com.example.university_project_platform_backend.entity.Credits;
@@ -31,8 +32,8 @@ public class CreditsController {
     private ICreditsOperationService iCreditsOperationService;
 
     @GetMapping("/show")
-    public JsonResult<List<Credits>> creditsShow() {
-        List<Credits> creditsList = iCreditsService.list();
+    public JsonResult<List<CreditsStudentDTO>> creditsShow() {
+        List<CreditsStudentDTO> creditsList = iCreditsService.getCredits();
         System.out.println(creditsList);
         return JsonResult.ResultSuccess(creditsList);
     }
@@ -79,10 +80,10 @@ public class CreditsController {
         }
     }
 
-    @PostMapping("/getCredits")
+    @PostMapping("/getCreditsById")
     public JsonResult<Map<String, Object>> getCredits(@RequestBody Student student) {
         Long studentId = student.getStudentId();
-        Map<String,Object> creditsList = iCreditsService.getCreditsByStudentId(studentId);
+        Map<String, Object> creditsList = iCreditsService.getCreditsByStudentId(studentId);
         System.out.println(creditsList);
         return JsonResult.ResultSuccess(creditsList);
     }

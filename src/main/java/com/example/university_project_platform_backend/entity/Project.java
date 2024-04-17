@@ -80,7 +80,7 @@ public class Project implements Serializable {
     /**
      * 项目完成状态，未完成0，完成1
      */
-    private Boolean projectDoneStatus;
+    private Integer projectDoneStatus;
 
     /**
      * 项目完成时间

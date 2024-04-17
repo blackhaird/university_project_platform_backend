@@ -1870,7 +1870,7 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
 ### /credits/show & add & del & change
 
 ```
-/credits/show
+/credits/show [0.3.4]新增学生相关信息输出
 /credits/add
 /credits/del
 /credits/change
@@ -1879,7 +1879,7 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
 
 
 
-### /credits/getCredits
+### /credits/getCredits【弃用】
 
 `post`
 
@@ -1900,6 +1900,35 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
         "studentId": 12240020001,
         "creditsValue": 2,
         "creditsDescription": null
+      }
+    ]
+  }
+}
+```
+
+### /credits/getCreditsById
+
+```json
+{
+  "studentId": 12240120001
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "creditsId": 4,
+        "studentId": 12240120001,
+        "creditsValue": 0,
+        "creditsDescription": null,
+        "studentName": "赵六",
+        "studentAge": 22,
+        "studentPhoneNumber": "13323098663",
+        "studentClass": "计算机技术应用2班"
       }
     ]
   }

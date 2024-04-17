@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.university_project_platform_backend.common.CreditsStudentDTO;
 import com.example.university_project_platform_backend.controller.dto.UserCreditsDTO;
 import com.example.university_project_platform_backend.entity.Credits;
 import com.example.university_project_platform_backend.entity.Mentor;
@@ -31,10 +32,7 @@ public class CreditsServiceImpl extends ServiceImpl<CreditsMapper, Credits> impl
     @Override
     public Map<String, Object> getCreditsByStudentId(long studentId) {
         Map<String,Object> creditsMap = new HashMap<>();
-        LambdaQueryWrapper<Credits> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Credits::getStudentId,studentId);
-        System.out.println(studentId);
-        List<Credits> searchCreditsList = this.list(wrapper);
+        List<CreditsStudentDTO> searchCreditsList = this.baseMapper.getCreditsWithStudent(studentId);
         creditsMap.put("data",searchCreditsList);
         return creditsMap;
     }
@@ -48,4 +46,12 @@ public class CreditsServiceImpl extends ServiceImpl<CreditsMapper, Credits> impl
         }
         return false;
     }
+
+    @Override
+    public List<CreditsStudentDTO> getCredits() {
+        List<CreditsStudentDTO> searchCreditsList = this.baseMapper.getCredits();
+        return searchCreditsList;
+    }
+
+
 }

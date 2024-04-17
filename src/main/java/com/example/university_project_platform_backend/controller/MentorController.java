@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.university_project_platform_backend.common.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * <p>
@@ -164,9 +167,10 @@ public class MentorController {
 
     //目前
     @PostMapping("/projectManagementAdd")
-    public JsonResult<Map<String, Object>> projectManagementAdd(@RequestBody MentorProjectDTO mentorProjectDTO) {
+    public JsonResult<Map<String, Object>> projectManagementAdd(@RequestParam("file") MultipartFile file,@RequestBody MentorProjectDTO mentorProjectDTO) throws IOException {
         Long userId = mentorProjectDTO.getProjectCreator();
-
+        String url = iFileService.uploadFile(file, UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
+        mentorProjectDTO.setProjectProposalLink(url);
         Map<String,Object> projectManageMap = iProjectManagementService.projectManagementSubmitByProjectMentorDTO(mentorProjectDTO);
         if (projectManageMap.get("data")==null){
             iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO,false,"/mentor/projectManagementAdd");
