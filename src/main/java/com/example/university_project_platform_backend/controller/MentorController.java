@@ -2,6 +2,7 @@ package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
 import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.service.*;
@@ -48,6 +49,7 @@ public class MentorController {
     private IProjectManagementOperationService iProjectManagementOperationService;
     @Autowired
     private IFileService iFileService;
+
     @PostMapping("/test")
     public JsonResult<Object> mentorTest(@RequestBody String mentorId) {
         System.out.println("mentorTest Running ：" + mentorId);
@@ -127,7 +129,7 @@ public class MentorController {
             System.out.println("success");
             return JsonResult.ResultSuccess(studentGroupList);
         } else {
-            return JsonResult.ResultFail("查询不到该导师存在导师组");
+            return JsonResult.ResultFail(studentGroupList.get("message").toString());
         }
     }
 
@@ -146,7 +148,7 @@ public class MentorController {
 
     @PostMapping("/projectUpdate")
     public JsonResult<Map<String, Object>> projectUpdate(@RequestBody Project project) {
-        Long mentorId = project.getProjectCreator();
+        Long mentorId = project.getMentorId();
         Map<String, Object> data = iProjectService.projectUpdateByProjectCreator(mentorId, project);
         if (data != null) {
             return JsonResult.ResultSuccess(data);
@@ -157,7 +159,7 @@ public class MentorController {
 
     @PostMapping("/projectDel")
     public JsonResult<Map<String, Object>> projectDel(@RequestBody Project project) {
-        Long mentorId = project.getProjectCreator();
+        Long mentorId = project.getMentorId();
         boolean projectFlag = iProjectService.projectDeleteByProjectCreator(mentorId, project.getProjectId());
         if (projectFlag) {
             return JsonResult.ResultSuccess("删除成功 [ " + project.getProjectId() + " ]");
@@ -168,18 +170,19 @@ public class MentorController {
     //目前
     @PostMapping("/projectManagementAdd")
     public JsonResult<Map<String, Object>> projectManagementAdd(@RequestBody MentorProjectDTO mentorProjectDTO) throws IOException {
-        Long userId = mentorProjectDTO.getProjectCreator();
+        Long userId = mentorProjectDTO.getMentorId();
 //        String url = iFileService.uploadFile(file, UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
 //        mentorProjectDTO.setProjectProposalLink(url);
-        Map<String,Object> projectManageMap = iProjectManagementService.projectManagementSubmitByProjectMentorDTO(mentorProjectDTO);
-        if (projectManageMap.get("data")==null){
-            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO,false,"/mentor/projectManagementAdd");
+        Map<String, Object> projectManageMap = iProjectManagementService.projectManagementSubmitByProjectMentorDTO(mentorProjectDTO);
+        if (projectManageMap.get("data") == null) {
+            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO, (byte) 0, "/mentor/projectManagementAdd");
             return JsonResult.ResultFail(projectManageMap.get("message").toString());
-        }else {
-            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO, true,"/mentor/projectManagementAdd");
+        } else {
+            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO, (byte) 1, "/mentor/projectManagementAdd");
             return JsonResult.ResultSuccess(projectManageMap);
         }
     }
+
 
     @PostMapping("/projectManagementShow")
     public JsonResult<Map<String, Object>> projectManagementShow(@RequestBody MentorProjectDTO mentorProjectDTO) {
@@ -199,12 +202,12 @@ public class MentorController {
         MentorProjectDTO mentorProjectDTO = new MentorProjectDTO();
         mentorProjectDTO.setProjectId(projectManagement.getProjectId());
 
-        Map<String, Object> data = iProjectManagementService.projectManagementUpdateByMentorId(mentorId,projectManagement);
+        Map<String, Object> data = iProjectManagementService.projectManagementUpdateByMentorId(mentorId, projectManagement);
         if (data != null) {
-            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO,true,"/mentor/projectManagementDel");
+            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO, (byte) 1, "/mentor/projectManagementDel");
             return JsonResult.ResultSuccess(data);
         } else {
-            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO,false,"/mentor/projectManagementDel");
+            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO, (byte) 0, "/mentor/projectManagementDel");
             return JsonResult.ResultFail();
         }
     }
@@ -217,48 +220,70 @@ public class MentorController {
         MentorProjectDTO mentorProjectDTO = new MentorProjectDTO();
         mentorProjectDTO.setProjectId(projectManagement.getProjectId());
 
-        boolean projectManagementFlag = iProjectManagementService.projectManagementDeleteByMentorId(mentorId,projectManagement.getProjectId());
+        boolean projectManagementFlag = iProjectManagementService.projectManagementDeleteByMentorId(mentorId, projectManagement.getProjectId());
 
         if (projectManagementFlag) {
-            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO,projectManagementFlag,"/mentor/projectManagementDel");
+            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO, (byte) 1, "/mentor/projectManagementDel");
             return JsonResult.ResultSuccess("删除成功 [ " + projectManagement.getProjectId() + " ]");
-        }else {
-            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO,projectManagementFlag,"/mentor/projectManagementDel");
+        } else {
+            iProjectManagementOperationService.projectManagementOperationAdd(mentorId, mentorProjectDTO, (byte) 0, "/mentor/projectManagementDel");
             return JsonResult.ResultFail("删除失败 [ " + projectManagement.getProjectId() + " ] 找不到ID或数据冲突");
 
         }
     }
 
     @PostMapping("/showMentorStudent")
-    public JsonResult<Map<String,Object>> studentShowStudentTeacher(@RequestBody StudentMentorDTO student){
-        Map<String,Object> data = iMentorService.getStudentTeacherByStudentId(student.getMentorId());
-        if (data!=null){
+    public JsonResult<Map<String, Object>> studentShowStudentTeacher(@RequestBody StudentMentorDTO student) {
+        Map<String, Object> data = iMentorService.getStudentTeacherByStudentId(student.getMentorId());
+        if (data != null) {
             return JsonResult.ResultSuccess(data);
-        }else {
+        } else {
             return JsonResult.ResultFail("查询不到该数据，请检查查询参数");
         }
     }
 
     @PostMapping("/projectManagementSearch")
-    public JsonResult<Map<String,Object>> projectManagementSearch(@RequestBody ProjectManagement projectManagement){
-        Map<String,Object> data = iProjectManagementService.projectManagementSearchByMentorProjectDTO(projectManagement);
-        if (data!=null){
+    public JsonResult<Map<String, Object>> projectManagementSearch(@RequestBody ProjectManagement projectManagement) {
+        Map<String, Object> data = iProjectManagementService.projectManagementSearchByMentorProjectDTO(projectManagement);
+        if (data != null) {
             return JsonResult.ResultSuccess(data);
-        }else {
+        } else {
             return JsonResult.ResultFail("查询不到该数据，请检查查询参数");
         }
     }
 
     @PostMapping("/showMentorProject")
-    public JsonResult<Map<String,Object>> studentShowMentorProject(@RequestBody ProjectAddDataDTO mentorDTO){
+    public JsonResult<Map<String, Object>> studentShowMentorProject(@RequestBody ProjectAddDataDTO mentorDTO) {
         System.out.println(mentorDTO.getMentorId());
-        Map<String,Object> data = iProjectService.getStudentsProjectByMentorId(mentorDTO.getMentorId());
-        if (data!=null){
+        Map<String, Object> data = iProjectService.getStudentsProjectByMentorId(mentorDTO.getMentorId());
+        if (data != null) {
             return JsonResult.ResultSuccess(data);
-        }else {
+        } else {
             return JsonResult.ResultFail();
         }
     }
+
+    /**
+     * [0.3.5]
+     */
+    @PostMapping("/projectAdd")
+    public JsonResult<Map<String, Object>> projectAdd(@RequestBody Project project) {
+        Long mentorId = project.getMentorId();
+         boolean projectFlag = iProjectService.save(project);
+        if (projectFlag) {
+            Map<String, Object> projectManageMap = iProjectManagementService.projectManagementSubmitByMentor(mentorId,project);
+
+            if (projectManageMap.get("data")!=null){
+                return JsonResult.ResultSuccess(projectManageMap);
+            }else {
+                return JsonResult.ResultFail(projectManageMap.get("message").toString() );
+            }
+        } else {
+            return JsonResult.ResultFail("项目新增失败，可能是Project表创建出现问题" );
+        }
+    }
+
+
 }
 
 

@@ -33,4 +33,6 @@ public interface IStudentGroupService extends IService<StudentGroup> {
     Map<String, Object> joinStudentGroup(Long groupStudentId,StudentGroup studentGroup);
 
     Map<String, Object> studentGroupShowByStudentID(Long groupStudentId);
+
+    Long getMaxStudentGroupId();
 }

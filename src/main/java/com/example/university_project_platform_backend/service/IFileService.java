@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface IFileService  {
-    String uploadFile(MultipartFile file, String fileName) throws IOException;
+    String uploadFile(MultipartFile file,  String fileLocation,String fileName) throws IOException;
 
-    void downloadFile(String fileName, HttpServletRequest request, HttpServletResponse response);
+    void downloadFile(String fileName,String fileLocation, HttpServletRequest request, HttpServletResponse response);
 }

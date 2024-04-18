@@ -24,10 +24,11 @@
     * [/mentor/studentGroupAdd](#mentorstudentgroupadd)
     * [/mentor/studentGroupDel](#mentorstudentgroupdel)
     * [/mentor/studentGroupChange](#mentorstudentgroupchange)
-    * [/mentor/projectManagementAdd](#mentorprojectmanagementadd)
+    * [/mentor/projectManagementAdd [0\.3\.5弃用]](#mentorprojectmanagementadd-035弃用)
     * [/mentor/projectManagementDel](#mentorprojectmanagementdel)
     * [/mentor/projectManagementUpdate](#mentorprojectmanagementupdate)
     * [/mentor/projectManagementShow](#mentorprojectmanagementshow)
+    * [/mentor/projectAdd [0\.3\.5 NEW]](#mentorprojectadd-035-new)
     * [/mentor/projectDel](#mentorprojectdel)
     * [/mentor/projectUpdate](#mentorprojectupdate)
     * [/mentor/showMentorStudent](#mentorshowmentorstudent)
@@ -42,12 +43,14 @@
     * [/competition/projectUpdate](#competitionprojectupdate)
   * [Project](#project)
     * [/project/show](#projectshow)
-    * [/project/projectSearch](#projectprojectsearch)
+    * [/project/projectSearch [0\.3\.5 UPDATE]](#projectprojectsearch-035-update)
+    * [/project/projectSearchFuzzy [0\.3\.5 NEW]](#projectprojectsearchfuzzy-035-new)
     * [/project/getProjectNew](#projectgetprojectnew)
     * [/project/showWithData](#projectshowwithdata)
   * [Credits](#credits)
     * [/credits/show &amp; add &amp; del &amp; change](#creditsshow--add--del--change)
-    * [/credits/getCredits](#creditsgetcredits)
+    * [/credits/getCredits [0\.3\.5 DEL]](#creditsgetcredits-035-del)
+    * [/credits/getCreditsById](#creditsgetcreditsbyid)
   * [ProjectManagementOperation](#projectmanagementoperation)
     * [/projectManagementOperation/show](#projectmanagementoperationshow)
   * [CreditsOperation](#creditsoperation)
@@ -58,7 +61,19 @@
     * [/chatServer/sendForUserList](#chatserversendforuserlist)
     * [/chatServer/getMessage](#chatservergetmessage)
   * [HomePage](#homepage)
-    * [/studentGroup/show &amp; add &amp; del &amp; change](#studentgroupshow--add--del--change-1)
+    * [/homePage/show &amp; add &amp; del &amp; change](#homepageshow--add--del--change)
+  * [File  [0\.3\.5 NEW]](#file--035-new)
+    * [/file/upload](#fileupload)
+    * [/file/uploadProjectImg](#fileuploadprojectimg)
+  * [/file/uploadProjectProposal](#fileuploadprojectproposal)
+  * [ActivityAudit [0\.3\.5 NEW]](#activityaudit-035-new)
+    * [/activityAudit/show &amp; add &amp; del &amp; change](#activityauditshow--add--del--change)
+  * [MentorAudit [0\.3\.5 NEW]](#mentoraudit-035-new)
+    * [/mentorAudit/show &amp; add &amp; del &amp; change](#mentorauditshow--add--del--change)
+  * [StudentAudit [0\.3\.5 NEW]](#studentaudit-035-new)
+    * [/studentAudit/show &amp; add &amp; del &amp; change](#studentauditshow--add--del--change)
+  * [CreditsAudit [0\.3\.5 NEW]](#creditsaudit-035-new)
+    * [/creditsAudit/show &amp; add &amp; del &amp; change](#creditsauditshow--add--del--change)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
 
@@ -903,7 +918,7 @@ create table mentor(
 
 
 
-### /mentor/projectManagementAdd
+### /mentor/projectManagementAdd [0.3.5弃用]
 
 `post`
 
@@ -1100,6 +1115,70 @@ create table mentor(
 }
 ```
 
+### /mentor/projectAdd [0.3.5 NEW]
+
+`post`
+
+project表数据写入完毕后，会自动生成新的projectManagement数据和StudentGroup的新数据（如果要求可以调用老的StudentGroup新联系我修改）
+
+```json
+{
+  "projectName": "测试23",
+  "projectImage": "1.12.37.222/1.png",
+  "projectIntroduction": "1",
+  "projectAdvantage": " 1",
+  "projectCredits": 2,
+  "projectCreateTime": "2024-04-19T02:48:18",
+  "projectEndTime": "2024-03-19T00:10:07",
+  "projectProposalLink": "C:\\graduation\\一体化HPV检测仪器.doc",
+  "mentorId": 11001000001,
+  "projectScope": "生物、医药及医疗机械",
+  "projectTag": 0,
+  "projectBelong": "生物学院",
+  "projectDoneStatus": 1,
+  "projectDoneTime": null,
+  "projectDoneDescription": "暂无",
+  "projectLevel": 0
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "projectId": 31000000026,
+        "projectName": "测试23",
+        "projectImage": "1.12.37.222/1.png",
+        "projectIntroduction": "1",
+        "projectAdvantage": " 1",
+        "projectCredits": 2,
+        "projectCreateTime": "2024-04-19T02:48:18",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\一体化HPV检测仪器.doc",
+        "mentorId": 11001000001,
+        "projectScope": "生物、医药及医疗机械",
+        "projectTag": 0,
+        "projectBelong": "生物学院",
+        "projectDoneStatus": 1,
+        "projectDoneTime": null,
+        "projectDoneDescription": "暂无",
+        "projectLevel": 0,
+        "projectManagementId": 10,
+        "competitionId": null,
+        "groupId": 22000000008,
+        "projectStatusId": 2,
+        "projectStatusDescription": null
+      }
+    ]
+  }
+}
+```
+
+
+
 ### /mentor/projectDel
 
 ```json
@@ -1125,16 +1204,22 @@ create table mentor(
 
 ```json
 {
-  "projectId": 31000000001,
-  "projectName": "大学生创新创业服务平台测试版",
-  "projectIntroduction": "大学生创业创意公共服务平台是是由政府主导并投资建设的以帮助大学生就业创业为主导的公益性服务机构，是依托各级政府优惠政策及数娱广场园区资源、高校、产业、研究机构和金融机构为中心致力于打造全方位服务大学生、企业的网络服务平台。",
-  "projectCreateTime": "2024-03-26T17:09:25",
+  "projectName": "测试23",
+  "projectImage": "1.12.37.222/1.png",
+  "projectIntroduction": "1",
+  "projectAdvantage": " 1",
+  "projectCredits": 2,
+  "projectCreateTime": "2024-04-19T02:48:18",
   "projectEndTime": "2024-03-19T00:10:07",
-  "projectProposalLink": "C:\\graduation\\大学生创新创业服务平台.doc",
-  "projectCreator": 10001001001,
-  "projectScope": "高校服务",
-  "projectTag": false,
-  "projectBelong": "阳光学院"
+  "projectProposalLink": "C:\\graduation\\一体化HPV检测仪器.doc",
+  "mentorId": 11001000001,
+  "projectScope": "生物、医药及医疗机械",
+  "projectTag": 0,
+  "projectBelong": "生物学院",
+  "projectDoneStatus": 1,
+  "projectDoneTime": null,
+  "projectDoneDescription": "暂无",
+  "projectLevel": 0
 }
 ```
 
@@ -1143,18 +1228,32 @@ create table mentor(
   "code": 200,
   "message": "Success",
   "data": {
-    "data": {
-      "projectId": 31000000001,
-      "projectName": "大学生创新创业服务平台测试版",
-      "projectIntroduction": "大学生创业创意公共服务平台是是由政府主导并投资建设的以帮助大学生就业创业为主导的公益性服务机构，是依托各级政府优惠政策及数娱广场园区资源、高校、产业、研究机构和金融机构为中心致力于打造全方位服务大学生、企业的网络服务平台。",
-      "projectCreateTime": "2024-03-26T17:09:25",
-      "projectEndTime": "2024-03-19T00:10:07",
-      "projectProposalLink": "C:\\graduation\\大学生创新创业服务平台.doc",
-      "projectCreator": 10001001001,
-      "projectScope": "高校服务",
-      "projectTag": false,
-      "projectBelong": "阳光学院"
-    }
+    "data": [
+      {
+        "projectId": 31000000026,
+        "projectName": "测试23",
+        "projectImage": "1.12.37.222/1.png",
+        "projectIntroduction": "1",
+        "projectAdvantage": " 1",
+        "projectCredits": 2,
+        "projectCreateTime": "2024-04-19T02:48:18",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\一体化HPV检测仪器.doc",
+        "mentorId": 11001000001,
+        "projectScope": "生物、医药及医疗机械",
+        "projectTag": 0,
+        "projectBelong": "生物学院",
+        "projectDoneStatus": 1,
+        "projectDoneTime": null,
+        "projectDoneDescription": "暂无",
+        "projectLevel": 0,
+        "projectManagementId": 10,
+        "competitionId": null,
+        "groupId": 22000000008,
+        "projectStatusId": 2,
+        "projectStatusDescription": null
+      }
+    ]
   }
 }
 ```
@@ -1737,20 +1836,111 @@ VALUES(31000000001,'大学生创新创业服务平台', '大学生创业创意�
 
 
 
-### /project/projectSearch
+### /project/projectSearch [0.3.5 UPDATE]
 
 `post`
 
 ```json
 //以下展示的为搜索项，可随意删改
+//都需要准确查找
 {
-      "projectId": 31000000001,
-      "projectName": "大学生创新创业服务平台",
-      "projectCreator": 10001001001,
-      "projectScope": "高校服务",
-      "projectTag": false,
-      "projectBelong": "阳光学院"
-    }
+  "projectId": 31000000001,
+  "projectName": "大学生创新创业服务平台",
+  "projectAdvantage": "项目优势",
+  "projectCredits": 0,
+  "projectCreateTime": "2024-04-18T19:05:29",
+  "projectEndTime": "2024-03-19T00:10:07",
+  "projectCreator": 10001001001,
+  "projectScope": "高校服务",
+  "projectTag": 0,
+  "projectBelong": "计算机系",
+  "projectDoneStatus": 0,
+  "projectDoneTime": null,
+  "projectDoneDescription": null,
+  "projectLevel": 4
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "projectId": 31000000001,
+        "projectName": "大学生创新创业服务平台",
+        "projectImage": "C:\\graduation\\大学生创新创业服务平台.png",
+        "projectIntroduction": "大学生创业创意公共服务平台是是由政府主导并投资建设的以帮助大学生就业创业为主导的公益性服务机构，是依托各级政府优惠政策及数娱广场园区资源、高校、产业、研究机构和金融机构为中心致力于打造全方位服务大学生、企业的网络服务平台。",
+        "projectAdvantage": "项目优势",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-18T19:05:29",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\大学生创新创业服务平台.doc",
+        "projectCreator": 10001001001,
+        "projectScope": "高校服务",
+        "projectTag": 0,
+        "projectBelong": "计算机系",
+        "projectDoneStatus": 0,
+        "projectDoneTime": null,
+        "projectDoneDescription": null,
+        "projectLevel": 4
+      }
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "message": "找不到你筛选的数据"
+  }
+}
+```
+
+### /project/projectSearchFuzzy [0.3.5 NEW]
+
+模糊查找
+
+`post`
+
+```json
+{
+  "projectName": "大学生"
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "projectId": 31000000001,
+        "projectName": "大学生创新创业服务平台",
+        "projectImage": "C:\\graduation\\大学生创新创业服务平台.png",
+        "projectIntroduction": "大学生创业创意公共服务平台是是由政府主导并投资建设的以帮助大学生就业创业为主导的公益性服务机构，是依托各级政府优惠政策及数娱广场园区资源、高校、产业、研究机构和金融机构为中心致力于打造全方位服务大学生、企业的网络服务平台。",
+        "projectAdvantage": "项目优势",
+        "projectCredits": 0,
+        "projectCreateTime": "2024-04-18T19:05:29",
+        "projectEndTime": "2024-03-19T00:10:07",
+        "projectProposalLink": "C:\\graduation\\大学生创新创业服务平台.doc",
+        "projectCreator": 10001001001,
+        "projectScope": "高校服务",
+        "projectTag": 0,
+        "projectBelong": "计算机系",
+        "projectDoneStatus": 0,
+        "projectDoneTime": null,
+        "projectDoneDescription": null,
+        "projectLevel": 4
+      }
+    ]
+  }
+}
 ```
 
 
@@ -1879,7 +2069,7 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
 
 
 
-### /credits/getCredits【弃用】
+### /credits/getCredits [0.3.5 DEL]
 
 `post`
 
@@ -2137,13 +2327,125 @@ create table home_page(
 
 
 
-### /studentGroup/show & add & del & change
+### /homePage/show & add & del & change
 
 ```
 /homePage/show
 /homePage/add
 /homePage/del
 /homePage/change
+接口与Student同理 
+```
+
+> 接口与Student同理 无需权限分级
+
+## File  [0.3.5 NEW]
+
+### /file/upload
+
+`post`
+
+```javascript
+function uploadFile() {
+        var fileInput = $('#fileInput')[0];
+        var file = fileInput.files[0];
+
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            url: 'http://localhost:8408/file/upload',
+            type: 'POST',
+            data: formData,
+            contentType: false, // 必须指定为false，否则jQuery会自动处理Content-Type
+            processData: false, // 必须指定为false，否则jQuery会尝试对FormData进行序列化
+            success: function(data) {
+                console.log('文件上传成功，网址为：' + data.data.url);
+                // 通过ID选择元素并更改src属性
+                var $imageById = $('#myImage');
+                $imageById.attr('src', data.data.url);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('文件上传失败：' + jqXHR.responseText || textStatus);
+            }
+        });
+    }
+```
+
+```json
+// / download/websocket/{fileName}
+{
+code=200, 
+message=Success, 
+data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77309158.jpg}
+}
+```
+
+### /file/uploadProjectImg
+
+```
+/download/projectImg/{fileName}
+```
+
+### /file/uploadProjectProposal
+
+```
+/download/projectProposal/{fileName}
+```
+
+
+
+## Activity [0.3.5 NEW]
+
+### /activity/show & add & del & change
+
+```
+/activity/show
+/activity/add
+/activity/del
+/activity/change
+接口与Student同理 
+```
+
+> 接口与Student同理 无需权限分级
+
+## MentorAudit [0.3.5 NEW]
+
+### /mentorAudit/show & add & del & change
+
+```
+/mentorAudit/show
+/mentorAudit/add
+/mentorAudit/del
+/mentorAudit/change
+接口与Student同理 
+```
+
+> 接口与Student同理 无需权限分级
+
+## StudentAudit [0.3.5 NEW]
+
+### /studentAudit/show & add & del & change
+
+```
+/studentAudit/show
+/studentAudit/add
+/studentAudit/del
+/studentAudit/change
+接口与Student同理 
+```
+
+> 接口与Student同理 无需权限分级
+
+## CreditsAudit [0.3.5 NEW]
+
+### /creditsAudit/show & add & del & change
+
+```
+/creditsAudit/show
+/creditsAudit/add
+/creditsAudit/del
+/creditsAudit/change
 接口与Student同理 
 ```
 

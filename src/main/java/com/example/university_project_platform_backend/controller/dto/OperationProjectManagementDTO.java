@@ -5,7 +5,7 @@ import com.example.university_project_platform_backend.entity.ProjectManagementO
 
 public class OperationProjectManagementDTO extends ProjectManagementOperation {
 
-    public OperationProjectManagementDTO(long operator, ProjectManagement projectManagement, boolean isSuccess, String operationDescription) {
+    public OperationProjectManagementDTO(long operator, ProjectManagement projectManagement, Byte isSuccess, String operationDescription) {
         super.setProjectManagementOperationOperator(operator);
         super.setProjectManagementOperationStatus(isSuccess);
         super.setProjectManagementOperationDescription(operationDescription);

@@ -14,7 +14,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-15
+ * @since 2024-04-19
  */
 @Getter
 @Setter
@@ -42,7 +42,7 @@ public class CreditsOperation implements Serializable {
     /**
      * 0:操作失败 1：操作成功 2：其他
      */
-    private Boolean creditsOperationStatus;
+    private Byte creditsOperationStatus;
 
     /**
      * 操作描述

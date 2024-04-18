@@ -98,11 +98,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (userName >=  11000000000L &&userName< 12000000000L && searchUserList.isEmpty()){
             System.out.println("Teacher_manage_running");
             flag =iMentorService.isMentorFromMentorID(user.getUserName());
-            user.setUserPermission(1);
+            user.setUserPermission((byte) 1);
         }else if (userName >=  12000000000L &&userName< 13000000000L&& searchUserList.isEmpty()){
             System.out.println("Student_manage_running");
             flag =iStudentService.isStudentFormStudentID(user.getUserName());
-            user.setUserPermission(2);
+            user.setUserPermission((byte) 2);
 //            wrapper.setParamAlias("2");
         }else {
             if (searchUserList.isEmpty()){

@@ -39,7 +39,7 @@ public class ProjectController {
             System.out.println("success");
             return JsonResult.ResultSuccess(studentGroupList);
         } else {
-            return JsonResult.ResultFail("查询不到该导师存在导师组");
+            return JsonResult.ResultFail(studentGroupList.get("message").toString());
         }
     }
 
@@ -62,6 +62,17 @@ public class ProjectController {
             return JsonResult.ResultSuccess(studentGroupList);
         } else {
             return JsonResult.ResultFail("查询不到该导师存在导师组");
+        }
+    }
+
+    @PostMapping("/projectSearchFuzzy")
+    public JsonResult<Map<String, Object>> projectSearchFuzzy(@RequestBody Project project) {
+        Map<String, Object> studentGroupList = iProjectService.projectSearchByProjectNameFuzzy(project);
+        if (studentGroupList != null) {
+            System.out.println("success");
+            return JsonResult.ResultSuccess(studentGroupList);
+        } else {
+            return JsonResult.ResultFail(studentGroupList.get("message").toString());
         }
     }
 }

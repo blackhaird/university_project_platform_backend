@@ -22,4 +22,13 @@
                                                    or competition_id = #{competitionId}
                                                    and project.project_id = project_management.project_id
     </select>
+    <select id="getProjectProjectManagementDTOByProjectId"
+            resultType="com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO">
+        select project.*, project_management.*
+        from project,
+             project_management
+        where project.project_id = project_management.project_id
+        and project_management.project_id = #{projectId}
+        and project_management.mentor_id = #{mentorId};
+    </select>
 </mapper>

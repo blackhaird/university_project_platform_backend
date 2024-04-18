@@ -25,7 +25,7 @@ public class ProjectManagementOperationServiceImpl extends ServiceImpl<ProjectMa
     @Autowired
     IProjectManagementService   iProjectManagementService;
     @Override
-    public boolean projectManagementOperationAdd(Long userId, MentorProjectDTO mentorProjectDTO, boolean isSuccess,String operationDescription) {
+    public boolean projectManagementOperationAdd(Long userId, MentorProjectDTO mentorProjectDTO, Byte isSuccess,String operationDescription) {
 
         LambdaQueryWrapper<ProjectManagement> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ProjectManagement::getProjectId,mentorProjectDTO.getProjectId());
