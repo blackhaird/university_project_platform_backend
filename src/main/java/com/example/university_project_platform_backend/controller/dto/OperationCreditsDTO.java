@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class OperationCreditsDTO extends CreditsOperation {
 
-    public OperationCreditsDTO(long operationOperator, UserCreditsDTO credits,boolean operationStatus,String operationDescription) {
+    public OperationCreditsDTO(long operationOperator, UserCreditsDTO credits,Byte operationStatus,String operationDescription) {
         super.setCreditsOperationDescription(operationDescription);
         super.setCreditsOperationOperator(operationOperator);
         super.setCreditsOperationStatus(operationStatus);

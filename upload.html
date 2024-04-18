@@ -6,9 +6,14 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
+<div>
 <input type="file" id="fileInput">
 <button onclick="uploadFile()">上传</button>
-<img src="" style="width: 500px ;height: 500px" id="myImage">
+<img src="" style="width: 200px ;height: 200px" id="myImage">
+</div></br>
+<input type="file" id="fileInput_project">
+<button onclick="uploadFile_project()">上传项目图片</button>
+<img src="" style="width: 200px ;height: 200px" id="myImage_project">
 
 <script>
     function uploadFile() {
@@ -28,6 +33,31 @@
                 console.log('文件上传成功，网址为：' + data.data.url);
                 // 通过ID选择元素并更改src属性
                 var $imageById = $('#myImage');
+                $imageById.attr('src', data.data.url);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('文件上传失败：' + jqXHR.responseText || textStatus);
+            }
+        });
+    }
+
+    function uploadFile_project() {
+        var fileInput = $('#fileInput_project')[0];
+        var file = fileInput.files[0];
+
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            url: 'http://localhost:8408/file/uploadProjectImg',
+            type: 'POST',
+            data: formData,
+            contentType: false, // 必须指定为false，否则jQuery会自动处理Content-Type
+            processData: false, // 必须指定为false，否则jQuery会尝试对FormData进行序列化
+            success: function(data) {
+                console.log('文件上传成功，网址为：' + data.data.url);
+                // 通过ID选择元素并更改src属性
+                var $imageById = $('#myImage_project');
                 $imageById.attr('src', data.data.url);
             },
             error: function(jqXHR, textStatus, errorThrown) {

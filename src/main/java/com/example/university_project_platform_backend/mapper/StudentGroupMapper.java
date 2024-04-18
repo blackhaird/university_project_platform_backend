@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface StudentGroupMapper extends BaseMapper<StudentGroup> {
 
+    Long selectMaxStudentGroupId();
 }

@@ -29,4 +29,8 @@ public interface IProjectService extends IService<Project> {
     Map<String, Object> getProjectWithStudentMentorData();
 
     Map<String, Object> getStudentsProjectByMentorId(Long studentId);
+
+    boolean projectAddByMentorId(Long mentorId, Project project);
+
+    Map<String, Object> projectSearchByProjectNameFuzzy(Project project);
 }

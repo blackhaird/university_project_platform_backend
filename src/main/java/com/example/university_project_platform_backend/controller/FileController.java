@@ -23,7 +23,7 @@ public class FileController {
     public JsonResult<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         // 保存文件到服务器的代码
         Map<String,Object> map = new HashMap<>();
-        String url = iFileService.uploadFile(file, UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
+        String url = iFileService.uploadFile(file,"websocket" ,UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
         map.put("url", url);
         System.out.println(JsonResult.ResultSuccess(map));
         return JsonResult.ResultSuccess(map);
@@ -31,11 +31,44 @@ public class FileController {
     }
 
 
-    @RequestMapping("/download/{fileName}")
+    @RequestMapping("/download/websocket/{fileName}")
     public void downloadFile(@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 保存文件到服务器的代码
-        iFileService.downloadFile(fileName,request,response);
+        iFileService.downloadFile(fileName,"websocket",request,response);
 
     }
 
+    @RequestMapping("/uploadProjectImg")
+    public JsonResult<Map<String, Object>> uploadProjectImg(@RequestParam("file") MultipartFile file) throws IOException {
+        // 保存文件到服务器的代码
+        Map<String,Object> map = new HashMap<>();
+        String url = iFileService.uploadFile(file, "projectImg",UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
+        map.put("url", url);
+        System.out.println(JsonResult.ResultSuccess(map));
+        return JsonResult.ResultSuccess(map);
+    }
+
+    @RequestMapping("/download/projectImg/{fileName}")
+    public void downloadProjectImg(@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 保存文件到服务器的代码
+        iFileService.downloadFile(fileName,"projectImg",request,response);
+
+    }
+
+    @RequestMapping("/uploadProjectProposal")
+    public JsonResult<Map<String, Object>> uploadProjectProposal(@RequestParam("file") MultipartFile file) throws IOException {
+        // 保存文件到服务器的代码
+        Map<String,Object> map = new HashMap<>();
+        String url = iFileService.uploadFile(file, "projectProposal",UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
+        map.put("url", url);
+        System.out.println(JsonResult.ResultSuccess(map));
+        return JsonResult.ResultSuccess(map);
+    }
+
+    @RequestMapping("/download/projectProposal/{fileName}")
+    public void downloadProjectProposal(@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 保存文件到服务器的代码
+        iFileService.downloadFile(fileName,"projectProposal",request,response);
+
+    }
 }

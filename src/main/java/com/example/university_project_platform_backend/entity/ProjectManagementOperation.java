@@ -14,7 +14,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-15
+ * @since 2024-04-19
  */
 @Getter
 @Setter
@@ -42,7 +42,7 @@ public class ProjectManagementOperation implements Serializable {
     /**
      * 0:操作失败 1：操作成功 2：其他
      */
-    private Boolean projectManagementOperationStatus;
+    private Byte projectManagementOperationStatus;
 
     /**
      * 操作描述
@@ -74,7 +74,7 @@ public class ProjectManagementOperation implements Serializable {
     /**
      * 项目状态id 0代表未通过 1代表通过 2代表审核中 
      */
-    private Integer projectStatusId;
+    private Byte projectStatusId;
 
     /**
      * 项目状态状态描述 注释/备注

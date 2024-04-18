@@ -34,13 +34,13 @@ public class CompetitionController {
     IProjectManagementOperationService iProjectManagementOperationService;
     @PostMapping("/projectManagementAdd")
     public JsonResult<Map<String,Object>> projectManagementAdd(@RequestBody MentorProjectDTO mentorProjectDTO) {
-        Long userId = mentorProjectDTO.getProjectCreator();
+        Long userId = mentorProjectDTO.getMentorId();
         Map<String,Object> projectManageMap = iProjectManagementService.projectManagementSubmitByProjectMentorDTO(mentorProjectDTO);
         if (projectManageMap.get("data")==null){
-            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO,false,"/projectManagementAdd");
+            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO,(byte) 0,"/projectManagementAdd");
             return JsonResult.ResultFail(projectManageMap.get("message").toString());
         }else {
-            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO, true,"/projectManagementAdd");
+            iProjectManagementOperationService.projectManagementOperationAdd(userId, mentorProjectDTO, (byte) 1,"/projectManagementAdd");
             return JsonResult.ResultSuccess(projectManageMap);
         }
     }
@@ -65,7 +65,7 @@ public class CompetitionController {
     @PostMapping("/projectUpdate")
     public JsonResult<Map<String, Object>> projectUpdate(@RequestBody Project project) {
         System.out.println("running");
-        Long mentorId = project.getProjectCreator();
+        Long mentorId = project.getMentorId();
         Map<String, Object> data = iProjectService.projectUpdateByProjectCreator(mentorId, project);
         if (data != null) {
             return JsonResult.ResultSuccess(data);

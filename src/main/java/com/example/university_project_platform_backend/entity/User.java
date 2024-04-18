@@ -12,7 +12,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-15
+ * @since 2024-04-19
  */
 @Getter
 @Setter
@@ -37,7 +37,7 @@ public class User implements Serializable {
     private String userPassword;
 
     /**
-     * 用户权限(管理员0 代表导师1 代表学生2)
+     * 用户权限(管理员0 导师1 学生2 竞赛处3)
      */
-    private Integer userPermission;
+    private Byte userPermission;
 }

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class CreditsOperationServiceImpl extends ServiceImpl<CreditsOperationMapper, CreditsOperation> implements ICreditsOperationService {
 
     @Override
-    public boolean creditsOperationAdd(long userId,UserCreditsDTO credits,boolean isSuccess,String operationDescription) {
+    public boolean creditsOperationAdd(long userId,UserCreditsDTO credits,Byte isSuccess,String operationDescription) {
         OperationCreditsDTO creditsOperation = new OperationCreditsDTO(userId,credits,isSuccess,operationDescription);
         return this.save(creditsOperation);
     }

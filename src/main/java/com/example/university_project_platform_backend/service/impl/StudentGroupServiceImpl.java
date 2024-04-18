@@ -166,4 +166,10 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
         }
     }
 
+    @Override
+    public Long getMaxStudentGroupId() {
+        Long studentGroupId = this.baseMapper.selectMaxStudentGroupId();
+        return studentGroupId;
+    }
+
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-15
+ * @since 2024-04-19
  */
 @Getter
 @Setter
@@ -33,9 +33,19 @@ public class Project implements Serializable {
     private String projectName;
 
     /**
+     * 项目图片连接
+     */
+    private String projectImage;
+
+    /**
      * 项目简介
      */
     private String projectIntroduction;
+
+    /**
+     * 项目优势
+     */
+    private String projectAdvantage;
 
     /**
      * 项目学分
@@ -53,14 +63,14 @@ public class Project implements Serializable {
     private LocalDateTime projectEndTime;
 
     /**
-     * 项目连接
+     * 项目立项材料
      */
     private String projectProposalLink;
 
     /**
      * 创建者ID
      */
-    private Long projectCreator;
+    private Long mentorId;
 
     /**
      * 项目范围
@@ -68,9 +78,9 @@ public class Project implements Serializable {
     private String projectScope;
 
     /**
-     * 项目标签
+     * 项目标签(科研项目0 竞赛项目1)
      */
-    private Boolean projectTag;
+    private Byte projectTag;
 
     /**
      * 项目归属地
@@ -78,9 +88,9 @@ public class Project implements Serializable {
     private String projectBelong;
 
     /**
-     * 项目完成状态，未完成0，完成1
+     * 项目完成状态:进行中1,已结束2
      */
-    private Integer projectDoneStatus;
+    private Byte projectDoneStatus;
 
     /**
      * 项目完成时间
@@ -91,4 +101,9 @@ public class Project implements Serializable {
      * 项目完成状态描述
      */
     private String projectDoneDescription;
+
+    /**
+     * 项目等级,数字越高等级越高,0为没有等级
+     */
+    private Integer projectLevel;
 }

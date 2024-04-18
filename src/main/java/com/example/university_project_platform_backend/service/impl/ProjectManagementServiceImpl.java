@@ -1,23 +1,19 @@
 package com.example.university_project_platform_backend.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.mapper.ProjectManagementMapper;
-import com.example.university_project_platform_backend.mapper.ProjectMapper;
-import com.example.university_project_platform_backend.mapper.StudentMapper;
-import com.example.university_project_platform_backend.service.IFileService;
 import com.example.university_project_platform_backend.service.IProjectManagementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.university_project_platform_backend.service.IProjectService;
 import com.example.university_project_platform_backend.service.IStudentGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +32,7 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
     IProjectService iProjectService;
     @Autowired
     IStudentGroupService iStudentGroupService;
+
 
     @Override
     public Map<String, Object> projectManagementSubmitByProjectMentorDTO(MentorProjectDTO mentorProjectDTO) {
@@ -173,12 +170,6 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
         if (projectManagement.getProjectStatusId() != 0) {
             wrapper.eq(ProjectManagement::getProjectStatusId, projectManagement.getProjectStatusId());
         }
-
-//                .eq(Project::getProjectProposalLink,project.getProjectProposalLink())
-//                .eq(Project::getProjectEndTime,project.getProjectEndTime())
-//                .eq(Project::getProjectCreateTime,project.getProjectCreateTime())
-//                .eq(Project::getProjectIntroduction,project.getProjectIntroduction())
-
         List<ProjectManagement> projectList = this.list(wrapper);
         if (!projectList.isEmpty()){
             projectMap.put("data",projectList);
@@ -188,5 +179,30 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
         }
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> projectManagementSubmitByMentor(Long mentorId, Project project) {
+        Map<String,Object> projectMap =  new HashMap<>();
+        ProjectManagement projectManagement = new ProjectManagement();
+        StudentGroup studentGroup = new StudentGroup();
+        studentGroup.setGroupMentorId(mentorId);
+        studentGroup.setGroupId(iStudentGroupService.getMaxStudentGroupId() + 1);
+
+        projectManagement.setMentorId(mentorId);
+        projectManagement.setProjectId(project.getProjectId());
+
+        try {
+            iStudentGroupService.save(studentGroup);
+            projectManagement.setGroupId(studentGroup.getGroupId());
+            this.save(projectManagement);
+
+        } catch (Exception e) {
+            log.error("提交项目管理失败，已回滚事务", e);
+            projectMap.put("message", "提交项目管理失败，已回滚事务");
+        }
+        List<ProjectProjectManagementDTO> projectProjectManagementDTO = this.baseMapper.getProjectProjectManagementDTOByProjectId(project.getProjectId(), project.getMentorId());
+        projectMap.put("data", projectProjectManagementDTO);
+        return projectMap;
+    }
 
 }

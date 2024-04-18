@@ -12,7 +12,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-15
+ * @since 2024-04-19
  */
 @Getter
 @Setter
@@ -34,10 +34,10 @@ public class Mentor implements Serializable {
     /**
      * 导师职称(辅导员1 教师2 系副主任3 系主任4 副院长5 院长6)
      */
-    private Integer mentorProfessionalId;
+    private Byte mentorProfessionalId;
 
     /**
-     * 导师性别(男1 女2)
+     * 导师性别(男1 女0)
      */
     private Boolean mentorSex;
 

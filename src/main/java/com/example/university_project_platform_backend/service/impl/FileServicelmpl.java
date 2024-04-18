@@ -20,25 +20,25 @@ import java.nio.file.Files;
 @Service
 public class FileServicelmpl implements IFileService {
     private static final String DOMAIN = "http://localhost:8408/file/download/";
-    private static final String STORE_PATH = "D:\\Work_RJ\\java_study\\university_project_platform_backend\\src\\main\\resources\\picture\\";
+    private static final String STORE_PATH = "D:\\Work_RJ\\java_study\\university_project_platform_backend\\src\\main\\resources\\uploadFile\\";
 
     @Override
-    public String uploadFile(MultipartFile file, String fileName) throws IOException {
+    public String uploadFile(MultipartFile file, String fileLocation, String fileName) throws IOException {
         InputStream is = file.getInputStream();
-        FileUtils.copyInputStreamToFile(is, new java.io.File(STORE_PATH + fileName));
+        FileUtils.copyInputStreamToFile(is, new java.io.File(STORE_PATH + fileLocation + "\\" + fileName));
 
-        String url = DOMAIN + fileName;
+        String url = DOMAIN + fileLocation+ "/" + fileName;
         System.out.println(url);
         return url;
     }
 
     @Override
-    public void downloadFile(String fileName, HttpServletRequest request, HttpServletResponse response) {
-        String filePath = STORE_PATH + fileName;
-        System.out.println(filePath);
+    public void downloadFile(String fileName, String fileLocation, HttpServletRequest request, HttpServletResponse response) {
+        String filePath = STORE_PATH + fileLocation + "\\" + fileName;
+        System.out.println("filePath:"+filePath);
         try {
             response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName);
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileLocation + "/" + fileName);
             Files.copy(new File(filePath).toPath(), response.getOutputStream());
             response.getOutputStream().flush();
         } catch (IOException e) {
