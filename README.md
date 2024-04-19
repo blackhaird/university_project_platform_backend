@@ -930,7 +930,7 @@ create table mentor(
 
 
 
-### /mentor/projectManagementAdd [0.3.5弃用]
+### /mentor/projectManagementAdd [0.3.5 UNUSE]
 
 `post`
 
@@ -2508,6 +2508,7 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 ### /mail/getMessage
 
 详情见 ChatService/getMessage
+<<<<<<< HEAD
 
 ### /mail/uploadProjectImg
 
@@ -2518,3 +2519,5 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 ```
 
 ### 
+=======
+>>>>>>> origin/main
