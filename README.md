@@ -24,7 +24,7 @@
     * [/mentor/studentGroupAdd](#mentorstudentgroupadd)
     * [/mentor/studentGroupDel](#mentorstudentgroupdel)
     * [/mentor/studentGroupChange](#mentorstudentgroupchange)
-    * [/mentor/projectManagementAdd [0\.3\.5弃用]](#mentorprojectmanagementadd-035弃用)
+    * [/mentor/projectManagementAdd [0\.3\.5 UNUSE]](#mentorprojectmanagementadd-035-unuse)
     * [/mentor/projectManagementDel](#mentorprojectmanagementdel)
     * [/mentor/projectManagementUpdate](#mentorprojectmanagementupdate)
     * [/mentor/projectManagementShow](#mentorprojectmanagementshow)
