@@ -2,14 +2,12 @@ package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
+import com.example.university_project_platform_backend.controller.dto.StudentGroupProjectManagementDTO;
 import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.ProjectManagement;
 import com.example.university_project_platform_backend.entity.Student;
 import com.example.university_project_platform_backend.entity.StudentGroup;
-import com.example.university_project_platform_backend.service.IProjectManagementService;
-import com.example.university_project_platform_backend.service.IProjectService;
-import com.example.university_project_platform_backend.service.IStudentGroupService;
-import com.example.university_project_platform_backend.service.IStudentService;
+import com.example.university_project_platform_backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -33,10 +31,10 @@ public class StudentController {
     private IStudentService iStudentService;
     @Autowired
     private IProjectService iProjectService;
-
     @Autowired
-    private IStudentGroupService iStudentGroupService;
-
+    private IStudentAuditService iStudentAuditService;
+    @Autowired
+    IStudentGroupService iStudentGroupService;
 
     @PostMapping("/test")
     public JsonResult<Object> studentTest(@RequestBody String studentId){
@@ -103,16 +101,23 @@ public class StudentController {
 
 
     @PostMapping("/joinStudentGroup")
-    public JsonResult<Map<String,Object>> studentJoinStudentGroup(@RequestBody StudentGroup studentGroup){
-        if (studentGroup.getGroupCreateTime()==null){
-            studentGroup.setGroupCreateTime(LocalDateTime.now());
-        }
-        Map<String,Object> data = iStudentGroupService.joinStudentGroup(studentGroup.getGroupStudentId(),studentGroup);
-        if (data.get("data")!=null){
-            return JsonResult.ResultSuccess(data);
+    public JsonResult<Map<String,Object>> studentJoinStudentGroup(@RequestBody StudentGroupProjectManagementDTO studentGroup){
+//        if (studentGroup.getGroupCreateTime()==null){
+//            studentGroup.setGroupCreateTime(LocalDateTime.now());
+//        }
+        Map<String,Object> studentAuditSubmit = iStudentAuditService.studentAuditSubmit(studentGroup);
+        if (studentAuditSubmit.get("data")!=null){
+            return JsonResult.ResultSuccess(studentAuditSubmit);
         }else {
-            return JsonResult.ResultFail(data.get("message").toString());
+            return JsonResult.ResultFail(studentAuditSubmit.get("message").toString());
         }
+
+//        Map<String,Object> data = iStudentGroupService.joinStudentGroup(studentGroup.getGroupStudentId(),studentGroup);
+//        if (data.get("data")!=null){
+//            return JsonResult.ResultSuccess(data);
+//        }else {
+//            return JsonResult.ResultFail(data.get("message").toString());
+//        }
     }
 
     @PostMapping("/studentGroupShow")
@@ -126,6 +131,4 @@ public class StudentController {
             return JsonResult.ResultSuccess();
         }
     }
-
-
 }

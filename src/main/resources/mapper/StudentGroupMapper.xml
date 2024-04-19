@@ -5,4 +5,14 @@
     <select id="selectMaxStudentGroupId" resultType="long">
         select max(group_id) from student_group;
     </select>
+    <select id="getMentorStudentGroupByStudentAudit"
+            resultType="com.example.university_project_platform_backend.entity.StudentGroup">
+        select student_group.*
+        from student_group,
+             project_management
+        where student_group.group_id = project_management.group_id
+          and project_management.project_id = #{projectId}
+          and student_group.group_mentor_id = #{mentorId}
+          and student_group.group_id = #{groupId};
+    </select>
 </mapper>

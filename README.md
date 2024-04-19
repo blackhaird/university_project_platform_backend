@@ -15,7 +15,7 @@
     * [/student/change](#studentchange)
     * [/student/showStudentMentor](#studentshowstudentmentor)
     * [/student/showStudentProject](#studentshowstudentproject)
-    * [/student/joinStudentGroup](#studentjoinstudentgroup)
+    * [/student/joinStudentGroup [0\.3\.6 UPDATE]](#studentjoinstudentgroup-036-update)
     * [/student/studentGroupShow](#studentstudentgroupshow)
   * [Mentor](#mentor)
     * [/mentor/show &amp; add &amp; del &amp; change](#mentorshow--add--del--change)
@@ -34,6 +34,7 @@
     * [/mentor/showMentorStudent](#mentorshowmentorstudent)
     * [/mentor/projectManagementSearch](#mentorprojectmanagementsearch)
     * [/mentor/showMentorProject](#mentorshowmentorproject)
+    * [/mentor/studentAuditUpdate [0\.3\.6 NEW]](#mentorstudentauditupdate-036-new)
   * [StudentGroup](#studentgroup)
     * [/studentGroup/show &amp; add &amp; del &amp; change](#studentgroupshow--add--del--change)
   * [Competition](#competition)
@@ -65,15 +66,19 @@
   * [File  [0\.3\.5 NEW]](#file--035-new)
     * [/file/upload](#fileupload)
     * [/file/uploadProjectImg](#fileuploadprojectimg)
-  * [/file/uploadProjectProposal](#fileuploadprojectproposal)
-  * [ActivityAudit [0\.3\.5 NEW]](#activityaudit-035-new)
-    * [/activityAudit/show &amp; add &amp; del &amp; change](#activityauditshow--add--del--change)
+    * [/file/uploadProjectProposal](#fileuploadprojectproposal)
+  * [Activity [0\.3\.5 NEW]](#activity-035-new)
+    * [/activity/show &amp; add &amp; del &amp; change](#activityshow--add--del--change)
   * [MentorAudit [0\.3\.5 NEW]](#mentoraudit-035-new)
     * [/mentorAudit/show &amp; add &amp; del &amp; change](#mentorauditshow--add--del--change)
   * [StudentAudit [0\.3\.5 NEW]](#studentaudit-035-new)
     * [/studentAudit/show &amp; add &amp; del &amp; change](#studentauditshow--add--del--change)
   * [CreditsAudit [0\.3\.5 NEW]](#creditsaudit-035-new)
     * [/creditsAudit/show &amp; add &amp; del &amp; change](#creditsauditshow--add--del--change)
+  * [Mail [0\.3\.6 NEW]](#mail-036-new)
+    * [/mail/sendForUserList](#mailsendforuserlist)
+    * [/mail/getMessage](#mailgetmessage)
+    * [/mail/uploadProjectImg](#mailuploadprojectimg)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
 
@@ -614,21 +619,16 @@ create table student(
 }
 ```
 
-### /student/joinStudentGroup
+### /student/joinStudentGroup [0.3.6 UPDATE]
 
 `post`
 
 ```json
-//[0.3.2] 新增学生组主键为Group_number，groupCreateTime修改为学生加入时间
-//其中的 groupCreateTime 可空，空为获取当时时间
 {
-  "groupId": 22000000001,
-  "groupName": "一窝咸鱼",
-  "groupMentorId": 11001000001,
-  "groupCaptainId": 12240020001,
-  "groupStudentId": 12240120003,
-  
-  "groupCreateTime": "2024-04-15T16:24:44.3666734"
+  "groupStudentId":12000000010,
+  "groupId":22000000001,
+  "projectId":31000000001,
+  "groupMentorId":11001000001
 }
 ```
 
@@ -638,14 +638,15 @@ create table student(
   "message": "Success",
   "data": {
     "data": {
-      "groupNumber": 6,
+      "studentAuditId": 61,
+      "studentId": 12000000010,
+      "mentorId": 11001000001,
+      "projectId": 31000000001,
       "groupId": 22000000001,
-      "groupName": "一窝咸鱼",
-      "groupMentorId": 11001000001,
-      "groupCaptainId": 12240020001,
-      "groupStudentId": 12240120003,
-      "groupCreateTime": "2024-04-15T16:24:44.3666734"
-    }
+      "studentAuditStatus": 2,
+      "studentAuditStatusDescription": null
+    },
+    "message": "申请成功，等待老师审核"
   }
 }
 ```
@@ -653,12 +654,23 @@ create table student(
 ```json
 {
   "code": 204,
-  "message": "已找到同名同组数据源，你已经加入过该组",
+  "message": "你已经提交过该申请，请等待老师审核",
   "data": null
 }
 ```
 
-
+```json
+// 使用  以下数据测试
+//"groupStudentId":12000000001,
+//"groupId":22000000001,
+//"projectId":31000000001,
+//"groupMentorId":11001000001
+{
+  "code": 204,
+  "message": "查找到您的通过记录，您已经是该小组的成员，无需重复申请",
+  "data": null
+}
+```
 
 ### /student/studentGroupShow
 
@@ -1446,6 +1458,42 @@ project表数据写入完毕后，会自动生成新的projectManagement数据�
         "studentName": null
       }
     ]
+  }
+}
+```
+
+### /mentor/studentAuditUpdate [0.3.6 NEW]
+
+具体判断如下：发送请求后，会去对应的studentAudit查找记录并修改状态为批准通过，当批准通过后将学生的数据加入studentGroup组
+
+`post`
+
+```json
+{
+  "studentId": 12000000010,
+  "groupId": 22000000001,
+  "projectId": 31000000001,
+  "mentorId": 11001000001,
+  "studentAuditStatus": 1,
+  "studentAuditStatusDescription": "批准通过"
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": {
+      "groupNumber": 56,
+      "groupId": 22000000001,
+      "groupName": "一窝咸鱼",
+      "groupMentorId": 11001000001,
+      "groupCaptainId": 12000000001,
+      "groupStudentId": 12000000010,
+      "groupCreateTime": "2024-04-20T04:00:34.8403539"
+    },
+    "message": "保存成功"
   }
 }
 ```
@@ -2450,3 +2498,23 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 ```
 
 > 接口与Student同理 无需权限分级
+
+## Mail [0.3.6 NEW]
+
+### /mail/sendForUserList
+
+详情见 ChatService/sendForUserList
+
+### /mail/getMessage
+
+详情见 ChatService/getMessage
+
+### /mail/uploadProjectImg
+
+详情见 /file/uploadProjectImg
+
+```
+/download/projectImg/{fileName}
+```
+
+### 

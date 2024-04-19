@@ -1,7 +1,9 @@
 package com.example.university_project_platform_backend.service;
 
+import com.example.university_project_platform_backend.controller.dto.StudentGroupProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.StudentAudit;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.university_project_platform_backend.entity.StudentGroup;
 
 import java.util.Map;
 
@@ -15,4 +17,7 @@ import java.util.Map;
  */
 public interface IStudentAuditService extends IService<StudentAudit> {
 
+    Map<String, Object> studentAuditSubmit(StudentGroupProjectManagementDTO studentGroupProjectManagementDTO);
+
+    Boolean studentAuditUpdate(StudentAudit studentAudit);
 }

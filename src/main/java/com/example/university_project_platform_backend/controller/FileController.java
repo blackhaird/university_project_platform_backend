@@ -1,7 +1,9 @@
 package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.common.JsonResult;
+import com.example.university_project_platform_backend.entity.Mail;
 import com.example.university_project_platform_backend.service.IFileService;
+import com.example.university_project_platform_backend.service.IWebSocketServer;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -18,57 +21,36 @@ import java.util.*;
 public class FileController {
     @Autowired
     IFileService iFileService;
+    @Autowired
+    IWebSocketServer iWebSocketServer;
+    @PostMapping("/sendForUserList")
+    public JsonResult<Map<String, Object>> sendForUserList(@RequestBody Mail mail ){
+        System.out.println(mail.toString());
+        mail.setMailTime(LocalDateTime.now());
+        Map<String,Object> keys =iWebSocketServer.sendMailMessageForUserList(mail);
+        return JsonResult.ResultSuccess(keys);
+    }
+    @PostMapping("/getMessage")
+    public JsonResult<Map<String, Object>> sendForAll(@RequestBody Mail mail){
+        Map<String,Object> keys =iWebSocketServer.getMailUserMap(mail);
+        System.out.println(keys.size());
+        return JsonResult.ResultSuccess(keys);
+    }
 
     @RequestMapping("/upload")
     public JsonResult<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         // 保存文件到服务器的代码
         Map<String,Object> map = new HashMap<>();
-        String url = iFileService.uploadFile(file,"websocket" ,UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
+        String url = iFileService.uploadFile(file,"mailFile" , UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
         map.put("url", url);
         System.out.println(JsonResult.ResultSuccess(map));
         return JsonResult.ResultSuccess(map);
-
     }
 
 
     @RequestMapping("/download/websocket/{fileName}")
     public void downloadFile(@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 保存文件到服务器的代码
-        iFileService.downloadFile(fileName,"websocket",request,response);
-
-    }
-
-    @RequestMapping("/uploadProjectImg")
-    public JsonResult<Map<String, Object>> uploadProjectImg(@RequestParam("file") MultipartFile file) throws IOException {
-        // 保存文件到服务器的代码
-        Map<String,Object> map = new HashMap<>();
-        String url = iFileService.uploadFile(file, "projectImg",UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
-        map.put("url", url);
-        System.out.println(JsonResult.ResultSuccess(map));
-        return JsonResult.ResultSuccess(map);
-    }
-
-    @RequestMapping("/download/projectImg/{fileName}")
-    public void downloadProjectImg(@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // 保存文件到服务器的代码
-        iFileService.downloadFile(fileName,"projectImg",request,response);
-
-    }
-
-    @RequestMapping("/uploadProjectProposal")
-    public JsonResult<Map<String, Object>> uploadProjectProposal(@RequestParam("file") MultipartFile file) throws IOException {
-        // 保存文件到服务器的代码
-        Map<String,Object> map = new HashMap<>();
-        String url = iFileService.uploadFile(file, "projectProposal",UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
-        map.put("url", url);
-        System.out.println(JsonResult.ResultSuccess(map));
-        return JsonResult.ResultSuccess(map);
-    }
-
-    @RequestMapping("/download/projectProposal/{fileName}")
-    public void downloadProjectProposal(@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // 保存文件到服务器的代码
-        iFileService.downloadFile(fileName,"projectProposal",request,response);
-
+        iFileService.downloadFile(fileName,"mailFile",request,response);
     }
 }

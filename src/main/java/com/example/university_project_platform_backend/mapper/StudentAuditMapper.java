@@ -1,7 +1,10 @@
 package com.example.university_project_platform_backend.mapper;
 
+import com.example.university_project_platform_backend.controller.dto.StudentGroupProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.StudentAudit;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface StudentAuditMapper extends BaseMapper<StudentAudit> {
 
+    List<StudentAudit> studentAuditIsExist(StudentAudit studentAudit, int studentAuditStatus);
 }

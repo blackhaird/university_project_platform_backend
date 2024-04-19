@@ -3,6 +3,8 @@ package com.example.university_project_platform_backend.mapper;
 import com.example.university_project_platform_backend.entity.Mail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MailMapper extends BaseMapper<Mail> {
 
+    List<Mail> getMailListByMail(Mail mail);
 }

@@ -1,5 +1,6 @@
 package com.example.university_project_platform_backend.service;
 
+import com.example.university_project_platform_backend.entity.StudentAudit;
 import com.example.university_project_platform_backend.entity.StudentGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -35,4 +36,6 @@ public interface IStudentGroupService extends IService<StudentGroup> {
     Map<String, Object> studentGroupShowByStudentID(Long groupStudentId);
 
     Long getMaxStudentGroupId();
+
+    Map<String, Object> studentGroupSave(StudentAudit studentAudit);
 }

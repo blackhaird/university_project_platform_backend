@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.university_project_platform_backend.entity.Mentor;
 import com.example.university_project_platform_backend.entity.Student;
+import com.example.university_project_platform_backend.entity.StudentAudit;
 import com.example.university_project_platform_backend.entity.StudentGroup;
 import com.example.university_project_platform_backend.mapper.StudentGroupMapper;
 import com.example.university_project_platform_backend.service.IStudentGroupService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,6 +172,29 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
     public Long getMaxStudentGroupId() {
         Long studentGroupId = this.baseMapper.selectMaxStudentGroupId();
         return studentGroupId;
+    }
+
+    @Override
+    public Map<String, Object> studentGroupSave(StudentAudit studentAudit) {
+        Map<String,Object> map = new HashMap<>();
+        List<StudentGroup> studentAuditList = this.baseMapper.getMentorStudentGroupByStudentAudit(studentAudit);
+        if (studentAuditList.isEmpty()){
+            map.put("message","未找到您的该项目学生组，请检查或新建项目学生组");
+            return map;
+        }else {
+            StudentGroup mentorStudentGroup = studentAuditList.get(0);
+            mentorStudentGroup.setGroupNumber(null);
+            mentorStudentGroup.setGroupStudentId(studentAudit.getStudentId());
+            mentorStudentGroup.setGroupCreateTime(LocalDateTime.now());
+            boolean flag = this.save(mentorStudentGroup);
+            if (flag) {
+                map.put("data", mentorStudentGroup);
+                map.put("message", "保存成功");
+            } else {
+                map.put("message", "保存数据失败");
+            }
+            return map;
+        }
     }
 
 }

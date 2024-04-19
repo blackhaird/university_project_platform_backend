@@ -48,8 +48,7 @@ public class MentorController {
     @Autowired
     private IProjectManagementOperationService iProjectManagementOperationService;
     @Autowired
-    private IFileService iFileService;
-
+    private IStudentAuditService iStudentAuditService;
     @PostMapping("/test")
     public JsonResult<Object> mentorTest(@RequestBody String mentorId) {
         System.out.println("mentorTest Running ：" + mentorId);
@@ -283,7 +282,20 @@ public class MentorController {
         }
     }
 
-
+    @PostMapping("/studentAuditUpdate")
+    public JsonResult<Map<String, Object>> studentAuditUpdate(@RequestBody StudentAudit studentAudit) {
+        boolean studentAuditSubmit = iStudentAuditService.studentAuditUpdate(studentAudit);
+        if (studentAuditSubmit){
+            Map<String, Object> studentGroupAdd = iStudentGroupService.studentGroupSave(studentAudit);
+            if (studentGroupAdd.get("data")!=null){
+                return JsonResult.ResultSuccess(studentGroupAdd);
+            }else {
+                return JsonResult.ResultFail(studentGroupAdd.get("message").toString() );
+            }
+        }else {
+            return JsonResult.ResultFail();
+        }
+    }
 }
 
 

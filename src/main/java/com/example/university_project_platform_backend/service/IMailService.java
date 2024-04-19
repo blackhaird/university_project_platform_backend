@@ -3,6 +3,8 @@ package com.example.university_project_platform_backend.service;
 import com.example.university_project_platform_backend.entity.Mail;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IMailService extends IService<Mail> {
 
+    List<Mail> getMailListByMail(Mail mail);
 }

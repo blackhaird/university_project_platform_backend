@@ -6,6 +6,8 @@ import com.example.university_project_platform_backend.service.IMailService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +19,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IMailService {
 
+    @Override
+    public List<Mail> getMailListByMail(Mail mail) {
+        List<Mail> mailList = baseMapper.getMailListByMail(mail);
+        return mailList;
+    }
 }

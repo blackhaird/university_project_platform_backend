@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.university_project_platform_backend.mapper.StudentAuditMapper">
 
+    <select id="studentAuditIsExist"
+            resultType="com.example.university_project_platform_backend.entity.StudentAudit">
+        select  student_audit.*
+        from
+            student_audit
+        where
+            student_audit.group_id = #{studentAudit.groupId}
+          and student_audit.project_id = #{studentAudit.projectId}
+          and student_audit.student_id = #{studentAudit.studentId}
+          and student_audit.mentor_id = #{studentAudit.mentorId}
+          and student_audit.student_audit_status =  #{studentAuditStatus};
+    </select>
 </mapper>
