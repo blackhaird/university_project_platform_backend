@@ -1,8 +1,10 @@
 package com.example.university_project_platform_backend.service.impl;
 
 import com.example.university_project_platform_backend.common.JsonResult;
+import com.example.university_project_platform_backend.entity.Mail;
 import com.example.university_project_platform_backend.entity.WebSocketUser;
 import com.example.university_project_platform_backend.entity.Websocket;
+import com.example.university_project_platform_backend.service.IMailService;
 import com.example.university_project_platform_backend.service.IWebSocketServer;
 import com.example.university_project_platform_backend.service.IWebsocketService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,8 +49,12 @@ public class WebSocketServer implements IWebSocketServer {
 
     private static final List<Websocket> webSocketUserList = new ArrayList<>();
 
+    private static final List<Mail> mailUserList = new ArrayList<>();
+
     @Autowired
     private IWebsocketService iWebsocketService;
+    @Autowired
+    private IMailService iMailService;
 
 
     public Map<String, Object> getWebSocketUserMap() {
@@ -188,6 +194,46 @@ public class WebSocketServer implements IWebSocketServer {
         }else {
             return (Map<String, Object>) sendMessageForUserMap.put("message","发送失败");
         }
+    }
+
+    @Override
+    public Map<String, Object> sendMailMessageForUserList(Mail mail) {
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
+        mapper.registerModule(new JavaTimeModule());
+        Map<String,Object> sendMessageForUserMap = new HashMap<>();
+        List<String> forUserList = Arrays.asList(mail.getForuserId().split(","));
+        for (int i = 0; i < forUserList.size(); i++) {
+            String forUserId = forUserList.get(i);
+            System.out.println("forUserId:"+forUserId);
+            if(sessionMap.containsKey(forUserId)){
+                Session session = sessionMap.get(forUserId);
+                try {
+                    mail.setMailTime(LocalDateTime.now());
+                    mailUserList.add(mail);
+                    sendMessageForUserMap.put("data",mailUserList);
+                    String messageStringMapper = mapper.writeValueAsString(mail);
+                    session.getBasicRemote().sendText(messageStringMapper);
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        boolean websocketFlag = iMailService.save(mail);
+        if (websocketFlag){
+            return sendMessageForUserMap;
+        }else {
+            return (Map<String, Object>) sendMessageForUserMap.put("message","发送失败");
+        }
+    }
+
+    @Override
+    public Map<String, Object> getMailUserMap(Mail mail) {
+        Map<String,Object> mailUserMap = new HashMap<>();
+        List<Mail> mailList = iMailService.getMailListByMail(mail);
+        mailUserMap.put("data",mailList);
+        return mailUserMap;
     }
 
 }

@@ -2450,3 +2450,13 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 ```
 
 > 接口与Student同理 无需权限分级
+
+## Mail [0.3.6 NEW]
+
+### /mail/sendForUserList
+
+详情见 ChatService/sendForUserList
+
+### /mail/getMessage
+
+详情见 ChatService/getMessage
