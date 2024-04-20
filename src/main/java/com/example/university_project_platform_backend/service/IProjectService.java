@@ -1,7 +1,9 @@
 package com.example.university_project_platform_backend.service;
 
+import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
 import com.example.university_project_platform_backend.entity.Project;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.university_project_platform_backend.entity.ProjectManagement;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +35,8 @@ public interface IProjectService extends IService<Project> {
     boolean projectAddByMentorId(Long mentorId, Project project);
 
     Map<String, Object> projectSearchByProjectNameFuzzy(Project project);
+
+    Map<String, Object> getProjectSearchWithStudentMentorData(ProjectAddDataDTO projectAddDataDTO);
+
+    boolean projectDone(ProjectManagement projectManagement,int status);
 }

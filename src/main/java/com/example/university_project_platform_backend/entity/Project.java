@@ -13,7 +13,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-19
+ * @since 2024-04-21
  */
 @Getter
 @Setter
@@ -68,7 +68,7 @@ public class Project implements Serializable {
     private String projectProposalLink;
 
     /**
-     * 创建者ID
+     * 老师ID
      */
     private Long mentorId;
 
@@ -88,7 +88,7 @@ public class Project implements Serializable {
     private String projectBelong;
 
     /**
-     * 项目完成状态:进行中1,已结束2
+     * 项目完成状态:未开始0 进行中1 已结束2 操作失败3
      */
     private Byte projectDoneStatus;
 

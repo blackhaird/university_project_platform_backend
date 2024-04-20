@@ -52,12 +52,18 @@ public class StudentController {
 
     @PostMapping("/add")
     public JsonResult<Map<String, Object>> studentAdd(@RequestBody Student student){
-        boolean studentFlag = iStudentService.save(student);
-        long studentid = student.getStudentId();
-        if (studentFlag){
-            return JsonResult.ResultSuccess(iStudentService.getStudentsFormStudentID(studentid));
+        Map<String,Object> map = iStudentService.getStudentsFormStudentID(student.getStudentId());
+        if (map.get("data")!=null){
+            return JsonResult.ResultSuccess("已有[" + student.getStudentId() +"] 的数据");
+        }else {
+            boolean studentFlag = iStudentService.save(student);
+            long studentid = student.getStudentId();
+            if (studentFlag){
+                return JsonResult.ResultSuccess(iStudentService.getStudentsFormStudentID(studentid));
+            }else {
+                return JsonResult.ResultFail("保存失败");
+            }
         }
-        return JsonResult.ResultFail(204,"找不到数据");
     }
 
     @PostMapping("/del")
@@ -79,6 +85,15 @@ public class StudentController {
         }
     }
 
+    @PostMapping("/search")
+    public JsonResult<Map<String,Object>> studentSearch(@RequestBody ProjectAddDataDTO student){
+        Map<String,Object> map = iStudentService.getStudentsFormStudentID(student.getStudentId());
+        if (map.get("data")!=null){
+            return JsonResult.ResultSuccess(map);
+        }else {
+            return JsonResult.ResultFail("查询不到该学生");
+        }
+    }
     @PostMapping("/showStudentProject")
     public JsonResult<Map<String,Object>> studentShowStudentProject(@RequestBody ProjectAddDataDTO student){
         Map<String,Object> data = iProjectService.getStudentsProjectByStudentId(student.getStudentId());

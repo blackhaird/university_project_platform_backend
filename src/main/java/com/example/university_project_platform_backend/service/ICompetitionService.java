@@ -18,4 +18,7 @@ public interface ICompetitionService extends IService<Competition> {
 
     Map<String, Object> projectManagementSubmitByMentorProjectDTO(MentorProjectDTO mentorProjectDTO);
 
+    boolean isCompetitionFromCompetitionID(String userName);
+
+    Map<String, Object> getMentorsFormCompetitionId(Long competitionId);
 }

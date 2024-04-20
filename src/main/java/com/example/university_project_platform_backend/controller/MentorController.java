@@ -6,6 +6,7 @@ import com.example.university_project_platform_backend.controller.dto.ProjectPro
 import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.service.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -49,6 +50,9 @@ public class MentorController {
     private IProjectManagementOperationService iProjectManagementOperationService;
     @Autowired
     private IStudentAuditService iStudentAuditService;
+    @Autowired
+    private ICreditsAuditService iCreditsAuditService;
+
     @PostMapping("/test")
     public JsonResult<Object> mentorTest(@RequestBody String mentorId) {
         System.out.println("mentorTest Running ：" + mentorId);
@@ -65,12 +69,17 @@ public class MentorController {
 
     @PostMapping("/add")
     public JsonResult<Map<String, Object>> mentorAdd(@RequestBody Mentor mentor) {
-        boolean mentorFlag = iMentorService.save(mentor);
-        long mentorid = mentor.getMentorId();
-        if (mentorFlag) {
-            return JsonResult.ResultSuccess(iMentorService.getMentorsFormMentorID(mentorid));
+        Map<String, Object> map = iMentorService.getMentorsFormMentorID(mentor.getMentorId());
+        if (map.get("data") != null) {
+            return JsonResult.ResultSuccess("已有[" + mentor.getMentorId() + "] 的数据");
+        } else {
+            boolean mentorFlag = iMentorService.save(mentor);
+            long mentorid = mentor.getMentorId();
+            if (mentorFlag) {
+                return JsonResult.ResultSuccess(iMentorService.getMentorsFormMentorID(mentorid));
+            }
+            return JsonResult.ResultFail(204, "找不到数据");
         }
-        return JsonResult.ResultFail(204, "找不到数据");
     }
 
     @PostMapping("/del")
@@ -268,32 +277,49 @@ public class MentorController {
     @PostMapping("/projectAdd")
     public JsonResult<Map<String, Object>> projectAdd(@RequestBody Project project) {
         Long mentorId = project.getMentorId();
-         boolean projectFlag = iProjectService.save(project);
+        boolean projectFlag = iProjectService.save(project);
         if (projectFlag) {
-            Map<String, Object> projectManageMap = iProjectManagementService.projectManagementSubmitByMentor(mentorId,project);
+            Map<String, Object> projectManageMap = iProjectManagementService.projectManagementSubmitByMentor(mentorId, project);
 
-            if (projectManageMap.get("data")!=null){
+            if (projectManageMap.get("data") != null) {
                 return JsonResult.ResultSuccess(projectManageMap);
-            }else {
-                return JsonResult.ResultFail(projectManageMap.get("message").toString() );
+            } else {
+                return JsonResult.ResultFail(projectManageMap.get("message").toString());
             }
         } else {
-            return JsonResult.ResultFail("项目新增失败，可能是Project表创建出现问题" );
+            return JsonResult.ResultFail("项目新增失败，可能是Project表创建出现问题");
         }
     }
 
     @PostMapping("/studentAuditUpdate")
     public JsonResult<Map<String, Object>> studentAuditUpdate(@RequestBody StudentAudit studentAudit) {
         boolean studentAuditSubmit = iStudentAuditService.studentAuditUpdate(studentAudit);
-        if (studentAuditSubmit){
+        if (studentAuditSubmit) {
             Map<String, Object> studentGroupAdd = iStudentGroupService.studentGroupSave(studentAudit);
-            if (studentGroupAdd.get("data")!=null){
+            if (studentGroupAdd.get("data") != null) {
                 return JsonResult.ResultSuccess(studentGroupAdd);
-            }else {
-                return JsonResult.ResultFail(studentGroupAdd.get("message").toString() );
+            } else {
+                return JsonResult.ResultFail(studentGroupAdd.get("message").toString());
             }
-        }else {
+        } else {
             return JsonResult.ResultFail();
+        }
+    }
+
+    @PostMapping("/projectDone")
+    @Transactional
+    public JsonResult<Map<String, Object>> projectDone(@RequestBody ProjectManagement projectManagement) {
+        boolean projectDone = iProjectService.projectDone(projectManagement, 2);
+        if (projectDone) {
+            System.out.println("项目完成");
+            Map<String, Object> creditsList = iCreditsAuditService.creditsAuditSubmit(projectManagement);
+            if (creditsList.get("data") != null) {
+                return JsonResult.ResultSuccess(creditsList);
+            } else {
+                return JsonResult.ResultFail(creditsList.get("message").toString());
+            }
+        } else {
+            return JsonResult.ResultFail("项目完成失败");
         }
     }
 }

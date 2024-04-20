@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
@@ -13,7 +14,9 @@ import com.example.university_project_platform_backend.service.IProjectService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +63,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         if (!StringUtils.isEmpty(project.getProjectName())) {
             wrapper.eq(Project::getProjectName, project.getProjectName());
         }
-        if (project.getProjectCredits() != 0) {
+        if (project.getProjectCredits() != null) {
             wrapper.eq(Project::getProjectCredits, project.getProjectCredits());
         }
         if (project.getProjectCreateTime() != null) {
@@ -121,6 +124,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     public Map<String, Object> getProjectNew() {
         Map<String,Object> projectMap = new HashMap<>();
         LambdaQueryWrapper<Project> wrapper = new LambdaQueryWrapper<>();
+        wrapper.notIn(Project::getProjectDoneStatus, Arrays.asList(0, 3));
         wrapper.orderByDesc(Project::getProjectCreateTime).last("LIMIT 15");
         List<Project> top15Projects = this.baseMapper.selectList(wrapper);
         if (!top15Projects.isEmpty()){
@@ -168,7 +172,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         Map<String,Object> projectMap = new HashMap<>();
         LambdaQueryWrapper<Project> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(Project::getProjectName, "%"+project.getProjectName()+"%");
-
+        wrapper.eq(Project::getProjectDoneStatus,2);
         List<Project> projectList = this.baseMapper.selectList(wrapper);
         if (!projectList.isEmpty()){
             projectMap.put("data",projectList);
@@ -177,6 +181,27 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
             projectMap.put("message","找不到筛选的数据");
             return projectMap;
         }
+    }
+
+    @Override
+    public Map<String, Object> getProjectSearchWithStudentMentorData(ProjectAddDataDTO projectAddDataDTO) {
+
+        Map<String, Object> projectMap = new HashMap<>();
+        List<ProjectAddDataDTO> projectList = this.baseMapper.getProjectSearchWithStudentMentorData(projectAddDataDTO);
+        projectMap.put("data",projectList);
+        return projectMap;
+    }
+
+    @Transactional
+    @Override
+    public boolean projectDone(ProjectManagement projectManagement,int status) {
+
+        LambdaUpdateWrapper<Project> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(Project::getMentorId, projectManagement.getMentorId());
+        wrapper.eq(Project::getProjectId, projectManagement.getProjectId());
+        wrapper.set(Project::getProjectDoneStatus,status);
+        boolean rowsAffected = this.update(null, wrapper); // 如果使用ProjectMapper
+        return rowsAffected;
     }
 
 }

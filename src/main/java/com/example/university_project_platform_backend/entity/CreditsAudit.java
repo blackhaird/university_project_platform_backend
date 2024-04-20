@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-19
+ * @since 2024-04-21
  */
 @Getter
 @Setter
@@ -26,14 +27,31 @@ public class CreditsAudit implements Serializable {
     private Integer creditsAuditId;
 
     /**
-     * 学分记录表
+     * studentID
      */
-    private Integer creditsId;
+    private Long studentId;
 
     /**
-     * 项目管理表
+     * 老师id
      */
-    private Long projectManagementId;
+    private Long mentorId;
+
+    /**
+     * 项目id
+     */
+    private Long projectId;
+
+    /**
+     * 加入的学生组id
+     */
+    private Long groupId;
+
+    /**
+     * 竞赛处id
+     */
+    private Long competitionId;
+
+    private Integer projectCredits;
 
     /**
      * 0:操作失败 1：操作成功 2：审核中
@@ -44,4 +62,6 @@ public class CreditsAudit implements Serializable {
      * 审核状态描述 注释/备注
      */
     private String creditsAuditStatusDescription;
+
+    private LocalDateTime creditsAuditTime;
 }

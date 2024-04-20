@@ -13,6 +13,7 @@
     * [/student/add](#studentadd)
     * [/student/del](#studentdel)
     * [/student/change](#studentchange)
+    * [/student/search [0\.3\.9 NEW]](#studentsearch-039-new)
     * [/student/showStudentMentor](#studentshowstudentmentor)
     * [/student/showStudentProject](#studentshowstudentproject)
     * [/student/joinStudentGroup [0\.3\.6 UPDATE]](#studentjoinstudentgroup-036-update)
@@ -35,9 +36,12 @@
     * [/mentor/projectManagementSearch](#mentorprojectmanagementsearch)
     * [/mentor/showMentorProject](#mentorshowmentorproject)
     * [/mentor/studentAuditUpdate [0\.3\.6 NEW]](#mentorstudentauditupdate-036-new)
+    * [/mentor/projectDone [0\.3\.9 NEW]](#mentorprojectdone-039-new)
   * [StudentGroup](#studentgroup)
     * [/studentGroup/show &amp; add &amp; del &amp; change](#studentgroupshow--add--del--change)
   * [Competition](#competition)
+    * [/competition/show &amp; add &amp; del &amp; change [0\.3\.9 NEW]](#competitionshow--add--del--change-039-new)
+    * [/competition/creditsAuditUpdate [0\.3\.9 NEW]](#competitioncreditsauditupdate-039-new)
     * [/competition/projectManagementAdd](#competitionprojectmanagementadd)
     * [/competition/projectManagementShow](#competitionprojectmanagementshow)
     * [/competition/projectManagementReview](#competitionprojectmanagementreview)
@@ -46,6 +50,7 @@
     * [/project/show](#projectshow)
     * [/project/projectSearch [0\.3\.5 UPDATE]](#projectprojectsearch-035-update)
     * [/project/projectSearchFuzzy [0\.3\.5 NEW]](#projectprojectsearchfuzzy-035-new)
+    * [/project/projectSearchWithData [0\.3\.9 NEW]](#projectprojectsearchwithdata-039-new)
     * [/project/getProjectNew](#projectgetprojectnew)
     * [/project/showWithData](#projectshowwithdata)
   * [Credits](#credits)
@@ -485,6 +490,37 @@ create table student(
 ```
 
 >此处判断逻辑待修改
+
+### /student/search [0.3.9 NEW]
+
+```json
+{
+  "studentId": 12000000001
+}
+```
+
+```JSON
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "studentId": 12000000001,
+        "studentName": "张三",
+        "studentSex": true,
+        "studentAdmissionTime": "2024-03-02T19:30:00",
+        "studentAge": 24,
+        "studentPhoneNumber": "13323211663",
+        "studentEmail": "zhangsan@graduation",
+        "studentClass": "软件工程2班"
+      }
+    ]
+  }
+}
+```
+
+
 
 ### /student/showStudentMentor
 
@@ -1498,6 +1534,68 @@ project表数据写入完毕后，会自动生成新的projectManagement数据�
 }
 ```
 
+### /mentor/projectDone [0.3.9 NEW]
+
+`post`
+
+该接口首先会将project中的 project_done_status 改为 2（即结束） 后读取 credits_audit表中的相关数据后存放进List<credits_Audit>依次执行，写入credits_audit申请学分数据，
+
+其中的，credit_audit的学分数据来源于，project表中的学分数据，请按project学分为准
+
+```json
+{
+  "projectId": 31000000001,
+  "mentorId":11001000001
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "creditsAuditId": 1,
+        "studentId": 12000000001,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "competitionId": 41001000004,
+        "projectCredits": 2,
+        "creditsAuditStatus": 2,
+        "creditsAuditStatusDescription": null,
+        "creditsAuditTime": null
+      },
+      {
+        "creditsAuditId": 2,
+        "studentId": 12000000002,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "competitionId": 41001000004,
+        "projectCredits": 2,
+        "creditsAuditStatus": 2,
+        "creditsAuditStatusDescription": null,
+        "creditsAuditTime": null
+      },
+      {
+        "creditsAuditId": 3,
+        "studentId": 12000000003,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "competitionId": 41001000004,
+        "projectCredits": 2,
+        "creditsAuditStatus": 2,
+        "creditsAuditStatusDescription": null,
+        "creditsAuditTime": null
+      }
+    ]
+  }
+}
+```
+
 
 
 ## StudentGroup
@@ -1537,7 +1635,58 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
 
 > 接口与Student同理 等待权限分级
 
-## Competition
+## Competition 
+
+### /competition/show & add & del & change [0.3.9 NEW]
+
+```
+/competition/show
+/competition/add
+/competition/del
+/competition/change
+接口与Student同理 
+```
+
+### /competition/creditsAuditUpdate [0.3.9 NEW]
+
+`post`
+
+用于审核creditsAudit
+
+```json
+{
+  "competitionId":41001000004,
+  "projectId": 31000000001,
+  "studentId":12000000001,
+  "creditsAuditStatus":1,
+  "creditsAuditStatusDescription":"同意"
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "creditsAuditId": 1,
+        "studentId": 12000000001,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "competitionId": 41001000004,
+        "projectCredits": 2,
+        "creditsAuditStatus": 1,
+        "creditsAuditStatusDescription": "同意",
+        "creditsAuditTime": "2024-04-21T02:26:25"
+      }
+    ]
+  }
+}
+```
+
+
 
 ### /competition/projectManagementAdd
 
@@ -1898,7 +2047,7 @@ VALUES(31000000001,'大学生创新创业服务平台', '大学生创业创意�
   "projectCredits": 0,
   "projectCreateTime": "2024-04-18T19:05:29",
   "projectEndTime": "2024-03-19T00:10:07",
-  "projectCreator": 10001001001,
+  "mentorId": 10001001001,
   "projectScope": "高校服务",
   "projectTag": 0,
   "projectBelong": "计算机系",
@@ -1988,6 +2137,25 @@ VALUES(31000000001,'大学生创新创业服务平台', '大学生创业创意�
       }
     ]
   }
+}
+```
+
+### /project/projectSearchWithData [0.3.9 NEW]
+
+`post`
+
+```json
+//其中的 "projectDoneStatus": 1,  可以替换 "projectDoneStatusList":[1,2] 筛查两个或多个范围
+{
+  "projectId": 31000000001,
+  "projectName": "一体化HPV检测仪器",
+  "projectCredits": 2,
+  "mentorId": 11001000001,
+  "projectScope": "生物、医药及医疗机械",
+  "projectTag": 0,
+  "projectBelong": "生物学院",
+  "projectDoneStatus": 1,
+  "projectLevel": 0
 }
 ```
 
@@ -2518,6 +2686,3 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 /download/projectImg/{fileName}
 ```
 
-### 
-=======
->>>>>>> origin/main

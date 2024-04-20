@@ -1,10 +1,9 @@
-# mysql-0.3.7.sql
+# mysql-0.3.9.sql
 # id字段描述关系，重要字段为bigint(11) 前两位为重要关系字段
 # 假设11001000001 意思为 1：个人/个体 1：老师  31000000001 3：项目 1：  41001000001：4：项目组
 # 假设12240020001 意思为 1：个人/个体 2：学生  22000000001 2：组别 2：学生
-create database university_project_platform_db default character set utf8mb4 collate utf8mb4_unicode_ci;
+# create database university_project_platform_db default character set utf8mb4 collate utf8mb4_unicode_ci;
 use university_project_platform_db;
-
 
 
 #老师表
@@ -67,7 +66,7 @@ INSERT INTO student(student_id, student_name, student_sex, student_Admission_tim
 VALUES (12000000004, '赵六', 2, '2024-03-02 19:30:00', 22, '13323098663', 'zhaoliu@graduation', '计算机技术应用2班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
-VALUES (12000000005,'测试1', 1, '2024-03-02 19:30:00', 24, '10000000001', 'test@graduation', '计算机技术应用2班');
+VALUES (12000000005, '测试1', 1, '2024-03-02 19:30:00', 24, '10000000001', 'test@graduation', '计算机技术应用2班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
 VALUES (12000000006, '测试2', 1, '2024-03-02 19:30:00', 22, '10000000002', 'test@graduation', '计算机技术应用2班');
@@ -125,16 +124,6 @@ INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (11001000004, 123456, 1);
 INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (11001000011, 123456, 1);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (11001000012, 123456, 1);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (11001000013, 123456, 1);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (11001000014, 123456, 1);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (11001000015, 123456, 1);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (11001000016, 123456, 1);
 
 INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (12000000001, 123456, 2);
@@ -146,16 +135,8 @@ INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (12000000004, 123456, 2);
 INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (12000000005, 123456, 2);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (12000000006, 123456, 2);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (12000000007, 123456, 2);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (12000000008, 123456, 2);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (12000000009, 123456, 2);
-INSERT INTO user(user_name, user_password, user_Permission)
-VALUES (12000000010, 123456, 2);
+
+
 
 INSERT INTO user(user_name, user_password, user_Permission)
 VALUES (41001000001, 123456, 3);
@@ -171,23 +152,23 @@ VALUES (41001000005, 123456, 3);
 #项目表
 create table project
 (
-    project_id            bigint(11) auto_increment not null primary key comment '项目id',
-    project_name          varchar(30)               not null comment '项目姓名',
-    project_image    varchar(255) comment '项目图片连接',
-    project_Introduction  varchar(2000) comment '项目简介',
-    project_Advantage   text comment '项目优势',
-    project_credits int default 0 comment '项目学分',
-    project_create_time   datetime default now() comment '项目创建时间',
-    project_end_time      datetime comment '项目结束时间',
-    project_proposal_link varchar(255) comment '项目立项材料',
-    mentor_id      bigint(11)                not null comment '老师ID',
-    project_Scope         varchar(100) comment '项目范围',
-    project_tag           tinyint(2) comment '项目标签(科研项目0 竞赛项目1)',
-    project_belong        varchar(100) comment '项目归属地',
-    project_done_status  tinyint(2) default 0 comment '项目完成状态:未开始0 进行中1 已结束2 操作失败3',
-    project_done_time    datetime comment '项目完成时间',
+    project_id               bigint(11) auto_increment not null primary key comment '项目id',
+    project_name             varchar(30)               not null comment '项目姓名',
+    project_image            varchar(255) comment '项目图片连接',
+    project_Introduction     varchar(2000) comment '项目简介',
+    project_Advantage        text comment '项目优势',
+    project_credits          int          default 0 comment '项目学分',
+    project_create_time      datetime     default now() comment '项目创建时间',
+    project_end_time         datetime comment '项目结束时间',
+    project_proposal_link    varchar(255) comment '项目立项材料',
+    mentor_id                bigint(11)                not null comment '老师ID',
+    project_Scope            varchar(100) comment '项目范围',
+    project_tag              tinyint(2) comment '项目标签(科研项目0 竞赛项目1)',
+    project_belong           varchar(100) comment '项目归属地',
+    project_done_status      tinyint(2)   default 0 comment '项目完成状态:未开始0 进行中1 已结束2 操作失败3',
+    project_done_time        datetime comment '项目完成时间',
     project_done_description varchar(255) default null comment '项目完成状态描述',
-    project_level int default 0 comment '项目等级,数字越高等级越高,0为没有等级'
+    project_level            int          default 0 comment '项目等级,数字越高等级越高,0为没有等级'
 );
 
 
@@ -310,26 +291,26 @@ VALUES (31000000001, '一体化HPV检测仪器', '1.12.37.222/1.png',
         '本项目有系统自主研发团队，使用的是MetLife的管理模式，校园市场开拓和社区市场开拓同时进行，有较好的客户基础。创造20个就业岗位，特别是提供了适合女性的就业岗位，有效回收再利用废品300吨，提供了100个大学勤工俭学岗位。',
         2,
         '2024-09-19 00:10:07', 'C:\\graduation\\绿黄金智慧环保.doc', '11001000016', '新能源与节能环保', 1, '材料学院',
-        2, '2024-04-19 00:10:07', '暂无', 3),
-(31000000021, '测试审核失败', '1.12.37.222/21.png',
- '测试审核失败简介-----------------------------------------测试审核失败简介',
- '测试审核失败优点-----------------------------------------测试审核失败优点',
- 2,
- '2024-09-19 00:10:07', 'C:\\graduation\\测试审核失败.doc', '11001000001', '电子信息', 1, '计算机学院',
- 3, NULL, '暂无', 3),
-(31000000022, '测试审核中', '1.12.37.222/22.png',
- '测试审核中简介-----------------------------------------测试审核中简介',
- '测试审核中优点-----------------------------------------测试审核中优点',
- 2,
- '2024-09-19 00:10:07', 'C:\\graduation\\测试审核中.doc', '1100100001', '电子信息', 1, '计算机学院',
- 0, NULL, '暂无', 3);
+        2, '2024-04-19 00:10:07', '暂无', 3)
+     , (31000000021, '测试审核失败', '1.12.37.222/21.png',
+        '测试审核失败简介-----------------------------------------测试审核失败简介',
+        '测试审核失败优点-----------------------------------------测试审核失败优点',
+        2,
+        '2024-09-19 00:10:07', 'C:\\graduation\\测试审核失败.doc', '11001000001', '电子信息', 1, '计算机学院',
+        3, NULL, '暂无', 3)
+     , (31000000022, '测试审核中', '1.12.37.222/22.png',
+        '测试审核中简介-----------------------------------------测试审核中简介',
+        '测试审核中优点-----------------------------------------测试审核中优点',
+        2,
+        '2024-09-19 00:10:07', 'C:\\graduation\\测试审核中.doc', '1100100001', '电子信息', 1, '计算机学院',
+        0, NULL, '暂无', 3);
 
 
 #学生组表
 create table student_group
 (
-    group_number bigint(11) auto_increment not null  primary key  comment '小组自增id',
-    group_id          bigint(11)  not null  comment '小组id',
+    group_number      bigint(11) auto_increment not null primary key comment '小组自增id',
+    group_id          bigint(11)                not null comment '小组id',
     group_name        varchar(40) comment '小组队名',
     group_mentor_id   bigint(11) comment '创建老师ID',
     group_captain_id  bigint(11) comment '小组队长ID',
@@ -414,8 +395,6 @@ VALUES (22000000001, '一窝咸鱼', 11001000001, 12000000001, 12000000001),
        (22000000020, '低级牛马', 11001000016, 12000000002, 12000000003);
 
 
-
-
 #项目管理表
 create table project_Management
 (
@@ -471,12 +450,23 @@ create table activity
     project_done_status   tinyint(2) default 0 comment '活动完成状态:进行中1,已结束2'
 );
 
-INSERT INTO activity(activity_id, activity_name, activity_image,activity_Introduction,activity_end_time,competition_id,activity_Scope,project_done_status)
-VALUES (91000000001, '计算机设计大赛', '1.12.37.222/act1.jpg','全国大学生计算机系统能力大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校计算机教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。','2024-05-19 00:10:07',41001000001,'电子信息',1),
-       (91000000002, '全国大学生计算机系统能力大赛', '1.12.37.222/act2.jpg','全国大学生计算机系统能力大赛的目标是以学科竞赛推动专业建设和计算机领域创新人才培养体系改革，培育我国高端芯片、关键基础软件的后备人才。大赛服务国家人才培养战略，以赛促学、以赛促教，鼓励学生设计、实现综合性的计算机系统，','2024-05-19 00:10:07',41001000005,'电子信息',1),
-       (91000000003, '大学生生物医学工程创新设计竞赛', '1.12.37.222/act3.jpg','为进一步推动我国生物医学工程学科的发展，加快我国生物医学工程相关专业的建设步伐，培养高水平的优秀专业人才，围绕临床具体需求开展实践创新教育，在教育部高等学校生物医学工程类专业教学指导委员会的倡导下，2024年开始在我校范围内举办“全国大学生生物医学工程创新设计竞赛”，目前已成功举办八届。','2024-05-19 00:10:07',41001000004,'生物、医药及医疗机械',1),
-       (91000000004, '管理技能大赛', '1.12.37.222/act4.jpg','管理技能大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校人员管理教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。','2024-05-19 00:10:07',41001000002,'交通规划及运输',2),
-       (91000000005, '全国大学生节能减排社会实践与科技竞赛', '1.12.37.222/act5.jpg','全国大学生节能减排社会实践与科技竞赛是由教育部高等教育司主办、由高等教育司办公室主抓的全国大学生学科竞赛， 为教育部确定的全国十大大学生学科竞赛之一，也是全国高校影响力最大的大学生科创竞赛之一','2024-05-19 00:10:07',41001000003,'新能源与节能环保',2);
+INSERT INTO activity(activity_id, activity_name, activity_image, activity_Introduction, activity_end_time,
+                     competition_id, activity_Scope, project_done_status)
+VALUES (91000000001, '计算机设计大赛', '1.12.37.222/act1.jpg',
+        '全国大学生计算机系统能力大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校计算机教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。',
+        '2024-05-19 00:10:07', 41001000001, '电子信息', 1),
+       (91000000002, '全国大学生计算机系统能力大赛', '1.12.37.222/act2.jpg',
+        '全国大学生计算机系统能力大赛的目标是以学科竞赛推动专业建设和计算机领域创新人才培养体系改革，培育我国高端芯片、关键基础软件的后备人才。大赛服务国家人才培养战略，以赛促学、以赛促教，鼓励学生设计、实现综合性的计算机系统，',
+        '2024-05-19 00:10:07', 41001000005, '电子信息', 1),
+       (91000000003, '大学生生物医学工程创新设计竞赛', '1.12.37.222/act3.jpg',
+        '为进一步推动我国生物医学工程学科的发展，加快我国生物医学工程相关专业的建设步伐，培养高水平的优秀专业人才，围绕临床具体需求开展实践创新教育，在教育部高等学校生物医学工程类专业教学指导委员会的倡导下，2024年开始在我校范围内举办“全国大学生生物医学工程创新设计竞赛”，目前已成功举办八届。',
+        '2024-05-19 00:10:07', 41001000004, '生物、医药及医疗机械', 1),
+       (91000000004, '管理技能大赛', '1.12.37.222/act4.jpg',
+        '管理技能大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校人员管理教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。',
+        '2024-05-19 00:10:07', 41001000002, '交通规划及运输', 2),
+       (91000000005, '全国大学生节能减排社会实践与科技竞赛', '1.12.37.222/act5.jpg',
+        '全国大学生节能减排社会实践与科技竞赛是由教育部高等教育司主办、由高等教育司办公室主抓的全国大学生学科竞赛， 为教育部确定的全国十大大学生学科竞赛之一，也是全国高校影响力最大的大学生科创竞赛之一',
+        '2024-05-19 00:10:07', 41001000003, '新能源与节能环保', 2);
 
 #学分表
 create table credits
@@ -495,128 +485,128 @@ VALUES (12000000001, 43),
        (12000000004, 3);
 
 
-
-
 #查询学分语句SELECT student_name,group_student_id,sum(project.project_credits) from student,student_group,project,project_management where student_id=group_student_id and student_group.group_id=project_management.Group_id and project_management.project_id=project.project_id  and group_student_id='12000000005'
 
-create table student_Audit(
-                              student_audit_id int(10) primary key auto_increment,
-                              student_id bigint(11) comment '学生id',
-                              mentor_id bigint(11) comment '老师id',
-                              project_id bigint(11) comment '项目id',
-                              group_id bigint(11) comment '加入的学生组id',
-                              student_audit_status tinyint(2)      default 2 comment '0:操作失败 1：操作成功 2：审核中',
-                              student_audit_status_Description varchar(50)         default null comment '审核状态描述 注释/备注'
+create table student_Audit
+(
+    student_audit_id                 int(10) primary key auto_increment,
+    student_id                       bigint(11) comment '学生id',
+    mentor_id                        bigint(11) comment '老师id',
+    project_id                       bigint(11) comment '项目id',
+    group_id                         bigint(11) comment '加入的学生组id',
+    student_audit_status             tinyint(2)  default 2 comment '0:操作失败 1：操作成功 2：审核中',
+    student_audit_status_Description varchar(50) default null comment '审核状态描述 注释/备注'
 );
 
-INSERT INTO student_Audit(student_id, mentor_id, project_id,group_id,student_audit_status,student_audit_status_Description) VALUES
-                                                                                                                                (12000000001, 11001000001, 31000000001,22000000001,1,'暂无'),
-                                                                                                                                (12000000001, 11001000001, 31000000002,22000000002,1,'暂无'),
-                                                                                                                                (12000000001, 11001000002, 31000000003,22000000003,1,'暂无'),
-                                                                                                                                (12000000001, 11001000002, 31000000004,22000000004,1,'暂无'),
-                                                                                                                                (12000000001, 11001000003, 31000000005,22000000005,1,'暂无'),
-                                                                                                                                (12000000001, 11001000003, 31000000006,22000000006,1,'暂无'),
-                                                                                                                                (12000000001, 11001000004, 31000000007,22000000007,1,'暂无'),
-                                                                                                                                (12000000001, 11001000004, 31000000008,22000000008,1,'暂无'),
-                                                                                                                                (12000000001, 11001000011, 31000000009,22000000009,1,'暂无'),
-                                                                                                                                (12000000001, 11001000011, 31000000010,22000000010,1,'暂无'),
-                                                                                                                                (12000000001, 11001000012, 31000000011,22000000011,1,'暂无'),
-                                                                                                                                (12000000001, 11001000012, 31000000012,22000000012,1,'暂无'),
-                                                                                                                                (12000000001, 11001000013, 31000000013,22000000013,1,'暂无'),
-                                                                                                                                (12000000001, 11001000013, 31000000014,22000000014,1,'暂无'),
-                                                                                                                                (12000000001, 11001000014, 31000000015,22000000015,1,'暂无'),
-                                                                                                                                (12000000001, 11001000014, 31000000016,22000000016,1,'暂无'),
-                                                                                                                                (12000000001, 11001000015, 31000000017,22000000017,1,'暂无'),
-                                                                                                                                (12000000001, 11001000015, 31000000018,22000000018,1,'暂无'),
-                                                                                                                                (12000000001, 11001000016, 31000000019,22000000019,1,'暂无'),
-                                                                                                                                (12000000001, 11001000016, 31000000020,22000000020,1,'暂无'),
+INSERT INTO student_Audit(student_id, mentor_id, project_id, group_id, student_audit_status,
+                          student_audit_status_Description)
+VALUES (12000000001, 11001000001, 31000000001, 22000000001, 1, '暂无'),
+       (12000000001, 11001000001, 31000000002, 22000000002, 1, '暂无'),
+       (12000000001, 11001000002, 31000000003, 22000000003, 1, '暂无'),
+       (12000000001, 11001000002, 31000000004, 22000000004, 1, '暂无'),
+       (12000000001, 11001000003, 31000000005, 22000000005, 1, '暂无'),
+       (12000000001, 11001000003, 31000000006, 22000000006, 1, '暂无'),
+       (12000000001, 11001000004, 31000000007, 22000000007, 1, '暂无'),
+       (12000000001, 11001000004, 31000000008, 22000000008, 1, '暂无'),
+       (12000000001, 11001000011, 31000000009, 22000000009, 1, '暂无'),
+       (12000000001, 11001000011, 31000000010, 22000000010, 1, '暂无'),
+       (12000000001, 11001000012, 31000000011, 22000000011, 1, '暂无'),
+       (12000000001, 11001000012, 31000000012, 22000000012, 1, '暂无'),
+       (12000000001, 11001000013, 31000000013, 22000000013, 1, '暂无'),
+       (12000000001, 11001000013, 31000000014, 22000000014, 1, '暂无'),
+       (12000000001, 11001000014, 31000000015, 22000000015, 1, '暂无'),
+       (12000000001, 11001000014, 31000000016, 22000000016, 1, '暂无'),
+       (12000000001, 11001000015, 31000000017, 22000000017, 1, '暂无'),
+       (12000000001, 11001000015, 31000000018, 22000000018, 1, '暂无'),
+       (12000000001, 11001000016, 31000000019, 22000000019, 1, '暂无'),
+       (12000000001, 11001000016, 31000000020, 22000000020, 1, '暂无'),
 
-                                                                                                                                (12000000002, 11001000001, 31000000001,22000000001,1,'暂无'),
-                                                                                                                                (12000000002, 11001000001, 31000000002,22000000002,1,'暂无'),
-                                                                                                                                (12000000002, 11001000002, 31000000003,22000000003,1,'暂无'),
-                                                                                                                                (12000000002, 11001000002, 31000000004,22000000004,1,'暂无'),
-                                                                                                                                (12000000002, 11001000003, 31000000005,22000000005,1,'暂无'),
-                                                                                                                                (12000000002, 11001000003, 31000000006,22000000006,1,'暂无'),
-                                                                                                                                (12000000002, 11001000004, 31000000007,22000000007,1,'暂无'),
-                                                                                                                                (12000000002, 11001000004, 31000000008,22000000008,1,'暂无'),
-                                                                                                                                (12000000002, 11001000011, 31000000009,22000000009,1,'暂无'),
-                                                                                                                                (12000000002, 11001000011, 31000000010,22000000010,1,'暂无'),
-                                                                                                                                (12000000002, 11001000012, 31000000011,22000000011,1,'暂无'),
-                                                                                                                                (12000000002, 11001000012, 31000000012,22000000012,1,'暂无'),
-                                                                                                                                (12000000002, 11001000013, 31000000013,22000000013,1,'暂无'),
-                                                                                                                                (12000000002, 11001000013, 31000000014,22000000014,1,'暂无'),
-                                                                                                                                (12000000002, 11001000014, 31000000015,22000000015,1,'暂无'),
-                                                                                                                                (12000000002, 11001000014, 31000000016,22000000016,1,'暂无'),
-                                                                                                                                (12000000002, 11001000015, 31000000017,22000000017,1,'暂无'),
-                                                                                                                                (12000000002, 11001000015, 31000000018,22000000018,1,'暂无'),
-                                                                                                                                (12000000002, 11001000016, 31000000019,22000000019,1,'暂无'),
-                                                                                                                                (12000000002, 11001000016, 31000000020,22000000020,1,'暂无'),
+       (12000000002, 11001000001, 31000000001, 22000000001, 1, '暂无'),
+       (12000000002, 11001000001, 31000000002, 22000000002, 1, '暂无'),
+       (12000000002, 11001000002, 31000000003, 22000000003, 1, '暂无'),
+       (12000000002, 11001000002, 31000000004, 22000000004, 1, '暂无'),
+       (12000000002, 11001000003, 31000000005, 22000000005, 1, '暂无'),
+       (12000000002, 11001000003, 31000000006, 22000000006, 1, '暂无'),
+       (12000000002, 11001000004, 31000000007, 22000000007, 1, '暂无'),
+       (12000000002, 11001000004, 31000000008, 22000000008, 1, '暂无'),
+       (12000000002, 11001000011, 31000000009, 22000000009, 1, '暂无'),
+       (12000000002, 11001000011, 31000000010, 22000000010, 1, '暂无'),
+       (12000000002, 11001000012, 31000000011, 22000000011, 1, '暂无'),
+       (12000000002, 11001000012, 31000000012, 22000000012, 1, '暂无'),
+       (12000000002, 11001000013, 31000000013, 22000000013, 1, '暂无'),
+       (12000000002, 11001000013, 31000000014, 22000000014, 1, '暂无'),
+       (12000000002, 11001000014, 31000000015, 22000000015, 1, '暂无'),
+       (12000000002, 11001000014, 31000000016, 22000000016, 1, '暂无'),
+       (12000000002, 11001000015, 31000000017, 22000000017, 1, '暂无'),
+       (12000000002, 11001000015, 31000000018, 22000000018, 1, '暂无'),
+       (12000000002, 11001000016, 31000000019, 22000000019, 1, '暂无'),
+       (12000000002, 11001000016, 31000000020, 22000000020, 1, '暂无'),
 
-                                                                                                                                (12000000003, 11001000001, 31000000001,22000000001,1,'暂无'),
-                                                                                                                                (12000000003, 11001000002, 31000000003,22000000003,1,'暂无'),
-                                                                                                                                (12000000003, 11001000002, 31000000004,22000000004,1,'暂无'),
-                                                                                                                                (12000000003, 11001000003, 31000000006,22000000006,1,'暂无'),
-                                                                                                                                (12000000003, 11001000004, 31000000007,22000000007,1,'暂无'),
-                                                                                                                                (12000000003, 11001000011, 31000000009,22000000009,1,'暂无'),
-                                                                                                                                (12000000003, 11001000012, 31000000011,22000000011,1,'暂无'),
-                                                                                                                                (12000000003, 11001000013, 31000000013,22000000013,1,'暂无'),
-                                                                                                                                (12000000003, 11001000014, 31000000015,22000000015,1,'暂无'),
-                                                                                                                                (12000000003, 11001000014, 31000000016,22000000016,1,'暂无'),
-                                                                                                                                (12000000003, 11001000015, 31000000017,22000000017,1,'暂无'),
-                                                                                                                                (12000000003, 11001000015, 31000000018,22000000018,1,'暂无'),
-                                                                                                                                (12000000003, 11001000016, 31000000019,22000000019,1,'暂无'),
-                                                                                                                                (12000000003, 11001000016, 31000000020,22000000020,1,'暂无'),
+       (12000000003, 11001000001, 31000000001, 22000000001, 1, '暂无'),
+       (12000000003, 11001000002, 31000000003, 22000000003, 1, '暂无'),
+       (12000000003, 11001000002, 31000000004, 22000000004, 1, '暂无'),
+       (12000000003, 11001000003, 31000000006, 22000000006, 1, '暂无'),
+       (12000000003, 11001000004, 31000000007, 22000000007, 1, '暂无'),
+       (12000000003, 11001000011, 31000000009, 22000000009, 1, '暂无'),
+       (12000000003, 11001000012, 31000000011, 22000000011, 1, '暂无'),
+       (12000000003, 11001000013, 31000000013, 22000000013, 1, '暂无'),
+       (12000000003, 11001000014, 31000000015, 22000000015, 1, '暂无'),
+       (12000000003, 11001000014, 31000000016, 22000000016, 1, '暂无'),
+       (12000000003, 11001000015, 31000000017, 22000000017, 1, '暂无'),
+       (12000000003, 11001000015, 31000000018, 22000000018, 1, '暂无'),
+       (12000000003, 11001000016, 31000000019, 22000000019, 1, '暂无'),
+       (12000000003, 11001000016, 31000000020, 22000000020, 1, '暂无'),
 
-                                                                                                                                (12000000004, 11001000002, 31000000004,22000000004,1,'暂无'),
+       (12000000004, 11001000002, 31000000004, 22000000004, 1, '暂无'),
 
-                                                                                                                                (12000000004, 11001000001, 31000000001,22000000001,0,'暂无'),
-                                                                                                                                (12000000004, 11001000002, 31000000003,22000000003,2,'暂无'),
+       (12000000004, 11001000001, 31000000001, 22000000001, 0, '暂无'),
+       (12000000004, 11001000002, 31000000003, 22000000003, 2, '暂无'),
 
-                                                                                                                                (12000000005, 11001000001, 31000000001,22000000001,0,'暂无'),
-                                                                                                                                (12000000005, 11001000001, 31000000002,22000000002,2,'暂无');
+       (12000000005, 11001000001, 31000000001, 22000000001, 0, '暂无'),
+       (12000000005, 11001000001, 31000000002, 22000000002, 2, '暂无');
 
 #邮件表
 create table mail
 (
     mail_id      int primary key auto_increment,
-    user_id bigint(11) not null,
-    forUser_id varchar(255),
+    user_id      bigint(11) not null,
+    forUser_id   varchar(255),
     mail_message varchar(1000),
-    mail_file varchar(1000),
+    mail_file    varchar(1000),
     mail_time    datetime default now()
 );
 
-INSERT INTO mail( user_id, forUser_id,mail_message,mail_file) VALUES
-                                                                  (12000000001, 11001000001, '老师我不想努力了','C:\\graduation\\不想努力解释书.doc'),
-                                                                  (11001000001, 12000000001, '同学你不可以这样子','C:\\graduation\\你得努力解释书.doc'),
-                                                                  (12000000001, 11001000001, '老师我真的不想努力了','C:\\graduation\\不想努力解释书.doc'),
-                                                                  (11001000001, 12000000001, '同学你真的不可以这样子','C:\\graduation\\你得努力解释书.doc');
+INSERT INTO mail(user_id, forUser_id, mail_message, mail_file)
+VALUES (12000000001, 11001000001, '老师我不想努力了', 'C:\\graduation\\不想努力解释书.doc'),
+       (11001000001, 12000000001, '同学你不可以这样子', 'C:\\graduation\\你得努力解释书.doc'),
+       (12000000001, 11001000001, '老师我真的不想努力了', 'C:\\graduation\\不想努力解释书.doc'),
+       (11001000001, 12000000001, '同学你真的不可以这样子', 'C:\\graduation\\你得努力解释书.doc');
 
 
 #论坛表
 create table project_Forum
 (
     project_Forum_id      int primary key auto_increment,
-    user_id bigint(11) not null,
-    forUser_id varchar(255),
+    user_id               bigint(11) not null,
+    forUser_id            varchar(255),
     project_Forum_message text,
-    project_Forum_file text,
+    project_Forum_file    text,
     project_Forum_time    datetime default now()
 );
 
 #学分操作记录表
 create table credits_Operation
 (
-    credits_operation_id       int(10) primary key auto_increment comment '操作记录',
-    credits_operation_time     datetime        default now() comment '操作时间',
-    credits_operation_Operator bigint(11)  comment '操作人员',
-    credits_operation_status   tinyint(2)      default 0 comment '0:操作失败 1：操作成功 2：其他',
+    credits_operation_id          int(10) primary key auto_increment comment '操作记录',
+    credits_operation_time        datetime        default now() comment '操作时间',
+    credits_operation_Operator    bigint(11) comment '操作人员',
+    credits_operation_status      tinyint(2)      default 0 comment '0:操作失败 1：操作成功 2：其他',
     credits_operation_Description varchar(255) comment '操作描述',
 
-    credits_id          bigint(11)  comment '学分记录',
-    student_id          bigint(11) comment '学生id',
-    credits_value       int(5) not null default 0 comment '学分',
-    credits_Description varchar(255) comment '学分描述'
+    credits_id                    bigint(11) comment '学分记录',
+    student_id                    bigint(11) comment '学生id',
+    credits_value                 int(5) not null default 0 comment '学分',
+    credits_Description           varchar(255) comment '学分描述'
 
         #     foreign key (credits_id) references credits(credits_id),
     #     foreign key (student_id) references student (student_id)
@@ -624,32 +614,32 @@ create table credits_Operation
 );
 
 
-
 #聊天室表
-create table websocket(
-                          websocket_id int primary key  auto_increment,
-                          websocket_user_id bigint(11) not null ,
-                          websocket_forUser varchar(255) ,
-                          websocket_message text,
-                          websocket_time datetime default now()
+create table websocket
+(
+    websocket_id      int primary key auto_increment,
+    websocket_user_id bigint(11) not null,
+    websocket_forUser varchar(255),
+    websocket_message text,
+    websocket_time    datetime default now()
 );
 
 #项目操作记录表
 create table project_management_Operation
 (
-    project_management_Operation_id int(10) primary key  auto_increment comment '操作记录',
-    project_management_Operation_time     datetime        default now() comment '操作时间',
-    project_management_Operation_Operator bigint(11)  comment '操作人员',
-    project_management_Operation_status   tinyint(2)      default 0 comment '0:操作失败 1：操作成功 2：其他',
+    project_management_Operation_id          int(10) primary key auto_increment comment '操作记录',
+    project_management_Operation_time        datetime            default now() comment '操作时间',
+    project_management_Operation_Operator    bigint(11) comment '操作人员',
+    project_management_Operation_status      tinyint(2)          default 0 comment '0:操作失败 1：操作成功 2：其他',
     project_management_Operation_Description varchar(255) comment '操作描述',
 
-    project_management_id      int(10) ,
-    project_id                 bigint(11) comment '项目编号',
-    mentor_id                  bigint(11) comment '导师编号',
-    competition_id             bigint(11) comment '竞赛处id',
-    Group_id                   bigint(11) comment '小组编号',
-    project_status_id          TINYINT(2) not null default 2 comment '项目状态id 0代表未通过 1代表通过 2代表审核中 ',
-    project_status_Description varchar(50)         default null comment '项目状态状态描述 注释/备注'
+    project_management_id                    int(10),
+    project_id                               bigint(11) comment '项目编号',
+    mentor_id                                bigint(11) comment '导师编号',
+    competition_id                           bigint(11) comment '竞赛处id',
+    Group_id                                 bigint(11) comment '小组编号',
+    project_status_id                        TINYINT(2) not null default 2 comment '项目状态id 0代表未通过 1代表通过 2代表审核中 ',
+    project_status_Description               varchar(50)         default null comment '项目状态状态描述 注释/备注'
 
         #     foreign key (project_management_id) references project_Management(project_management_id),
     #     foreign key (project_id) references project (project_id),
@@ -658,21 +648,28 @@ create table project_management_Operation
 );
 
 #app页面表
-create table home_page(
-                          home_page_id int auto_increment primary key ,
-                          home_page_title varchar(255) not null ,
-                          home_page_context text ,
-                          home_page_create_time datetime default now(),
-                          home_page_Creator bigint(11),
-                          home_page_Creator_name varchar(255),
-                          home_page_tag varchar(20)
+create table home_page
+(
+    home_page_id           int auto_increment primary key,
+    home_page_title        varchar(255) not null,
+    home_page_context      text,
+    home_page_create_time  datetime default now(),
+    home_page_Creator      bigint(11),
+    home_page_Creator_name varchar(255),
+    home_page_tag          varchar(20)
 );
 
 
-create table credits_audit(
-                              credits_audit_id int(10) primary key  auto_increment,
-                              credits_id int(10) comment '学分记录表',
-                              project_management_id bigint(11) comment '项目管理表',
-                              credits_audit_status tinyint(2)      default 2 comment '0:操作失败 1：操作成功 2：审核中',
-                              credits_audit_status_Description varchar(50)         default null comment '审核状态描述 注释/备注'
+create table credits_audit
+(
+    credits_audit_id                 int(10) primary key auto_increment,
+    student_id                       bigint(11) comment 'studentID',
+    mentor_id                        bigint(11) comment '老师id',
+    project_id                       bigint(11) comment '项目id',
+    group_id                         bigint(11) comment '加入的学生组id',
+    Competition_id                   bigint(11) comment '竞赛处id',
+    project_credits                  int         default 0,
+    credits_audit_status             tinyint(2)  default 2 comment '0:操作失败 1：操作成功 2：审核中',
+    credits_audit_status_Description varchar(50) default null comment '审核状态描述 注释/备注',
+    credits_audit_time               datetime    default now()
 )

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.university_project_platform_backend.common.TokenCommon;
 import com.example.university_project_platform_backend.entity.User;
 import com.example.university_project_platform_backend.mapper.UserMapper;
+import com.example.university_project_platform_backend.service.ICompetitionService;
 import com.example.university_project_platform_backend.service.IMentorService;
 import com.example.university_project_platform_backend.service.IStudentService;
 import com.example.university_project_platform_backend.service.IUserService;
@@ -34,7 +35,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private IStudentService iStudentService;
     @Autowired
     private IMentorService iMentorService;
-
+    @Autowired
+    private ICompetitionService iComponentetitionService;
     @Override
     public Map<String, Object> login(User user) {
 
@@ -104,7 +106,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             flag =iStudentService.isStudentFormStudentID(user.getUserName());
             user.setUserPermission((byte) 2);
 //            wrapper.setParamAlias("2");
-        }else {
+        }else if (userName >=  41000000000L &&userName< 42000000000L&& searchUserList.isEmpty()){
+            System.out.println("Competition_manage_running");
+            flag =iComponentetitionService.isCompetitionFromCompetitionID(user.getUserName());
+            user.setUserPermission((byte) 2);
+        }
+        else {
             if (searchUserList.isEmpty()){
                 flag = false;
             }

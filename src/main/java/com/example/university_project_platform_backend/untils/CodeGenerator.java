@@ -18,7 +18,7 @@ public class CodeGenerator {
         String password = "123456";
         String moduleName = "projectPlatform";
         String mapperLocation = "D:\\Work_RJ\\java_study\\university_project_platform_backend\\src\\main\\resources\\mapper\\";
-        String tables = "mentor,project,project_management,student,student_group,user,Competition,credits,project_management_operation,credits_operation,websocket,home_page,student_Audit,mentor_Audit,credits_audit,activity,project_Forum,mail";
+        String tables = "mentor,project,project_management,student,student_group,user,Competition,credits,project_management_operation,credits_operation,websocket,home_page,student_Audit,credits_audit,activity,project_Forum,mail";
 
 
         FastAutoGenerator.create(url, username, password)

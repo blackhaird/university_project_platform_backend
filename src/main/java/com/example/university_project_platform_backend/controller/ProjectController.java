@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.common.JsonResult;
+import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
 import com.example.university_project_platform_backend.entity.Project;
 import com.example.university_project_platform_backend.entity.StudentGroup;
 import com.example.university_project_platform_backend.service.IProjectService;
@@ -42,6 +43,19 @@ public class ProjectController {
             return JsonResult.ResultFail(studentGroupList.get("message").toString());
         }
     }
+
+    @PostMapping("/projectSearchWithData")
+    public JsonResult<Map<String, Object>> projectSearchWithData(@RequestBody ProjectAddDataDTO projectAddDataDTO) {
+        Map<String, Object> studentGroupList = iProjectService.getProjectSearchWithStudentMentorData(projectAddDataDTO);
+        if (studentGroupList != null) {
+            System.out.println("success");
+            return JsonResult.ResultSuccess(studentGroupList);
+        } else {
+            return JsonResult.ResultFail(studentGroupList.get("message").toString());
+        }
+    }
+
+
 
     @GetMapping("/getProjectNew")
     public JsonResult<Map<String, Object>> getProjectNew() {

@@ -16,16 +16,7 @@
     </select>
     <select id="getProjectWithStudentMentorData"
             resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
-        select project.project_id,
-               project_name,
-               project_scope,
-               project_introduction,
-               project_create_time,
-               project_end_time,
-               project_proposal_link,
-               project_creator,
-               project_tag,
-               project_belong,
+        select project.*,
                student_group.group_id,
                student_group.group_name,
                mentor.mentor_id,
@@ -45,6 +36,53 @@
           and project.project_id = project_management.project_id
           and mentor.mentor_id = #{mentorId};
 
+    </select>
+    <select id="getProjectSearchWithStudentMentorData"
+            resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
+        select project.*,
+        student_group.group_id,
+        student_group.group_name,
+        mentor.mentor_id,
+        mentor_name
+        from project,
+        project_management,mentor,student_group
+        where project_management.project_id = project.project_id
+        and project_management.Group_id = student_group.group_id
+        and project_management.mentor_id = mentor.mentor_id
+        <!-- 使用动态 SQL 标签进行条件判断 -->
+        <if test="projectId != null">
+            and project.project_id = #{projectId}
+        </if>
+        <if test="projectName != null and !projectName.isEmpty()">
+            and project.project_name like concat('%', #{projectName}, '%')
+        </if>
+        <if test="projectLevel != null">
+            and project.project_level = #{projectLevel}
+        </if>
+        <if test="projectCredits != null">
+            and project.project_credits = #{projectCredits}
+        </if>
+        <if test="projectBelong != null">
+            and project.project_belong = #{projectBelong}
+        </if>
+        <if test="projectDoneStatus != null">
+            and project.project_done_status = #{projectDoneStatus}
+        </if>
+        <if test="projectTag != null">
+            and project.project_tag = #{projectTag}
+        </if>
+        <if test="mentorId != null">
+            and project.mentor_id = #{mentorId}
+        </if>
+        <if test="projectScope != null and !projectScope.isEmpty()">
+            and project.project_scope like concat('%', #{projectScope}, '%')
+        </if>
+        <if test="projectDoneStatusList != null and projectDoneStatusList.size() > 0">
+            and project.project_done_status  in
+            <foreach item="status" index="index" collection="projectDoneStatusList" open="(" separator="," close=")">
+                #{status}
+            </foreach>
+        </if>
     </select>
 
 

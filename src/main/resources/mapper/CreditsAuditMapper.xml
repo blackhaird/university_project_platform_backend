@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.university_project_platform_backend.mapper.CreditsAuditMapper">
 
+    <select id="getCreditsFormTable"
+            resultType="com.example.university_project_platform_backend.entity.CreditsAudit">
+        select student.student_id,
+               project_management.mentor_id,
+               project_management.project_id,
+               project_management.Group_id,
+               project_management.competition_id,
+               project.project_credits as project_credits
+        from project_management,
+             student_group,
+             project,
+             student
+        where student_group.group_id = project_management.Group_id
+          and student_group.group_student_id = student.student_id
+          and project.project_id = project_management.project_id
+          and  project_management.project_id = #{projectId};
+    </select>
 </mapper>
