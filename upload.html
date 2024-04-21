@@ -24,7 +24,7 @@
         formData.append('file', file);
 
         $.ajax({
-            url: 'http://localhost:8408/file/upload',
+            url: 'http://1.12.37.222:8408/file/upload/mailFile',
             type: 'POST',
             data: formData,
             contentType: false, // 必须指定为false，否则jQuery会自动处理Content-Type
@@ -49,7 +49,7 @@
         formData.append('file', file);
 
         $.ajax({
-            url: 'http://localhost:8408/file/uploadProjectImg',
+            url: 'http://1.12.37.222:8408/file/upload/projectImg',
             type: 'POST',
             data: formData,
             contentType: false, // 必须指定为false，否则jQuery会自动处理Content-Type

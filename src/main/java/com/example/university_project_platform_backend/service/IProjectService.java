@@ -39,4 +39,6 @@ public interface IProjectService extends IService<Project> {
     Map<String, Object> getProjectSearchWithStudentMentorData(ProjectAddDataDTO projectAddDataDTO);
 
     boolean projectDone(ProjectManagement projectManagement,int status);
+
+    Map<String, Object> getProjectLevelTop5();
 }

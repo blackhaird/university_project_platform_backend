@@ -3,6 +3,8 @@ package com.example.university_project_platform_backend.service;
 import com.example.university_project_platform_backend.entity.Activity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IActivityService extends IService<Activity> {
 
+    Map<String, Object> getActivityNew();
+
+    Map<String, Object> activityShow(Activity activity);
 }

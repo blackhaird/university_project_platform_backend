@@ -18,18 +18,22 @@
     * [/student/showStudentProject](#studentshowstudentproject)
     * [/student/joinStudentGroup [0\.3\.6 UPDATE]](#studentjoinstudentgroup-036-update)
     * [/student/studentGroupShow](#studentstudentgroupshow)
+    * [/student/studentGroupSearch [0\.4\.0 NEW]](#studentstudentgroupsearch-040-new)
+    * [/student/studentAuditSearch [0\.4\.0 NEW]](#studentstudentauditsearch-040-new)
   * [Mentor](#mentor)
     * [/mentor/show &amp; add &amp; del &amp; change](#mentorshow--add--del--change)
     * [/mentor/studentGroupShow](#mentorstudentgroupshow)
     * [/mentor/studentGroupSearch](#mentorstudentgroupsearch)
     * [/mentor/studentGroupAdd](#mentorstudentgroupadd)
     * [/mentor/studentGroupDel](#mentorstudentgroupdel)
+    * [/mentor/studentGroupStudentDel [0\.4\.0 NEW]](#mentorstudentgroupstudentdel-040-new)
     * [/mentor/studentGroupChange](#mentorstudentgroupchange)
     * [/mentor/projectManagementAdd [0\.3\.5 UNUSE]](#mentorprojectmanagementadd-035-unuse)
     * [/mentor/projectManagementDel](#mentorprojectmanagementdel)
     * [/mentor/projectManagementUpdate](#mentorprojectmanagementupdate)
     * [/mentor/projectManagementShow](#mentorprojectmanagementshow)
     * [/mentor/projectAdd [0\.3\.5 NEW]](#mentorprojectadd-035-new)
+    * [/mentor/projectAddForActivity [0\.4\.0 NEW]](#mentorprojectaddforactivity-040-new)
     * [/mentor/projectDel](#mentorprojectdel)
     * [/mentor/projectUpdate](#mentorprojectupdate)
     * [/mentor/showMentorStudent](#mentorshowmentorstudent)
@@ -37,14 +41,22 @@
     * [/mentor/showMentorProject](#mentorshowmentorproject)
     * [/mentor/studentAuditUpdate [0\.3\.6 NEW]](#mentorstudentauditupdate-036-new)
     * [/mentor/projectDone [0\.3\.9 NEW]](#mentorprojectdone-039-new)
+    * [/mentor/studentAuditSearch [0\.4\.0 NEW]](#mentorstudentauditsearch-040-new)
+    * [/mentor/mentorStudentAudit [0\.4\.0 NEW]](#mentormentorstudentaudit-040-new)
   * [StudentGroup](#studentgroup)
     * [/studentGroup/show &amp; add &amp; del &amp; change](#studentgroupshow--add--del--change)
+    * [/studentGroup/search [0\.4\.0 NEW]](#studentgroupsearch-040-new)
   * [Competition](#competition)
     * [/competition/show &amp; add &amp; del &amp; change [0\.3\.9 NEW]](#competitionshow--add--del--change-039-new)
-    * [/competition/creditsAuditUpdate [0\.3\.9 NEW]](#competitioncreditsauditupdate-039-new)
+    * [/competition/creditsAuditUpdate [0\.4\.0 UPDATE]](#competitioncreditsauditupdate-040-update)
+    * [/competition/activityAdd [0\.4\.0 NEW]](#competitionactivityadd-040-new)
+    * [/competition/activityShow [0\.4\.0 NEW]](#competitionactivityshow-040-new)
+    * [/competition/creditsAuditShow [0\.4\.0 NEW]](#competitioncreditsauditshow-040-new)
     * [/competition/projectManagementAdd](#competitionprojectmanagementadd)
     * [/competition/projectManagementShow](#competitionprojectmanagementshow)
     * [/competition/projectManagementReview](#competitionprojectmanagementreview)
+    * [/competition/projectManagementAudit [0\.4\.0 NEW]](#competitionprojectmanagementaudit-040-new)
+    * [/competition/projectManagementUpdate](#competitionprojectmanagementupdate)
     * [/competition/projectUpdate](#competitionprojectupdate)
   * [Project](#project)
     * [/project/show](#projectshow)
@@ -52,6 +64,7 @@
     * [/project/projectSearchFuzzy [0\.3\.5 NEW]](#projectprojectsearchfuzzy-035-new)
     * [/project/projectSearchWithData [0\.3\.9 NEW]](#projectprojectsearchwithdata-039-new)
     * [/project/getProjectNew](#projectgetprojectnew)
+    * [/project/getProjectLevelTop5 [0\.4\.0 NEW]](#projectgetprojectleveltop5-040-new)
     * [/project/showWithData](#projectshowwithdata)
   * [Credits](#credits)
     * [/credits/show &amp; add &amp; del &amp; change](#creditsshow--add--del--change)
@@ -69,15 +82,18 @@
   * [HomePage](#homepage)
     * [/homePage/show &amp; add &amp; del &amp; change](#homepageshow--add--del--change)
   * [File  [0\.3\.5 NEW]](#file--035-new)
-    * [/file/upload](#fileupload)
-    * [/file/uploadProjectImg](#fileuploadprojectimg)
-    * [/file/uploadProjectProposal](#fileuploadprojectproposal)
+    * [/file/upload/\{fileLocation\} [0\.4\.0 UPDATE]](#fileuploadfilelocation-040-update)
+    * [/file/uploadProjectImg [0\.4\.0 UNUSE]](#fileuploadprojectimg-040-unuse)
+    * [/file/uploadProjectProposal [0\.4\.0 UNUSE]](#fileuploadprojectproposal-040-unuse)
   * [Activity [0\.3\.5 NEW]](#activity-035-new)
     * [/activity/show &amp; add &amp; del &amp; change](#activityshow--add--del--change)
+    * [/activity/search [0\.4\.0 NEW]](#activitysearch-040-new)
+    * [/activity/getActivityNew [0\.4\.0 NEW]](#activitygetactivitynew-040-new)
   * [MentorAudit [0\.3\.5 NEW]](#mentoraudit-035-new)
     * [/mentorAudit/show &amp; add &amp; del &amp; change](#mentorauditshow--add--del--change)
   * [StudentAudit [0\.3\.5 NEW]](#studentaudit-035-new)
     * [/studentAudit/show &amp; add &amp; del &amp; change](#studentauditshow--add--del--change)
+    * [/studentAudit/search [0\.4\.0 NEW]](#studentauditsearch-040-new)
   * [CreditsAudit [0\.3\.5 NEW]](#creditsaudit-035-new)
     * [/creditsAudit/show &amp; add &amp; del &amp; change](#creditsauditshow--add--del--change)
   * [Mail [0\.3\.6 NEW]](#mail-036-new)
@@ -738,7 +754,19 @@ create table student(
 }
 ```
 
+### /student/studentGroupSearch [0.4.0 NEW]
 
+`post`
+
+与/studentGroup/search一致
+
+
+
+### /student/studentAuditSearch [0.4.0 NEW]
+
+`post`
+
+与/activity/search 一致
 
 ## Mentor
 
@@ -924,6 +952,17 @@ create table mentor(
   "code": 200,
   "message": "删除成功 [ 22000000011 ]",
   "data": null
+}
+```
+
+### /mentor/studentGroupStudentDel [0.4.0 NEW]
+
+`post`
+
+```json
+{
+  "studentId": 学生ID数值,
+  "groupMentorId": 11001000002
 }
 ```
 
@@ -1224,6 +1263,20 @@ project表数据写入完毕后，会自动生成新的projectManagement数据�
   }
 }
 ```
+
+### /mentor/projectAddForActivity [0.4.0 NEW]
+
+`post`
+
+专门用于活动表的项目参加
+
+project表数据写入完毕后，会自动生成新的projectManagement数据 ，且project_status_id 会自动配置为2（不需要配置project_status_id）
+
+[并不会生成studentGroup数据]
+
+具体数据对照 **/mentor/projectAdd**
+
+若需要管理 projectManagement 中的数据请调用 **/competition/projectManagementReviews**
 
 
 
@@ -1596,6 +1649,78 @@ project表数据写入完毕后，会自动生成新的projectManagement数据�
 }
 ```
 
+### /mentor/studentAuditSearch [0.4.0 NEW]
+
+见/studentAudit/search [0.4.0 NEW]
+
+### /mentor/mentorStudentAudit [0.4.0 NEW]
+
+`post`
+
+```json
+//其中的studentAuditStatus为动态字段，没添加为全显示
+{
+  "mentorId": 11001000001,
+  "studentAuditStatus": 1
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "studentAuditId": 1,
+        "studentId": 12000000001,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "studentAuditStatus": 1,
+        "studentAuditStatusDescription": "暂无"
+      },
+      {
+        "studentAuditId": 2,
+        "studentId": 12000000001,
+        "mentorId": 11001000001,
+        "projectId": 31000000002,
+        "groupId": 22000000002,
+        "studentAuditStatus": 1,
+        "studentAuditStatusDescription": "暂无"
+      },
+      {
+        "studentAuditId": 21,
+        "studentId": 12000000002,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "studentAuditStatus": 1,
+        "studentAuditStatusDescription": "暂无"
+      },
+      {
+        "studentAuditId": 22,
+        "studentId": 12000000002,
+        "mentorId": 11001000001,
+        "projectId": 31000000002,
+        "groupId": 22000000002,
+        "studentAuditStatus": 1,
+        "studentAuditStatusDescription": "暂无"
+      },
+      {
+        "studentAuditId": 41,
+        "studentId": 12000000003,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "studentAuditStatus": 1,
+        "studentAuditStatusDescription": "暂无"
+      }
+    ]
+  }
+}
+```
+
 
 
 ## StudentGroup
@@ -1635,6 +1760,45 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
 
 > 接口与Student同理 等待权限分级
 
+### /studentGroup/search [0.4.0 NEW]
+
+`post`
+
+```json
+//动态参数
+{
+  "groupNumber": 2,
+  "groupId": 22000000001,
+  "groupName": "一窝咸鱼",
+  "groupMentorId": 11001000001,
+  "groupCaptainId": 12000000001,
+  "groupStudentId": 12000000002,
+  "groupCreateTime": "2024-04-21T21:34:37"
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "groupNumber": 2,
+        "groupId": 22000000001,
+        "groupName": "一窝咸鱼",
+        "groupMentorId": 11001000001,
+        "groupCaptainId": 12000000001,
+        "groupStudentId": 12000000002,
+        "groupCreateTime": "2024-04-21T21:34:37"
+      }
+    ]
+  }
+}
+```
+
+
+
 ## Competition 
 
 ### /competition/show & add & del & change [0.3.9 NEW]
@@ -1647,11 +1811,11 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
 接口与Student同理 
 ```
 
-### /competition/creditsAuditUpdate [0.3.9 NEW]
+### /competition/creditsAuditUpdate [0.4.0 UPDATE]
 
 `post`
 
-用于审核creditsAudit
+用于审核creditsAudit ，当 creditsAuditStatus = 1 时 会将 目前creditsAudit的学分数据 加到credits表中
 
 ```json
 {
@@ -1679,10 +1843,61 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
         "projectCredits": 2,
         "creditsAuditStatus": 1,
         "creditsAuditStatusDescription": "同意",
-        "creditsAuditTime": "2024-04-21T02:26:25"
+        "creditsAuditTime": "2024-04-22T03:39:55"
+      }
+    ],
+    "message": "[1] 的学分更新更新成功 :43 + 2"
+  }
+}
+```
+
+### /competition/activityAdd [0.4.0 NEW]
+
+`post`
+
+与 /activity/add 一致
+
+
+
+### /competition/activityShow [0.4.0 NEW]
+
+`post`
+
+```json
+{
+  "competitionId": 41001000001
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "activityId": 91000000001,
+        "activityName": "计算机设计大赛",
+        "activityImage": "1.12.37.222/act1.jpg",
+        "activityIntroduction": "全国大学生计算机系统能力大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校计算机教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。",
+        "activityCreateTime": "2024-04-21T21:34:37",
+        "activityEndTime": "2024-05-19T00:10:07",
+        "competitionId": 41001000001,
+        "activityScope": "电子信息",
+        "projectDoneStatus": 1
       }
     ]
   }
+}
+```
+
+### /competition/creditsAuditShow [0.4.0 NEW]
+
+`post`
+
+```JSON
+{
+  "competitionId": 41001000001
 }
 ```
 
@@ -1880,6 +2095,47 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
   }
 }
 ```
+
+### /competition/projectManagementAudit [0.4.0 NEW]
+
+该接口与 **/competition/projectManagementReview** 一致，但该接口 projectStatusId = 1 时会自动生成一个新的学生组，对应项目审核通过自动生成学生组。
+
+```json
+{
+  "competitionId": 41001000001,
+  "projectId":31000000109,
+  "projectStatusId": 0,
+  "projectStatusDescription": "【未通过】：项目状态状态描述：0代表未通过 1代表通过 2代表审核中 "
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "projectManagementId": 5,
+        "projectId": 31000000109,
+        "mentorId": 11001000001,
+        "competitionId": 41001000001,
+        "groupId": 22000000001,
+        "projectStatusId": false,
+        "projectStatusDescription": "【未通过】：项目状态状态描述：0代表未通过 1代表通过 2代表审核中 "
+      }
+    ]
+  }
+}
+```
+
+
+
+### /competition/projectManagementUpdate
+
+`post`
+
+
 
 ### /competition/projectUpdate
 
@@ -2165,6 +2421,12 @@ VALUES(31000000001,'大学生创新创业服务平台', '大学生创业创意�
 
 `get` 获取记录最新的10条数据
 
+### /project/getProjectLevelTop5 [0.4.0 NEW]
+
+`get`
+
+/project/getProjectLevelTop5
+
 ### /project/showWithData
 
 `get`
@@ -2361,7 +2623,7 @@ VALUES (12240020001,2),(12240020002,1),(12240110001,1),(12240120001,0);
 
 显示操作creditsOperation的数据记录
 
-## ChatService
+## ChatService 
 
 ### /chatService/{loginName}
 
@@ -2557,7 +2819,15 @@ create table home_page(
 
 ## File  [0.3.5 NEW]
 
-### /file/upload
+### /file/upload/{fileLocation} [0.4.0 UPDATE]
+
+其中的fileLocation为上传文件参数
+
+| 建议 fileLocation 名称 | 说明     |
+| ---------------------- | -------- |
+| mailFile               | 邮箱文件 |
+| projectImg             | 项目图片 |
+| projectDoc             | 项目文档 |
 
 `post`
 
@@ -2570,7 +2840,7 @@ function uploadFile() {
         formData.append('file', file);
 
         $.ajax({
-            url: 'http://localhost:8408/file/upload',
+            url: 'http://你服务器的IP:8408/file/upload/mailFile',
             type: 'POST',
             data: formData,
             contentType: false, // 必须指定为false，否则jQuery会自动处理Content-Type
@@ -2593,17 +2863,19 @@ function uploadFile() {
 {
 code=200, 
 message=Success, 
-data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77309158.jpg}
+data={
+    url=http://localhost:8408/file/download/mailFile/19f4cf68-0_b6ff2777-6_77309158.jpg
+	}
 }
 ```
 
-### /file/uploadProjectImg
+### /file/uploadProjectImg [0.4.0 UNUSE]
 
 ```
 /download/projectImg/{fileName}
 ```
 
-### /file/uploadProjectProposal
+### /file/uploadProjectProposal [0.4.0 UNUSE]
 
 ```
 /download/projectProposal/{fileName}
@@ -2625,6 +2897,108 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 
 > 接口与Student同理 无需权限分级
 
+### /activity/search [0.4.0 NEW]
+
+```
+{
+  "activityId": 91000000001
+}
+```
+
+```JSON
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": {
+      "activityId": 91000000001,
+      "activityName": "计算机设计大赛",
+      "activityImage": "1.12.37.222/act1.jpg",
+      "activityIntroduction": "全国大学生计算机系统能力大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校计算机教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。",
+      "activityCreateTime": "2024-04-21T21:34:37",
+      "activityEndTime": "2024-05-19T00:10:07",
+      "competitionId": 41001000001,
+      "activityScope": "电子信息",
+      "projectDoneStatus": 1
+    }
+  }
+}
+```
+
+
+
+### /activity/getActivityNew [0.4.0 NEW]
+
+`get`
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "activityId": 91000000001,
+        "activityName": "计算机设计大赛",
+        "activityImage": "1.12.37.222/act1.jpg",
+        "activityIntroduction": "全国大学生计算机系统能力大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校计算机教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。",
+        "activityCreateTime": "2024-04-21T21:34:37",
+        "activityEndTime": "2024-05-19T00:10:07",
+        "competitionId": 41001000001,
+        "activityScope": "电子信息",
+        "projectDoneStatus": 1
+      },
+      {
+        "activityId": 91000000002,
+        "activityName": "全国大学生计算机系统能力大赛",
+        "activityImage": "1.12.37.222/act2.jpg",
+        "activityIntroduction": "全国大学生计算机系统能力大赛的目标是以学科竞赛推动专业建设和计算机领域创新人才培养体系改革，培育我国高端芯片、关键基础软件的后备人才。大赛服务国家人才培养战略，以赛促学、以赛促教，鼓励学生设计、实现综合性的计算机系统，",
+        "activityCreateTime": "2024-04-21T21:34:37",
+        "activityEndTime": "2024-05-19T00:10:07",
+        "competitionId": 41001000005,
+        "activityScope": "电子信息",
+        "projectDoneStatus": 1
+      },
+      {
+        "activityId": 91000000003,
+        "activityName": "大学生生物医学工程创新设计竞赛",
+        "activityImage": "1.12.37.222/act3.jpg",
+        "activityIntroduction": "为进一步推动我国生物医学工程学科的发展，加快我国生物医学工程相关专业的建设步伐，培养高水平的优秀专业人才，围绕临床具体需求开展实践创新教育，在教育部高等学校生物医学工程类专业教学指导委员会的倡导下，2024年开始在我校范围内举办“全国大学生生物医学工程创新设计竞赛”，目前已成功举办八届。",
+        "activityCreateTime": "2024-04-21T21:34:37",
+        "activityEndTime": "2024-05-19T00:10:07",
+        "competitionId": 41001000004,
+        "activityScope": "生物、医药及医疗机械",
+        "projectDoneStatus": 1
+      },
+      {
+        "activityId": 91000000004,
+        "activityName": "管理技能大赛",
+        "activityImage": "1.12.37.222/act4.jpg",
+        "activityIntroduction": "管理技能大赛（以下简称“大赛”）是由系统能力培养研究专家组发起、由全国高校人员管理教育研究会和系统能力培养研究项目发起高校主办、面向高校大学生的全国性大赛。",
+        "activityCreateTime": "2024-04-21T21:34:37",
+        "activityEndTime": "2024-05-19T00:10:07",
+        "competitionId": 41001000002,
+        "activityScope": "交通规划及运输",
+        "projectDoneStatus": 2
+      },
+      {
+        "activityId": 91000000005,
+        "activityName": "全国大学生节能减排社会实践与科技竞赛",
+        "activityImage": "1.12.37.222/act5.jpg",
+        "activityIntroduction": "全国大学生节能减排社会实践与科技竞赛是由教育部高等教育司主办、由高等教育司办公室主抓的全国大学生学科竞赛， 为教育部确定的全国十大大学生学科竞赛之一，也是全国高校影响力最大的大学生科创竞赛之一",
+        "activityCreateTime": "2024-04-21T21:34:37",
+        "activityEndTime": "2024-05-19T00:10:07",
+        "competitionId": 41001000003,
+        "activityScope": "新能源与节能环保",
+        "projectDoneStatus": 2
+      }
+    ]
+  }
+}
+```
+
+
+
 ## MentorAudit [0.3.5 NEW]
 
 ### /mentorAudit/show & add & del & change
@@ -2638,6 +3012,8 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 ```
 
 > 接口与Student同理 无需权限分级
+
+
 
 ## StudentAudit [0.3.5 NEW]
 
@@ -2653,6 +3029,44 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 
 > 接口与Student同理 无需权限分级
 
+### /studentAudit/search [0.4.0 NEW]
+
+`post`
+
+```JSON
+//动态传参
+{
+  "studentAuditId": 1,
+  "studentId": 12000000001,
+  "mentorId": 11001000001,
+  "projectId": 31000000001,
+  "groupId": 22000000001,
+  "studentAuditStatus": 1,
+}
+```
+
+```
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "studentAuditId": 1,
+        "studentId": 12000000001,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "studentAuditStatus": 1,
+        "studentAuditStatusDescription": "暂无"
+      }
+    ]
+  }
+}
+```
+
+
+
 ## CreditsAudit [0.3.5 NEW]
 
 ### /creditsAudit/show & add & del & change
@@ -2667,6 +3081,8 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 
 > 接口与Student同理 无需权限分级
 
+
+
 ## Mail [0.3.6 NEW]
 
 ### /mail/sendForUserList
@@ -2676,7 +3092,6 @@ data={url=http://localhost:8408/file/download/websocket/19f4cf68-0_b6ff2777-6_77
 ### /mail/getMessage
 
 详情见 ChatService/getMessage
-<<<<<<< HEAD
 
 ### /mail/uploadProjectImg
 

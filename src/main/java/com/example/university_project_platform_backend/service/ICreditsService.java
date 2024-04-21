@@ -26,4 +26,5 @@ public interface ICreditsService extends IService<Credits> {
     boolean creditsAdd(long userId, UserCreditsDTO credits);
 
     List<CreditsStudentDTO> getCredits();
+
 }

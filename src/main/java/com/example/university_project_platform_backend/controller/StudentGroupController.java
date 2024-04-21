@@ -63,4 +63,13 @@ public class StudentGroupController {
             return JsonResult.ResultFail();
         }
     }
+    @PostMapping("/search")
+    public JsonResult<Map<String,Object>> studentSearch(@RequestBody StudentGroup studentGroup){
+        Map<String,Object> data = istudentGroupService.studentGroupSearchByStudentGroup(studentGroup);
+        if (data!=null){
+            return JsonResult.ResultSuccess(data);
+        }else {
+            return JsonResult.ResultFail();
+        }
+    }
 }

@@ -62,4 +62,14 @@ public class StudentAuditController {
             return JsonResult.ResultFail("未找到对应学生审计记录");
         }
     }
+
+    @PostMapping("/search")
+    public JsonResult<Map<String,Object>> studentAuditSearch(@RequestBody StudentAudit studentAudit){
+        Map<String,Object> map = iStudentAuditService.studentAuditSearch(studentAudit);
+        if (map.get("data") != null){
+            return JsonResult.ResultSuccess(map);
+        }else {
+            return JsonResult.ResultFail(map.get("message").toString());
+        }
+    }
 }

@@ -86,13 +86,34 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
     public Map<String, Object> studentGroupSearchByStudentGroup(StudentGroup studentGroup) {
         Map<String,Object> studentGroupMap = new HashMap<>();
         LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StudentGroup::getGroupMentorId,studentGroup.getGroupMentorId());
-        wrapper.or(i -> i
-                .eq(StudentGroup::getGroupId,studentGroup.getGroupId())
-                .eq(StudentGroup::getGroupStudentId,studentGroup.getGroupStudentId())
-                .eq(StudentGroup::getGroupName,studentGroup.getGroupName())
-                .eq(StudentGroup::getGroupCaptainId,studentGroup.getGroupCaptainId())
-        );
+        if (studentGroup.getGroupNumber()!=null){
+            wrapper.eq(StudentGroup::getGroupNumber,studentGroup.getGroupNumber());
+        }
+        if (studentGroup.getGroupId()!=null){
+            wrapper.eq(StudentGroup::getGroupId,studentGroup.getGroupId());
+        }
+        if (studentGroup.getGroupMentorId()!=null){
+            wrapper.eq(StudentGroup::getGroupMentorId,studentGroup.getGroupMentorId());
+        }
+        if (studentGroup.getGroupStudentId()!=null){
+            wrapper.eq(StudentGroup::getGroupStudentId,studentGroup.getGroupStudentId());
+        }
+        if (studentGroup.getGroupName()!=null){
+            wrapper.eq(StudentGroup::getGroupName,studentGroup.getGroupName());
+        }
+        if (studentGroup.getGroupCaptainId()!=null){
+            wrapper.eq(StudentGroup::getGroupCaptainId,studentGroup.getGroupCaptainId());
+        }
+        if (studentGroup.getGroupCreateTime()!=null){
+            wrapper.eq(StudentGroup::getGroupCreateTime,studentGroup.getGroupCreateTime());
+        }
+//        wrapper.eq(StudentGroup::getGroupMentorId,studentGroup.getGroupMentorId());
+//        wrapper.or(i -> i
+//                .eq(StudentGroup::getGroupId,studentGroup.getGroupId())
+//                .eq(StudentGroup::getGroupStudentId,studentGroup.getGroupStudentId())
+//                .eq(StudentGroup::getGroupName,studentGroup.getGroupName())
+//                .eq(StudentGroup::getGroupCaptainId,studentGroup.getGroupCaptainId())
+//        );
         List<StudentGroup> studentGroupList = this.list(wrapper);
         if (!studentGroupList.isEmpty()){
             System.out.println("success");
@@ -194,6 +215,19 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
                 map.put("message", "保存数据失败");
             }
             return map;
+        }
+    }
+
+    @Override
+    public boolean studentGroupStudentDeleteByMentorId(Long groupMentorId, Long groupStudentId) {
+        LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StudentGroup::getGroupStudentId, groupStudentId);
+        wrapper.eq(StudentGroup::getGroupMentorId, groupMentorId);
+        int mentorFlag = this.baseMapper.delete(wrapper);
+        if (mentorFlag!=0){
+            return true;
+        }else {
+            return false;
         }
     }
 

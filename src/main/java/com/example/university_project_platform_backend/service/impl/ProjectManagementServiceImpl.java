@@ -3,6 +3,7 @@ package com.example.university_project_platform_backend.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectActivityDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.mapper.ProjectManagementMapper;
@@ -201,6 +202,37 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
             projectMap.put("message", "提交项目管理失败，已回滚事务");
         }
         List<ProjectProjectManagementDTO> projectProjectManagementDTO = this.baseMapper.getProjectProjectManagementDTOByProjectId(project.getProjectId(), project.getMentorId());
+        projectMap.put("data", projectProjectManagementDTO);
+        return projectMap;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> projectManagementSubmitForActivityByMentor(Long mentorId, ProjectActivityDTO projectActivityDTO) {
+        Map<String,Object> projectMap =  new HashMap<>();
+        /**
+         * 项目状态id 0代表未通过 1代表通过 2代表审核中
+         */
+        ProjectManagement projectManagement = new ProjectManagement();
+//        StudentGroup studentGroup = new StudentGroup();
+//        studentGroup.setGroupMentorId(mentorId);
+//        studentGroup.setGroupId(iStudentGroupService.getMaxStudentGroupId() + 1);
+
+        projectManagement.setMentorId(mentorId);
+        projectManagement.setProjectId(projectActivityDTO.getProjectId());
+        projectManagement.setCompetitionId(projectActivityDTO.getCompetitionId());
+        projectManagement.setProjectStatusId((byte)2);
+
+        try {
+//            iStudentGroupService.save(studentGroup);
+            this.save(projectManagement);
+
+        } catch (Exception e) {
+            log.error("提交项目管理失败，已回滚事务", e);
+            projectMap.put("message", "提交项目管理失败，已回滚事务");
+        }
+        List<ProjectProjectManagementDTO> projectProjectManagementDTO = this.baseMapper.getProjectProjectManagementDTOByProjectId(
+                projectActivityDTO.getProjectId(), projectActivityDTO.getMentorId());
         projectMap.put("data", projectProjectManagementDTO);
         return projectMap;
     }

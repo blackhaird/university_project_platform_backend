@@ -38,4 +38,6 @@ public interface IStudentGroupService extends IService<StudentGroup> {
     Long getMaxStudentGroupId();
 
     Map<String, Object> studentGroupSave(StudentAudit studentAudit);
+
+    boolean studentGroupStudentDeleteByMentorId(Long groupMentorId, Long groupStudentId);
 }

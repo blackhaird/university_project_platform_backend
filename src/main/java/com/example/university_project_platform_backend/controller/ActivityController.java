@@ -63,5 +63,25 @@ public class ActivityController {
             return JsonResult.ResultFail();
         }
     }
-
+    @PostMapping("/search")
+    public JsonResult<Map<String,Object>> activitySearch(@RequestBody Activity activity){
+        Map<String,Object> activityMap = new HashMap<>();
+        Activity activity1 = iActivityService.getById(activity.getActivityId());
+        if (activity1 != null){
+            activityMap.put("data",activity1);
+            return JsonResult.ResultSuccess(activityMap);
+        }else {
+            return JsonResult.ResultFail("查询不到该导师存在导师组");
+        }
+    }
+    @GetMapping("/getActivityNew")
+    public JsonResult<Map<String, Object>> getActivityNew() {
+        Map<String, Object> activityList = iActivityService.getActivityNew();
+        if (activityList != null) {
+            System.out.println("success");
+            return JsonResult.ResultSuccess(activityList);
+        } else {
+            return JsonResult.ResultFail("查询不到该导师存在导师组");
+        }
+    }
 }

@@ -39,11 +39,11 @@
     </select>
     <select id="getProjectSearchWithStudentMentorData"
             resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
-        select project.*,
-        student_group.group_id,
-        student_group.group_name,
-        mentor.mentor_id,
-        mentor_name
+        select distinct project.*,
+                        student_group.group_id,
+                        student_group.group_name,
+                        mentor.mentor_id as mentor_id,
+                        mentor_name
         from project,
         project_management,mentor,student_group
         where project_management.project_id = project.project_id
@@ -78,7 +78,7 @@
             and project.project_scope like concat('%', #{projectScope}, '%')
         </if>
         <if test="projectDoneStatusList != null and projectDoneStatusList.size() > 0">
-            and project.project_done_status  in
+            and project.project_done_status in
             <foreach item="status" index="index" collection="projectDoneStatusList" open="(" separator="," close=")">
                 #{status}
             </foreach>

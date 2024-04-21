@@ -5,11 +5,13 @@ import com.example.university_project_platform_backend.controller.dto.MentorProj
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * <p>
@@ -32,6 +34,11 @@ public class CompetitionController {
     ICompetitionService iCompetitionService;
     @Autowired
     ICreditsAuditService iCreditsAuditService;
+
+    @Autowired
+    IStudentGroupService iStudentGroupService;
+    @Autowired
+    IActivityService iActivityService;
     @GetMapping("/show")
     public JsonResult<List<Competition>> competitionShow(){
         List<Competition> competitionList = iCompetitionService.list();
@@ -129,7 +136,15 @@ public class CompetitionController {
         }
     }
 
-
+    @PostMapping("/creditsAuditShow")
+    public JsonResult<Map<String, Object>> creditsAuditShow(@RequestBody CreditsAudit creditsAudit) {
+        Map<String, Object> data = iCreditsAuditService.creditsAuditShowByCompetitionId(creditsAudit);
+        if (data != null) {
+            return JsonResult.ResultSuccess(data);
+        } else {
+            return JsonResult.ResultFail(data.get("message").toString());
+        }
+    }
     @PostMapping("/creditsAuditUpdate")
     public JsonResult<Map<String, Object>> creditsAuditUpdate(@RequestBody CreditsAudit creditsAudit) {
         Map<String, Object> data = iCreditsAuditService.creditsAuditUpdate(creditsAudit);
@@ -137,6 +152,56 @@ public class CompetitionController {
             return JsonResult.ResultSuccess(data);
         } else {
             return JsonResult.ResultFail(data.get("message").toString());
+        }
+    }
+
+    @PostMapping("/activityAdd")
+    public JsonResult<Map<String, Object>> activityAdd(@RequestBody Activity activity){
+        Map<String,Object> activityMap = new HashMap<>();
+        boolean activityFlag = iActivityService.save(activity);
+        if (activityFlag){
+            activityMap.put("data",activity);
+            return JsonResult.ResultSuccess(activityMap);
+        }
+        return JsonResult.ResultFail(204,"找不到数据");
+    }
+
+    @PostMapping("/projectManagementAudit")
+    @Transactional(rollbackFor = Exception.class)
+    public JsonResult<Map<String,Object>> projectManagementAudit(@RequestBody ProjectManagement projectManagement) {
+        try {
+            Map<String,Object> projectManagementMap = iProjectManagementService.projectManagementReview(projectManagement.getCompetitionId(),projectManagement);
+            if (projectManagementMap.get("data")==null){
+                return JsonResult.ResultFail();
+            }else {
+                if (projectManagement.getProjectStatusId()==1) {
+                    StudentGroup studentGroup = new StudentGroup();
+                    studentGroup.setGroupMentorId(projectManagement.getMentorId());
+                    studentGroup.setGroupCaptainId(projectManagement.getMentorId());
+                    studentGroup.setGroupId(iStudentGroupService.getMaxStudentGroupId() + 1);
+                    boolean studentGroupFlag = iStudentGroupService.save(studentGroup);
+                    if (studentGroupFlag) {
+                        return JsonResult.ResultSuccess(projectManagementMap);
+                    } else {
+                        return JsonResult.ResultFail("学生组新建失败");
+                    }
+                }else {
+                    return JsonResult.ResultSuccess(projectManagementMap);
+                }
+            }
+        }catch (Exception e){
+            return JsonResult.ResultFail("projectManagementAudit 接口异常");
+        }
+    }
+
+    @PostMapping("/activityShow")
+    public JsonResult<Map<String, Object>> activityShow(@RequestBody Activity activity){
+
+        Map<String,Object> activityMap = iActivityService.activityShow(activity);
+        if (activityMap.get("data")!=null){
+            return JsonResult.ResultSuccess(activityMap);
+        }else {
+            return JsonResult.ResultFail(204,activityMap.get("message").toString());
         }
     }
 }

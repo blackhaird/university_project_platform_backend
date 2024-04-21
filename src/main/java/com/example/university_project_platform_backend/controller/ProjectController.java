@@ -68,6 +68,17 @@ public class ProjectController {
         }
     }
 
+    @GetMapping("/getProjectLevelTop5")
+    public JsonResult<Map<String, Object>> getProjectLevelTop5() {
+        Map<String, Object> studentGroupList = iProjectService.getProjectLevelTop5();
+        if (studentGroupList != null) {
+            System.out.println("success");
+            return JsonResult.ResultSuccess(studentGroupList);
+        } else {
+            return JsonResult.ResultFail();
+        }
+    }
+
     @GetMapping("/showWithData")
     public JsonResult<Map<String, Object>> projectShowWithData() {
         Map<String, Object> studentGroupList = iProjectService.getProjectWithStudentMentorData();
@@ -89,4 +100,6 @@ public class ProjectController {
             return JsonResult.ResultFail(studentGroupList.get("message").toString());
         }
     }
+
+
 }

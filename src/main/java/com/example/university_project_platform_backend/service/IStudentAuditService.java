@@ -20,4 +20,8 @@ public interface IStudentAuditService extends IService<StudentAudit> {
     Map<String, Object> studentAuditSubmit(StudentGroupProjectManagementDTO studentGroupProjectManagementDTO);
 
     Boolean studentAuditUpdate(StudentAudit studentAudit);
+
+    Map<String, Object> studentAuditSearch(StudentAudit studentAudit);
+
+    Map<String, Object> getStudentAuditByMentorId(StudentAudit studentAudit);
 }

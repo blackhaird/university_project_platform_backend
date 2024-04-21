@@ -2,6 +2,7 @@ package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.example.university_project_platform_backend.controller.dto.StudentAuditStudentDTO;
 import com.example.university_project_platform_backend.controller.dto.StudentGroupProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.Student;
 import com.example.university_project_platform_backend.entity.StudentAudit;
@@ -81,5 +82,61 @@ public class StudentAuditServiceImpl extends ServiceImpl<StudentAuditMapper, Stu
             flag = false;
         }
         return flag;
+    }
+
+    @Override
+    public Map<String, Object> studentAuditSearch(StudentAudit studentAudit) {
+        // 将查询结果封装到Map中返回
+        Map<String, Object> result = new HashMap<>();
+        LambdaQueryWrapper<StudentAudit> wrapper = new LambdaQueryWrapper<>();
+        // 判断学生ID是否非空并添加查询条件
+        if (studentAudit.getStudentId() != null) {
+            wrapper.eq(StudentAudit::getStudentId, studentAudit.getStudentId());
+        }
+
+        // 判断老师ID是否非空并添加查询条件
+        if (studentAudit.getMentorId() != null) {
+            wrapper.eq(StudentAudit::getMentorId, studentAudit.getMentorId());
+        }
+
+        // 判断项目ID是否非空并添加查询条件
+        if (studentAudit.getProjectId() != null) {
+            wrapper.eq(StudentAudit::getProjectId, studentAudit.getProjectId());
+        }
+
+        // 判断加入的学生组ID是否非空并添加查询条件
+        if (studentAudit.getGroupId() != null) {
+            wrapper.eq(StudentAudit::getGroupId, studentAudit.getGroupId());
+        }
+
+        // 判断学生审核状态是否非空并添加查询条件
+        if (studentAudit.getStudentAuditStatus() != null) {
+            wrapper.eq(StudentAudit::getStudentAuditStatus, studentAudit.getStudentAuditStatus());
+        }
+        List<StudentAudit> studentAudits = this.baseMapper.selectList(wrapper);
+
+        if (!studentAudits.isEmpty()){
+            result.put("data", studentAudits);
+        }else {
+            result.put("message", "找不到该数据");
+        }
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getStudentAuditByMentorId(StudentAudit studentAudit) {
+        Map<String,Object> map = new HashMap<>();
+        LambdaQueryWrapper<StudentAudit> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StudentAudit::getMentorId, studentAudit.getMentorId());
+        if (studentAudit.getStudentAuditStatus() != null){
+            wrapper.eq(StudentAudit::getStudentAuditStatus, studentAudit.getStudentAuditStatus());
+        }
+        List<StudentAudit> studentAuditStudentDTOList = this.list(wrapper);
+        if (!studentAuditStudentDTOList.isEmpty()){
+            map.put("data", studentAuditStudentDTOList);
+        }else {
+            map.put("message", "未找到该导师的学生提交审核记录");
+        }
+        return map;
     }
 }

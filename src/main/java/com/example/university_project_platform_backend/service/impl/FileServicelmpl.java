@@ -19,8 +19,11 @@ import java.nio.file.Files;
 @Slf4j
 @Service
 public class FileServicelmpl implements IFileService {
-    private static final String DOMAIN = "http://localhost:8408/file/download/";
-    private static final String STORE_PATH = "D:\\Work_RJ\\java_study\\university_project_platform_backend\\src\\main\\resources\\uploadFile\\";
+//    private static final String DOMAIN = "http://localhost:8408/file/download/";
+//    private static final String STORE_PATH = "D:\\Work_RJ\\java_study\\university_project_platform_backend\\src\\main\\resources\\uploadFile\\";
+
+    private static final String DOMAIN = "http://1.12.37.222:8408/file/download/";
+    private static final String STORE_PATH = "C:\\Program Files\\SpringbootServer\\resources\\";
 
     @Override
     public String uploadFile(MultipartFile file, String fileLocation, String fileName) throws IOException {
@@ -38,7 +41,7 @@ public class FileServicelmpl implements IFileService {
         System.out.println("filePath:"+filePath);
         try {
             response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileLocation + "/" + fileName);
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" +  fileName);
             Files.copy(new File(filePath).toPath(), response.getOutputStream());
             response.getOutputStream().flush();
         } catch (IOException e) {

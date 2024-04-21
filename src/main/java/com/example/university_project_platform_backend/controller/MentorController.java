@@ -1,9 +1,6 @@
 package com.example.university_project_platform_backend.controller;
 
-import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
-import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
+import com.example.university_project_platform_backend.controller.dto.*;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.service.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,6 +111,15 @@ public class MentorController {
     @PostMapping("/studentGroupDel")
     public JsonResult<Map<String, Object>> mentorStudentGroupDel(@RequestBody StudentGroup studentGroup) {
         boolean studentGroupFlag = iStudentGroupService.studentGroupDeleteByMentorId(studentGroup.getGroupMentorId(), studentGroup.getGroupId());
+        if (studentGroupFlag) {
+            return JsonResult.ResultSuccess("删除成功 [ " + studentGroup.getGroupId() + " ]");
+        }
+        return JsonResult.ResultFail("删除失败 [ " + studentGroup.getGroupId() + " ] 找不到ID或数据冲突");
+    }
+
+    @PostMapping("/studentGroupStudentDel")
+    public JsonResult<Map<String, Object>> studentGroupStudentDel(@RequestBody StudentGroup studentGroup) {
+        boolean studentGroupFlag = iStudentGroupService.studentGroupStudentDeleteByMentorId(studentGroup.getGroupMentorId(), studentGroup.getGroupStudentId());
         if (studentGroupFlag) {
             return JsonResult.ResultSuccess("删除成功 [ " + studentGroup.getGroupId() + " ]");
         }
@@ -291,6 +297,23 @@ public class MentorController {
         }
     }
 
+    @PostMapping("/projectAddForActivity")
+    public JsonResult<Map<String, Object>> projectAddForActivity(@RequestBody ProjectActivityDTO projectActivityDTO) {
+        Long mentorId = projectActivityDTO.getMentorId();
+        boolean projectFlag = iProjectService.save(projectActivityDTO);
+        if (projectFlag) {
+            Map<String, Object> projectManageMap = iProjectManagementService.projectManagementSubmitForActivityByMentor(mentorId, projectActivityDTO);
+
+            if (projectManageMap.get("data") != null) {
+                return JsonResult.ResultSuccess(projectManageMap);
+            } else {
+                return JsonResult.ResultFail(projectManageMap.get("message").toString());
+            }
+        } else {
+            return JsonResult.ResultFail("项目新增失败，可能是Project表创建出现问题");
+        }
+    }
+
     @PostMapping("/studentAuditUpdate")
     public JsonResult<Map<String, Object>> studentAuditUpdate(@RequestBody StudentAudit studentAudit) {
         boolean studentAuditSubmit = iStudentAuditService.studentAuditUpdate(studentAudit);
@@ -320,6 +343,24 @@ public class MentorController {
             }
         } else {
             return JsonResult.ResultFail("项目完成失败");
+        }
+    }
+    @PostMapping("/studentAuditSearch")
+    public JsonResult<Map<String,Object>> studentAuditSearch(@RequestBody StudentAudit studentAudit){
+        Map<String,Object> map = iStudentAuditService.studentAuditSearch(studentAudit);
+        if (map.get("data") != null){
+            return JsonResult.ResultSuccess(map);
+        }else {
+            return JsonResult.ResultFail(map.get("message").toString());
+        }
+    }
+    @PostMapping("/mentorStudentAudit")
+    public JsonResult<Map<String,Object>> mentorStudentAudit(@RequestBody StudentAudit StudentAudit){
+        Map<String,Object> map = iStudentAuditService.getStudentAuditByMentorId(StudentAudit);
+        if (map.get("data") != null){
+            return JsonResult.ResultSuccess(map);
+        }else {
+            return JsonResult.ResultFail(map.get("message").toString());
         }
     }
 }

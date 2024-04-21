@@ -22,4 +22,6 @@ public interface ICreditsAuditService extends IService<CreditsAudit> {
     Map<String,Object> creditsAuditSubmit(ProjectManagement projectManagement);
 
     Map<String, Object> creditsAuditUpdate(CreditsAudit creditsAudit);
+
+    Map<String, Object> creditsAuditShowByCompetitionId(CreditsAudit creditsAudit);
 }

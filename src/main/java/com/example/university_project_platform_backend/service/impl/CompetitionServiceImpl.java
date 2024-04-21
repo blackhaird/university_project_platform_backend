@@ -53,7 +53,11 @@ public class CompetitionServiceImpl extends ServiceImpl<CompetitionMapper, Compe
         wrapper.eq(Competition::getCompetitionId,competitionId);
         System.out.println(competitionId);
         List<Competition> searchMentorList = this.list(wrapper);
-        mentorMap.put("data",searchMentorList);
+        if (searchMentorList.isEmpty()){
+            System.out.println("找不到数据");
+        }else {
+            mentorMap.put("data",searchMentorList);
+        }
         return mentorMap;
     }
 }

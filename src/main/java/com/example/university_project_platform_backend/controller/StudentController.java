@@ -6,6 +6,7 @@ import com.example.university_project_platform_backend.controller.dto.StudentGro
 import com.example.university_project_platform_backend.controller.dto.StudentMentorDTO;
 import com.example.university_project_platform_backend.entity.ProjectManagement;
 import com.example.university_project_platform_backend.entity.Student;
+import com.example.university_project_platform_backend.entity.StudentAudit;
 import com.example.university_project_platform_backend.entity.StudentGroup;
 import com.example.university_project_platform_backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class StudentController {
     private IStudentAuditService iStudentAuditService;
     @Autowired
     IStudentGroupService iStudentGroupService;
-
+    @Autowired
+    IStudentGroupService istudentGroupService;
     @PostMapping("/test")
     public JsonResult<Object> studentTest(@RequestBody String studentId){
         System.out.println("studentTest Running ：" + studentId);
@@ -144,6 +146,25 @@ public class StudentController {
             return JsonResult.ResultSuccess(studentGroupList);
         } else {
             return JsonResult.ResultSuccess();
+        }
+    }
+    @PostMapping("/studentGroupSearch")
+    public JsonResult<Map<String,Object>> studentGroupSearch(@RequestBody StudentGroup studentGroup){
+        Map<String,Object> data = istudentGroupService.studentGroupSearchByStudentGroup(studentGroup);
+        if (data!=null){
+            return JsonResult.ResultSuccess(data);
+        }else {
+            return JsonResult.ResultFail();
+        }
+    }
+
+    @PostMapping("/studentAuditSearch")
+    public JsonResult<Map<String,Object>> studentAuditSearch(@RequestBody StudentAudit studentAudit){
+        Map<String,Object> map = iStudentAuditService.studentAuditSearch(studentAudit);
+        if (map.get("data") != null){
+            return JsonResult.ResultSuccess(map);
+        }else {
+            return JsonResult.ResultFail(map.get("message").toString());
         }
     }
 }
