@@ -66,6 +66,9 @@ public class MentorController {
 
     @PostMapping("/add")
     public JsonResult<Map<String, Object>> mentorAdd(@RequestBody Mentor mentor) {
+        if(mentor.getMentorProfessionalId()==null){
+            mentor.setMentorProfessionalId((byte)0);
+        }
         Map<String, Object> map = iMentorService.getMentorsFormMentorID(mentor.getMentorId());
         if (map.get("data") != null) {
             return JsonResult.ResultSuccess("已有[" + mentor.getMentorId() + "] 的数据");

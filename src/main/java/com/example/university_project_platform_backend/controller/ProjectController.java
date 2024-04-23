@@ -33,6 +33,12 @@ public class ProjectController {
         return JsonResult.ResultSuccess(projectList);
     }
 
+    @PostMapping("/showPost")
+    public JsonResult<List<Project>> projectShowPost() {
+        List<Project> projectList = iProjectService.list();
+        System.out.println(projectList);
+        return JsonResult.ResultSuccess(projectList);
+    }
     @PostMapping("/projectSearch")
     public JsonResult<Map<String, Object>> projectSearch(@RequestBody Project project) {
         Map<String, Object> studentGroupList = iProjectService.projectSearchByProject(project);
