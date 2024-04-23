@@ -961,10 +961,21 @@ create table mentor(
 
 ```json
 {
-  "studentId": 学生ID数值,
-  "groupMentorId": 11001000002
+  "groupStudentId": 12000000001,
+  "groupMentorId": 11001000015,
+  "groupId":22000000017
 }
 ```
+
+```
+{
+  "code": 200,
+  "message": "删除成功 [ 12000000001 ]",
+  "data": null
+}
+```
+
+
 
 ### /mentor/studentGroupChange
 

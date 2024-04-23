@@ -17,10 +17,12 @@
 
     <select id="projectManagementSelectByCompetitionId"
             resultType="com.example.university_project_platform_backend.controller.dto.MentorProjectDTO">
-        select * from project_management,project where
-                                                     mentor_id = #{mentorId}
-                                                   or competition_id = #{competitionId}
-                                                   and project.project_id = project_management.project_id
+        select *
+        from project_management,
+             project
+        where project_management.mentor_id = #{mentorId}
+           or project_management.competition_id = #{competitionId}
+            and project.project_id = project_management.project_id
     </select>
     <select id="getProjectProjectManagementDTOByProjectId"
             resultType="com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO">

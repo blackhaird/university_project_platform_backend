@@ -219,10 +219,11 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
     }
 
     @Override
-    public boolean studentGroupStudentDeleteByMentorId(Long groupMentorId, Long groupStudentId) {
+    public boolean studentGroupStudentDeleteByMentorId(StudentGroup studentGroup) {
         LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StudentGroup::getGroupStudentId, groupStudentId);
-        wrapper.eq(StudentGroup::getGroupMentorId, groupMentorId);
+        wrapper.eq(StudentGroup::getGroupStudentId, studentGroup.getGroupStudentId());
+        wrapper.eq(StudentGroup::getGroupMentorId, studentGroup.getGroupMentorId());
+        wrapper.eq(StudentGroup::getGroupId,studentGroup.getGroupId());
         int mentorFlag = this.baseMapper.delete(wrapper);
         if (mentorFlag!=0){
             return true;

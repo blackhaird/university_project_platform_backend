@@ -119,11 +119,12 @@ public class MentorController {
 
     @PostMapping("/studentGroupStudentDel")
     public JsonResult<Map<String, Object>> studentGroupStudentDel(@RequestBody StudentGroup studentGroup) {
-        boolean studentGroupFlag = iStudentGroupService.studentGroupStudentDeleteByMentorId(studentGroup.getGroupMentorId(), studentGroup.getGroupStudentId());
+        boolean studentGroupFlag = iStudentGroupService.studentGroupStudentDeleteByMentorId(studentGroup);
         if (studentGroupFlag) {
-            return JsonResult.ResultSuccess("删除成功 [ " + studentGroup.getGroupId() + " ]");
+            return JsonResult.ResultSuccess("删除成功 [ " + studentGroup.getGroupStudentId() + " ]");
+        }else {
+            return JsonResult.ResultFail("删除失败 [ " + studentGroup.getGroupStudentId() + " ] 找不到ID或数据冲突");
         }
-        return JsonResult.ResultFail("删除失败 [ " + studentGroup.getGroupId() + " ] 找不到ID或数据冲突");
     }
 
     @PostMapping("/studentGroupChange")
