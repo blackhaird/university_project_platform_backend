@@ -83,8 +83,9 @@
     * [/homePage/show &amp; add &amp; del &amp; change](#homepageshow--add--del--change)
   * [File  [0\.3\.5 NEW]](#file--035-new)
     * [/file/upload/\{fileLocation\} [0\.4\.0 UPDATE]](#fileuploadfilelocation-040-update)
-    * [/file/uploadProjectImg [0\.4\.0 UNUSE]](#fileuploadprojectimg-040-unuse)
-    * [/file/uploadProjectProposal [0\.4\.0 UNUSE]](#fileuploadprojectproposal-040-unuse)
+    * [/file/download/\{fileLocation\}/\{fileName\} [0\.4\.0 NEW]](#filedownloadfilelocationfilename-040-new)
+    * [/file/uploadProjectImg [0\.4\.0 DEL]](#fileuploadprojectimg-040-del)
+    * [/file/uploadProjectProposal [0\.4\.0 DEL]](#fileuploadprojectproposal-040-del)
   * [Activity [0\.3\.5 NEW]](#activity-035-new)
     * [/activity/show &amp; add &amp; del &amp; change](#activityshow--add--del--change)
     * [/activity/search [0\.4\.0 NEW]](#activitysearch-040-new)
@@ -99,7 +100,7 @@
   * [Mail [0\.3\.6 NEW]](#mail-036-new)
     * [/mail/sendForUserList](#mailsendforuserlist)
     * [/mail/getMessage](#mailgetmessage)
-    * [/mail/uploadProjectImg](#mailuploadprojectimg)
+    * [/mail/uploadProjectImg [0\.4\.0 DEL]](#mailuploadprojectimg-040-del)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
 
