@@ -967,7 +967,7 @@ create table mentor(
 }
 ```
 
-```
+```json
 {
   "code": 200,
   "message": "删除成功 [ 12000000001 ]",
@@ -2880,13 +2880,30 @@ data={
 }
 ```
 
-### /file/uploadProjectImg [0.4.0 UNUSE]
+### /file/download/{fileLocation}/{fileName} [0.4.0 NEW]
+
+以上文为例
+
+其中的URL 请求的接口为 /file/download/{fileLocation}/{fileName}
+
+fileLocation：对应文件上传参数（见/file/upload/{fileLocation} [0.4.0 UPDATE]）
+
+fileName：文件名
+
+```json
+data={
+    url=http://localhost:8408/file/download/mailFile/19f4cf68-0_b6ff2777-6_77309158.jpg
+	}
+}
+```
+
+### /file/uploadProjectImg [0.4.0 DEL]
 
 ```
 /download/projectImg/{fileName}
 ```
 
-### /file/uploadProjectProposal [0.4.0 UNUSE]
+### /file/uploadProjectProposal [0.4.0 DEL]
 
 ```
 /download/projectProposal/{fileName}
@@ -3104,11 +3121,11 @@ data={
 
 详情见 ChatService/getMessage
 
-### /mail/uploadProjectImg
+### /mail/uploadProjectImg [0.4.0 DEL]
 
-详情见 /file/uploadProjectImg
+**本接口于 [0.4.0] 版本删除**
 
-```
-/download/projectImg/{fileName}
-```
+此后文件上传走：/file/upload/{fileLocation} 
+
+文件下载走：/file/download/{fileLocation}/{fileName} 两个接口
 
