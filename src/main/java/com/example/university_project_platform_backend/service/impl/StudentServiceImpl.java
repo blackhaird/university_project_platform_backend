@@ -49,7 +49,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         wrapper.eq(Student::getStudentId,studentID);
         System.out.println(studentID);
         List<Student> searchStudentList = this.list(wrapper);
-        studentMap.put("data",searchStudentList);
+        if (searchStudentList.isEmpty()) {
+            studentMap.put("message","未找到该学生");
+        }else {
+            studentMap.put("data",searchStudentList);
+        }
         return studentMap;
     }
 
