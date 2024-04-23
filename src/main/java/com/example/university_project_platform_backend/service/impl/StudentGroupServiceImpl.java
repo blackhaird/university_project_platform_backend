@@ -48,7 +48,11 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
         wrapper.eq(StudentGroup::getGroupId,studentGroupId);
         System.out.println(studentGroupId);
         List<StudentGroup> searchStudentList = this.list(wrapper);
-        studentGroupMap.put("data",searchStudentList);
+        if (searchStudentList.isEmpty()) {
+            studentGroupMap.put("message","未找到该学生组");
+        }else {
+            studentGroupMap.put("data",searchStudentList);
+        }
         return studentGroupMap;
     }
 

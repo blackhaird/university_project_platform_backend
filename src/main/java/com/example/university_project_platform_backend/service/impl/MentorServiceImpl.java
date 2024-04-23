@@ -47,7 +47,11 @@ public class MentorServiceImpl extends ServiceImpl<MentorMapper, Mentor> impleme
         wrapper.eq(Mentor::getMentorId,mentorID);
         System.out.println(mentorID);
         List<Mentor> searchMentorList = this.list(wrapper);
-        mentorMap.put("data",searchMentorList);
+        if (searchMentorList.isEmpty()) {
+            mentorMap.put("message","未找到该老师");
+        }else {
+            mentorMap.put("data",searchMentorList);
+        }
         return mentorMap;
     }
 
