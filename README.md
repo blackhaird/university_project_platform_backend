@@ -3405,9 +3405,18 @@ function sendMessageFor() {
 
 ### /mail/getMessage
 
-详情见 ChatService/getMessage
+```json
+{
+  "userId": 11,
+  "foruserId": "10",
+    
+  "groupId": "1",
+}
+```
 
+其中的个人消息可以通过userId，foruserId指定两位的所有聊天记录
 
+多人聊天记录则需要指定groupId,获取本组信息
 
 ### /mail/uploadProjectImg [0.4.0 DEL]
 
