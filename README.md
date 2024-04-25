@@ -58,6 +58,7 @@
     * [/competition/projectManagementAudit [0\.4\.0 NEW]](#competitionprojectmanagementaudit-040-new)
     * [/competition/projectManagementUpdate](#competitionprojectmanagementupdate)
     * [/competition/projectUpdate](#competitionprojectupdate)
+    * [/competition/projectStatusSearch [0\.4\.5 NEW]](#competitionprojectstatussearch-045-new)
   * [Project](#project)
     * [/project/show](#projectshow)
     * [/project/projectSearch [0\.3\.5 UPDATE]](#projectprojectsearch-035-update)
@@ -98,6 +99,8 @@
   * [CreditsAudit [0\.3\.5 NEW]](#creditsaudit-035-new)
     * [/creditsAudit/show &amp; add &amp; del &amp; change](#creditsauditshow--add--del--change)
   * [Mail [0\.3\.6 NEW]](#mail-036-new)
+    * [ws://localhost:8408/myService/\#\{用户ID\}](#wslocalhost8408myservice用户id)
+    * [/mail/sendForUser](#mailsendforuser)
     * [/mail/sendForUserList](#mailsendforuserlist)
     * [/mail/getMessage](#mailgetmessage)
     * [/mail/uploadProjectImg [0\.4\.0 DEL]](#mailuploadprojectimg-040-del)
@@ -2189,6 +2192,122 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
 }
 ```
 
+### /competition/projectStatusSearch [0.4.5 NEW]
+
+`post`
+
+```JSON
+//动态传参
+{
+  "competitionId": 41001000004,
+  "projectDoneStatus": 1,
+  "projectStatusId": 1
+}
+```
+
+```
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "projectId": 31000000001,
+        "projectName": "一体化HPV检测仪器",
+        "projectImage": "http://1.12.37.222:8408/file/download/projectImg/32a41550-c_1.jpg",
+        "projectIntroduction": "本项目在提出了一种利用水相及油相介质之间表面张力的选择性通过结构（可称为“介质阀”）的同时，将这种介质阀结构集成于微流控芯片，配合磁珠实现了对核酸纯化的目的。同时，本研究基于介质阀结构及LAMP扩增技术完成了一套完整的微流控芯片及自动化检测-扩增装置。",
+        "projectAdvantage": "本项目中所形成的方案能够有效解决当前核酸提取及扩增中操作繁琐，耗时长，需要借助大型设备，有毒性等问题。最终实现减小装置体积，缩短检测周期，增大通量，减少操作复杂度。传统的核酸纯化扩增检测方式不具有完善的自动化控制系统。相关装置外设庞大，耗时长。无法实现现场快速实时。为了克服上述问题，研发一种基于纳米磁珠以及磁控自动化的核酸纯化-扩增-检测一体化设备。小型一体化设备，能够简单快捷地检测，满足检测的现场化，快速化，实时化等要求。",
+        "projectCredits": 2,
+        "projectCreateTime": "2024-04-25T04:16:50",
+        "projectEndTime": "2024-05-19T00:10:07",
+        "projectProposalLink": "http://1.12.37.222:8408/file/download/mailFile/eef06320-7_一体化HPV检测仪器.doc",
+        "mentorId": 11001000001,
+        "projectScope": "生物、医药及医疗机械",
+        "projectTag": 0,
+        "projectBelong": "生物学院",
+        "projectDoneStatus": 1,
+        "projectDoneTime": null,
+        "projectDoneDescription": "暂无",
+        "projectLevel": 0,
+        "competitionId": 41001000004,
+        "projectStatusId": 1,
+        "projectStatusDescription": "通过",
+        "mentorName": "猴赛雷"
+      },
+      {
+        "projectId": 31000000004,
+        "projectName": "医学脑电智能诊断",
+        "projectImage": "http://1.12.37.222:8408/file/download/projectImg/2a0f7cd3-1_医学脑电智能诊断.png",
+        "projectIntroduction": "本项目通过研发神经疾病异常脑状态智能检测方法，并建立基于医联体的脑电分布式智能处理平台，提供适应临床需求的癫痫脑电智能处理和远程协作诊疗方案，提高临床癫痫诊疗效率，并助力于癫分级诊疗体系建设。",
+        "projectAdvantage": "中国目前有900万左右的癫痫患者本研究的核心目标是解决临床神经科癫痫脑电诊断效率低下、无法满足癫痫病人脑电图检查需求的问题。本研究拟解决癫痫异常脑状态智能检测方法、脑电分布式智能处理平台两个关键的技术问题。",
+        "projectCredits": 3,
+        "projectCreateTime": "2024-04-25T04:16:50",
+        "projectEndTime": "2024-05-19T00:10:07",
+        "projectProposalLink": "http://1.12.37.222:8408/file/download/mailFile/d73ea4ec-0_医学脑电智能诊断.doc",
+        "mentorId": 11001000002,
+        "projectScope": "生物、医药及医疗机械",
+        "projectTag": 0,
+        "projectBelong": "生物学院",
+        "projectDoneStatus": 1,
+        "projectDoneTime": null,
+        "projectDoneDescription": "暂无",
+        "projectLevel": 0,
+        "competitionId": 41001000004,
+        "projectStatusId": 1,
+        "projectStatusDescription": "通过",
+        "mentorName": "铺该"
+      },
+      {
+        "projectId": 31000000009,
+        "projectName": "爬沙虫自动化立体养殖设备",
+        "projectImage": "http://1.12.37.222:8408/file/download/projectImg/9d229df6-3_爬沙虫自动化立体养殖设备.png",
+        "projectIntroduction": "爬沙虫是昆虫纲广翅目齿蛉科昆虫的俗称，被称为“动物人参”，具有极高的药用和食用价值，是一种具有很高推广价值的资源昆虫，主要分布在云贵川一带，尤其以四川省（攀枝花市）的数量和应用历史为最。目前，爬沙虫主要靠野外采集，由于环境破坏等原因，野外的爬沙虫数量急剧下降，甚至要枯竭，人工养殖迫在眉睫。目前，爬沙虫的人工养殖刚刚起步，且几乎全是池式的半生态化的养殖，养殖效益很低，本专利是为了提高爬沙虫的规模化养殖技术而研发的一种爬沙虫自动化立体养殖设备，能显著提高其养殖效率和效果，至少是普通养殖技术的5倍以上。",
+        "projectAdvantage": "目前，市场上还没有立体养殖爬沙虫的先例，更没有相应的设备专利技术。爬沙虫独特的药用和食用价值使得其有“动物人参”的美誉，由于野外爬沙虫数量的急剧下降，原虫的售价从几年前的最多1元/条到目前的5元/条，若深加工，其价值更是客观。据粗略估计，爬沙虫产业的市场价值应该在几十个亿左右。该专利技术使得爬沙虫的高效大规模养殖成为可能，能显著提高养殖效率，带动百姓致富。",
+        "projectCredits": 2,
+        "projectCreateTime": "2024-04-25T04:16:50",
+        "projectEndTime": "2024-05-19T00:10:07",
+        "projectProposalLink": "http://1.12.37.222:8408/file/download/mailFile/74a60d1b-5_爬沙虫自动化立体养殖设备.doc",
+        "mentorId": 11001000011,
+        "projectScope": "农业科技",
+        "projectTag": 0,
+        "projectBelong": "生物学院",
+        "projectDoneStatus": 1,
+        "projectDoneTime": null,
+        "projectDoneDescription": "暂无",
+        "projectLevel": 1,
+        "competitionId": 41001000004,
+        "projectStatusId": 1,
+        "projectStatusDescription": "通过",
+        "mentorName": "导师测试1"
+      },
+      {
+        "projectId": 31000000014,
+        "projectName": "液体活检，开启精神分裂症精诊医学新时代",
+        "projectImage": "http://1.12.37.222:8408/file/download/projectImg/79c69efe-6_液体活检，开启精神分裂症精诊医学新时代.png",
+        "projectIntroduction": "精神分裂症是一种社会危害大的精神疾病，目前，精神分裂症诊断的漏诊误诊率高达45%，且效率低下。团队从大量临床样本中筛选出精神分裂症特异生物标记物，开发出的试剂盒检测技术，通过对血液中的一组物质进行绝对定量，能高效准确地鉴定出精神分裂症患者。",
+        "projectAdvantage": "目前，我们已经建立了精神分裂症临床血液样本库，完成了完成生物标记物在临床样本的验证实验，四批来自多家医院的样本共计736例，准确率高达82.7%-99%。已进入产品研发和试生产阶段。全球约有五千万精神分裂症患者，中国约有八百万精神分裂症患者，目标群体庞大，且该产品为独角兽产品，具有广阔的市场前景。",
+        "projectCredits": 2,
+        "projectCreateTime": "2024-04-25T04:16:50",
+        "projectEndTime": "2024-07-19T00:10:07",
+        "projectProposalLink": "http://1.12.37.222:8408/file/download/mailFile/01004b86-f_液体活检，开启精神分裂症精诊医学新时代.doc",
+        "mentorId": 11001000013,
+        "projectScope": "生物、医药及医疗机械",
+        "projectTag": 1,
+        "projectBelong": "生物学院",
+        "projectDoneStatus": 1,
+        "projectDoneTime": null,
+        "projectDoneDescription": "暂无",
+        "projectLevel": 3,
+        "competitionId": 41001000004,
+        "projectStatusId": 1,
+        "projectStatusDescription": "通过",
+        "mentorName": "导师测试3"
+      }
+    ]
+  }
+}
+```
+
 
 
 ## Project
@@ -2296,6 +2415,14 @@ VALUES(31000000001,'大学生创新创业服务平台', '大学生创业创意�
       "projectBelong": "上海交通大学"
     }
   ]
+}
+```
+
+```json
+{
+  "code": 204,
+  "message": "找不到该数据，请检查查询条件",
+  "data": null
 }
 ```
 
@@ -3114,13 +3241,173 @@ data={
 
 ## Mail [0.3.6 NEW]
 
+### ws://localhost:8408/myService/#{用户ID}
+
+首先先接通websocket连接
+
+```javascript
+let socket;
+function openSocket() {
+        if(socket != null){
+            socket.close();
+            socket = null;
+        }
+        let userId = document.getElementById('userId').value
+        socket = new WebSocket("ws://localhost:8408/myService/"+userId);
+        //打开事件
+        socket.onopen = function() {
+            console.log("websocket已打开");
+        };
+        //获得消息事件
+        socket.onmessage = function(msg) {
+            console.log(msg.data);
+        };
+        //关闭事件
+        socket.onclose = function() {
+            console.log("websocket已关闭");
+        };
+        //发生了错误事件
+        socket.onerror = function() {
+            console.log("websocket发生了错误");
+        }
+    }
+```
+
+### /mail/sendForUser
+
+`post`
+
+单点发送，请求见下面代码封装，可见github:Mailapp.html，发送完毕会返回json数据
+
+对应登陆的foruserId账号会马上收到由userid发送的数据
+
+```json
+//与此同时forId账号端收到消息
+//其中的11是UserId（发送方） 10为（接收方） 无需指定GroupId
+{
+  "mailId": 2,
+  "userId": 11,
+  "foruserId": "10",
+  "mailMessage": "hello websocket",
+  "mailFile": null,
+  "mailTime": "2024-04-25T22:42:15.7619168"
+}
+```
+
+```javascript
+function sendMessageFor() {
+        let userId = document.getElementById("userId").value
+        let contentText = document.getElementById('contentText').value
+        let forId = document.getElementById('for').value
+        //单点发送无需指定GroupId
+        const websocketUser = {
+            userId : userId,
+            foruserId: forId,
+            mailMessage: contentText
+            // Assuming 'massage' is the correct property name in your WebSocketUser class
+        };
+
+        $.ajax({
+            method: 'POST',
+            url: 'http://localhost:8408/mail/sendForUser', // 修改成服务器连接
+            contentType: 'application/json',
+            data: JSON.stringify(websocketUser),
+            success: function(response) {
+                const prettyJsonString = JSON.stringify(response, null, 2);
+                const jsonDisplayElement = document.getElementById('json-display');
+                jsonDisplayElement.innerHTML = '<pre>' + prettyJsonString + '</pre>';
+            },
+            error: function(xhr, status, error) {
+                alert('Error sending message: ' + error);
+            }
+        });
+    }
+```
+
+```json
+//内容如下
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "mailId": 1,
+        "userId": 10,
+        "foruserId": "11,12",
+        "groupId": "1",
+        "mailMessage": "hello websocket",
+        "mailFile": null,
+        "mailTime": "2024-04-25T22:41:51"
+      }
+    ]
+  }
+}
+```
+
+
+
 ### /mail/sendForUserList
 
-详情见 ChatService/sendForUserList
+与 /chatServer/sendForUser 接口同理
+
+将其中发送的forId修改为以逗号为分界的字符串 `,` ，如下
+
+```
+10,12
+```
+
+后端通过，分割账号id数据，发送给账号11和12
+
+```json
+//与此同时forId账号端收到消息
+//其中的11是UserId（发送方） 10,12为（接收方）,必须指定GroupId，可以是学生组号
+{
+  "mailId": 2,
+  "userId": 11,
+  "foruserId": "10,12",
+  "groupId": "1",
+  "mailMessage": "hello websocket",
+  "mailFile": null,
+  "mailTime": "2024-04-25T22:42:15.7619168"
+}
+```
+
+```json
+//发送方收到接口放回数据（用于聊天记录展示）
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "websocketId": 20,
+        "websocketUserId": 10,
+        "websocketForuser": "11,12",
+        "websocketMessage": "hello websocket",
+        "websocketTime": "2024-04-11T02:21:12.4894101",
+        "userList": null
+      },
+      {
+        "websocketId": 20,
+        "websocketUserId": 10,
+        "websocketForuser": "11,12",
+        "websocketMessage": "hello websocket",
+        "websocketTime": "2024-04-11T02:21:12.4894101",
+        "userList": null
+      }
+    ]
+  }
+}
+```
+
+### 
 
 ### /mail/getMessage
 
 详情见 ChatService/getMessage
+
+
 
 ### /mail/uploadProjectImg [0.4.0 DEL]
 

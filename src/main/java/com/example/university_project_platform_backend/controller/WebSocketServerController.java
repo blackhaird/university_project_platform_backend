@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.entity.WebSocketUser;
 import com.example.university_project_platform_backend.entity.Websocket;
+import com.example.university_project_platform_backend.service.IMailService;
 import com.example.university_project_platform_backend.service.IWebSocketServer;
 import com.example.university_project_platform_backend.service.impl.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.util.Map;
 public class WebSocketServerController {
     @Autowired
     IWebSocketServer iWebSocketServer;
+
+    @Autowired
+    IMailService iMailService;
     @ResponseBody
     @GetMapping("/daping")
     public void gettable(String userId){
@@ -30,12 +34,6 @@ public class WebSocketServerController {
         obj.put("cmd", "topic");//业务类型
         obj.put("msgId", userId);//消息id
         obj.put("msgTxt", "dfadsfsacasfa案件非常差那上次");//消息内容
-//全体发送
-//        iWebSocketServer.sendAllMessage(obj.toJSONString());
-//单个用户发送 (userId为用户id)
-//        iWebSocketServer.sendOneMessage(userId, obj.toJSONString());
-//        多个用户发送 (userIds为多个用户id，逗号‘,’分隔)
-//        iWebSocketServer .sendMoreMessage(new String[]{userId, "33"}, obj.toJSONString());
     }
 
 
@@ -47,7 +45,6 @@ public class WebSocketServerController {
         System.out.println(keys.get("data"));
         return JsonResult.ResultSuccess(keys);
     }
-
 
     @PostMapping("/getMessage")
     public JsonResult<Map<String, Object>> sendForAll(@RequestBody Websocket webSocketUser){

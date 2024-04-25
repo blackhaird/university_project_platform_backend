@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectActivityDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectCompetitonPMDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.mapper.ProjectManagementMapper;
@@ -234,6 +235,19 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
         List<ProjectProjectManagementDTO> projectProjectManagementDTO = this.baseMapper.getProjectProjectManagementDTOByProjectId(
                 projectActivityDTO.getProjectId(), projectActivityDTO.getMentorId());
         projectMap.put("data", projectProjectManagementDTO);
+        return projectMap;
+    }
+
+    @Override
+    public Map<String, Object> projectStatusSearch(ProjectCompetitonPMDTO projectCompetitonPMDTO) {
+        Map<String,Object> projectMap =  new HashMap<>();
+        List<ProjectCompetitonPMDTO> projectProjectManagementDTO = this.baseMapper.projectStatusSearch(projectCompetitonPMDTO);
+        if (!projectProjectManagementDTO.isEmpty()){
+            projectMap.put("data", projectProjectManagementDTO);
+        }else {
+            projectMap.put("message", "找不到该数据，请检查查询条件");
+
+        }
         return projectMap;
     }
 

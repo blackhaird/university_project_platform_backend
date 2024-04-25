@@ -23,4 +23,6 @@ public interface IWebSocketServer {
     Map<String, Object> sendMailMessageForUserList(Mail mail);
 
     Map<String, Object> getMailUserMap(Mail mail);
+
+    Map<String, Object> sendMailForUser(Mail mail);
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.example.university_project_platform_backend.mapper.CreditsMapper">
 
     <select id="getCreditsWithStudent"
-            resultType="com.example.university_project_platform_backend.common.CreditsStudentDTO">
+            resultType="com.example.university_project_platform_backend.controller.dto.CreditsStudentDTO">
         select student.*, credits.*
         from student,
              credits
@@ -11,7 +11,7 @@
           and student.student_id = #{studentId};
     </select>
     <select id="getCredits"
-            resultType="com.example.university_project_platform_backend.common.CreditsStudentDTO">
+            resultType="com.example.university_project_platform_backend.controller.dto.CreditsStudentDTO">
         select student.*, credits.*
         from student,
              credits

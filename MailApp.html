@@ -54,15 +54,15 @@
         let forId = document.getElementById('for').value
 
         const websocketUser = {
-            websocketUserId : userId,
-            websocketForuser: forId,
-            websocketMessage: contentText
+            userId : userId,
+            foruserId: forId,
+            mailMessage: contentText
             // Assuming 'massage' is the correct property name in your WebSocketUser class
         };
 
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:8408/chatServer/sendForUser', // Adjust the URL according to your actual endpoint
+            url: 'http://localhost:8408/mail/sendForUser', // Adjust the URL according to your actual endpoint
             contentType: 'application/json',
             data: JSON.stringify(websocketUser),
             success: function(response) {
@@ -80,13 +80,14 @@
         let contentText = document.getElementById('contentText').value
         let forId = document.getElementById('for').value
         const websocketUser = {
-            websocketUserId : userId,
-            websocketForuser: forId,
-            websocketMessage: contentText // Assuming 'massage' is the correct property name in your WebSocketUser class
+            userId : userId,
+            foruserId: forId,
+            mailMessage: contentText, // Assuming 'massage' is the correct property name in your WebSocketUser class
+            groupId: 1 //本处group_Id 替换为学生组的id，或者新建一个小组的ID
         };
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:8408/chatServer/sendForUserList', // Adjust the URL according to your actual endpoint
+            url: 'http://localhost:8408/mail/sendForUserList', // Adjust the URL according to your actual endpoint
             contentType: 'application/json',
             data: JSON.stringify(websocketUser),
             success: function(response) {

@@ -1,4 +1,4 @@
-# mysql-0.3.9.sql
+# mysql-0.4.5.sql
 # id字段描述关系，重要字段为bigint(11) 前两位为重要关系字段
 # 假设11001000001 意思为 1：个人/个体 1：老师  31000000001 3：项目 1：  41001000001：4：项目组
 # 假设12240020001 意思为 1：个人/个体 2：学生  22000000001 2：组别 2：学生
@@ -24,19 +24,19 @@ VALUES (11001000002, '铺该', 2, 1, '13321401663', 'pugai@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
 VALUES (11001000003, '丢雷楼母', 2, 1, '13420432663', 'diuleiloumu@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
-VALUES (11001000004, '索嗨', 1, 2, '13421301663', 'suohai@graduation');
+VALUES (11001000004, '索嗨', 1, 0, '13421301663', 'suohai@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
 VALUES (11001000011, '导师测试1', 1, 1, '13421301000', 'test@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
 VALUES (11001000012, '导师测试2', 2, 1, '13421301000', 'test@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
-VALUES (11001000013, '导师测试3', 3, 1, '13421301000', 'test@graduation');
+VALUES (11001000013, '导师测试3', 3, 0, '13421301000', 'test@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
-VALUES (11001000014, '导师测试4', 4, 2, '13421301000', 'test@graduation');
+VALUES (11001000014, '导师测试4', 4, 0, '13421301000', 'test@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
-VALUES (11001000015, '导师测试5', 5, 2, '13421301000', 'test@graduation');
+VALUES (11001000015, '导师测试5', 5, 0, '13421301000', 'test@graduation');
 INSERT INTO mentor(mentor_id, mentor_name, mentor_Professional_id, mentor_sex, mentor_phone_number, mentor_email)
-VALUES (11001000016, '导师测试6', 6, 2, '13421301000', 'test@graduation');
+VALUES (11001000016, '导师测试6', 6, 0, '13421301000', 'test@graduation');
 
 #学生表
 create table student
@@ -60,10 +60,10 @@ INSERT INTO student(student_id, student_name, student_sex, student_Admission_tim
 VALUES (12000000002, '李四', 1, '2024-03-02 19:30:00', 23, '13376711663', 'lisi@graduation', '软件工程2班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
-VALUES (12000000003, '王五', 2, '2024-03-02 19:30:00', 24, '13323978663', 'wangwu@graduation', '计算机技术应用1班');
+VALUES (12000000003, '王五', 0, '2024-03-02 19:30:00', 24, '13323978663', 'wangwu@graduation', '计算机技术应用1班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
-VALUES (12000000004, '赵六', 2, '2024-03-02 19:30:00', 22, '13323098663', 'zhaoliu@graduation', '计算机技术应用2班');
+VALUES (12000000004, '赵六', 0, '2024-03-02 19:30:00', 22, '13323098663', 'zhaoliu@graduation', '计算机技术应用2班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
 VALUES (12000000005, '测试1', 1, '2024-03-02 19:30:00', 24, '10000000001', 'test@graduation', '计算机技术应用2班');
@@ -75,13 +75,13 @@ INSERT INTO student(student_id, student_name, student_sex, student_Admission_tim
 VALUES (12000000007, '测试3', 1, '2024-03-02 19:30:00', 24, '10000000003', 'test@graduation', '计算机技术应用2班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
-VALUES (12000000008, '测试4', 2, '2024-03-02 19:30:00', 24, '10000000004', 'test@graduation', '大数据2班');
+VALUES (12000000008, '测试4', 0, '2024-03-02 19:30:00', 24, '10000000004', 'test@graduation', '大数据2班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
-VALUES (12000000009, '测试5', 2, '2024-03-02 19:30:00', 23, '10000000005', 'test@graduation', '大数据2班');
+VALUES (12000000009, '测试5', 0, '2024-03-02 19:30:00', 23, '10000000005', 'test@graduation', '大数据2班');
 INSERT INTO student(student_id, student_name, student_sex, student_Admission_time, student_age, student_phone_number,
                     student_email, student_class)
-VALUES (12000000010, '测试6', 2, '2024-03-02 19:30:00', 24, '10000000006', 'test@graduation', '大数据2班');
+VALUES (12000000010, '测试6', 0, '2024-03-02 19:30:00', 24, '10000000006', 'test@graduation', '大数据2班');
 
 
 #竞赛处表
@@ -175,17 +175,17 @@ create table project
 INSERT INTO project(project_id, project_name, project_image, project_Introduction, project_Advantage, project_credits,
                     project_end_time, project_proposal_link, mentor_id, project_Scope, project_tag,
                     project_belong, project_done_status, project_done_time, project_done_description, project_level)
-VALUES (31000000001, '一体化HPV检测仪器', '1.12.37.222/1.png',
+VALUES (31000000001, '一体化HPV检测仪器', 'http://1.12.37.222:8408/file/download/projectImg/32a41550-c_1.jpg',
         '本项目在提出了一种利用水相及油相介质之间表面张力的选择性通过结构（可称为“介质阀”）的同时，将这种介质阀结构集成于微流控芯片，配合磁珠实现了对核酸纯化的目的。同时，本研究基于介质阀结构及LAMP扩增技术完成了一套完整的微流控芯片及自动化检测-扩增装置。',
         '本项目中所形成的方案能够有效解决当前核酸提取及扩增中操作繁琐，耗时长，需要借助大型设备，有毒性等问题。最终实现减小装置体积，缩短检测周期，增大通量，减少操作复杂度。传统的核酸纯化扩增检测方式不具有完善的自动化控制系统。相关装置外设庞大，耗时长。无法实现现场快速实时。为了克服上述问题，研发一种基于纳米磁珠以及磁控自动化的核酸纯化-扩增-检测一体化设备。小型一体化设备，能够简单快捷地检测，满足检测的现场化，快速化，实时化等要求。',
         2,
-        '2024-05-19 00:10:07', 'C:\\graduation\\一体化HPV检测仪器.doc', '11001000001', '生物、医药及医疗机械', 0,
+        '2024-05-19 00:10:07', 'http://1.12.37.222:8408/file/download/mailFile/eef06320-7_一体化HPV检测仪器.doc', '11001000001', '生物、医药及医疗机械', 0,
         '生物学院', 1, NULL, '暂无', 0)
-     , (31000000002, '一种面向金融风控的轻量型自动化机器学习(autoML）框架', '1.12.37.222/2.png',
+     , (31000000002, '一种面向金融风控的轻量型自动化机器学习(autoML）框架', 'http://1.12.37.222:8408/file/download/projectImg/31dba393-9_1.png',
         '本项目主要面向商业用户，提供技术服务或者成套的商用解决方案，目标客户为银行、互联网金融公司等。',
         '目前针对金融风控领域尚无合适的autoML框架，许多金融风控解决方案的提供商并没有提供自动化机器学习的解决方案，通用的自动化机器学习方法如Google的Cloud  AutoML  又不能很好的应用于金融风控领域，目前面向金融风控的自动化机器学习算法存在一定的市场空缺，具有广阔的应用前景。',
         3,
-        '2024-05-20 00:10:07', 'C:\\graduation\\一种面向金融风控的轻量型自动化机器学习（autoML）框架.doc', '11001000001',
+        '2024-05-20 00:10:07', 'http://1.12.37.222:8408/file/download/mailFile/10b9788f-1_一种面向金融风控的轻量型自动化机器学习(autoML）框架.doc', '11001000001',
         '电子信息', 0, '计算机学院', 1, NULL, '暂无', 0)
      , (31000000003, '智能全景记录仪', '1.12.37.222/3.png',
         '智能全景记录仪作为北京科技大学第三期贝壳种子计划的项目之一，是集计算机软件，信息系统集成和计算机硬件的研发类产品。目前团队共7人，负责人为田宙。该项目已经获得80万元的资金投入，并且也已经注册成为了有限责任公司。本项目的目标是研发一款基于虚拟现实和全景技术的执法记录仪，用于填补国内市场空白，已经获得了专利。',
@@ -405,9 +405,9 @@ create table project_Management
     Group_id                   bigint(11) comment '小组编号',
     project_status_id          TINYINT(1) not null default 2 comment '项目状态id 0代表未通过 1代表通过 2代表审核中 ',
     project_status_Description varchar(50)         default null comment '项目状态状态描述 注释/备注'
-        #     foreign key (project_id) references project (project_id),
+    #     foreign key (project_id) references project (project_id),
     #     foreign key (mentor_id) references mentor (mentor_id)
-        #                                     foreign key (Competition_id) references Competition(Competition_id),
+    #                                     foreign key (Competition_id) references Competition(Competition_id),
     #                                     foreign key  (Group_id) references  student_group(group_id)
 );
 
@@ -475,7 +475,7 @@ create table credits
     student_id          bigint(11) comment '学生id',
     credits_value       int(5) not null default 0 comment '学分',
     credits_Description varchar(255) comment '学分描述'
-        #     foreign key (student_id) references student (student_id)
+    #     foreign key (student_id) references student (student_id)
 );
 
 insert into credits(student_id, credits_value)
@@ -571,6 +571,7 @@ create table mail
     mail_id      int primary key auto_increment,
     user_id      bigint(11) not null,
     forUser_id   varchar(255),
+    group_id      bigint(11) default null,
     mail_message varchar(1000),
     mail_file    varchar(1000),
     mail_time    datetime default now()
@@ -608,7 +609,7 @@ create table credits_Operation
     credits_value                 int(5) not null default 0 comment '学分',
     credits_Description           varchar(255) comment '学分描述'
 
-        #     foreign key (credits_id) references credits(credits_id),
+    #     foreign key (credits_id) references credits(credits_id),
     #     foreign key (student_id) references student (student_id)
 
 );
@@ -641,7 +642,7 @@ create table project_management_Operation
     project_status_id                        TINYINT(2) not null default 2 comment '项目状态id 0代表未通过 1代表通过 2代表审核中 ',
     project_status_Description               varchar(50)         default null comment '项目状态状态描述 注释/备注'
 
-        #     foreign key (project_management_id) references project_Management(project_management_id),
+    #     foreign key (project_management_id) references project_Management(project_management_id),
     #     foreign key (project_id) references project (project_id),
     #     foreign key (mentor_id) references mentor (mentor_id)
 

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -23,5 +24,10 @@ public class MailServiceImpl extends ServiceImpl<MailMapper, Mail> implements IM
     public List<Mail> getMailListByMail(Mail mail) {
         List<Mail> mailList = baseMapper.getMailListByMail(mail);
         return mailList;
+    }
+
+    @Override
+    public Map<String, Object> sendMailMessageForUserList(Mail mail) {
+        return null;
     }
 }

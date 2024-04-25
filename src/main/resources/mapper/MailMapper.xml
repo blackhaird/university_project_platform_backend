@@ -6,6 +6,6 @@
         select *
         from mail
         where  user_id = #{userId}
-          and foruser_id = #{foruserId}
+          or foruser_id = #{userId}
     </select>
 </mapper>

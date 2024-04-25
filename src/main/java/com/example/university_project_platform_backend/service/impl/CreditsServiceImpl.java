@@ -1,11 +1,9 @@
 package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.university_project_platform_backend.common.CreditsStudentDTO;
+import com.example.university_project_platform_backend.controller.dto.CreditsStudentDTO;
 import com.example.university_project_platform_backend.controller.dto.UserCreditsDTO;
 import com.example.university_project_platform_backend.entity.Credits;
-import com.example.university_project_platform_backend.entity.Mentor;
-import com.example.university_project_platform_backend.entity.Student;
 import com.example.university_project_platform_backend.mapper.CreditsMapper;
 import com.example.university_project_platform_backend.service.ICreditsOperationService;
 import com.example.university_project_platform_backend.service.ICreditsService;

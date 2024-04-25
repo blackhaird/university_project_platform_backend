@@ -28,6 +28,7 @@ public class Mail implements Serializable {
 
     private String foruserId;
 
+    private String groupId;
     private String mailMessage;
 
     private String mailFile;

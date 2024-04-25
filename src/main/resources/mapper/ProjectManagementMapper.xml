@@ -33,4 +33,28 @@
         and project_management.project_id = #{projectId}
         and project_management.mentor_id = #{mentorId};
     </select>
+    <select id="projectStatusSearch"
+            resultType="com.example.university_project_platform_backend.controller.dto.ProjectCompetitonPMDTO">
+        select distinct
+        project_management.competition_id             as competition_id,
+        project.*,
+        project_management.project_status_id          as project_status_id,
+        project_management.project_status_Description as project_status_Description,
+        mentor.mentor_name                            as mentor_name
+        from project,
+        project_management,
+        mentor
+        where project.project_id = project_management.project_id
+        and project.mentor_id = mentor.mentor_id
+        <!-- 使用动态 SQL 标签进行条件判断 -->
+        <if test="competitionId != null">
+            and project_management.competition_id = #{competitionId}
+        </if>
+        <if test="projectDoneStatus != null">
+            and project_done_status = #{projectDoneStatus}
+        </if>
+        <if test="projectStatusId != null">
+            and project_management.project_status_id = #{projectStatusId}
+        </if>
+    </select>
 </mapper>

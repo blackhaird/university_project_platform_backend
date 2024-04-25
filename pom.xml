@@ -109,6 +109,13 @@
             <version>2.11.0</version>
         </dependency>
 
+        <!-- 数据自动生成文档 -->
+        <dependency>
+            <groupId>cn.smallbun.screw</groupId>
+            <artifactId>screw-core</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>

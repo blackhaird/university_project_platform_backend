@@ -2,6 +2,7 @@ package com.example.university_project_platform_backend.controller;
 
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectCompetitonPMDTO;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,6 +203,17 @@ public class CompetitionController {
             return JsonResult.ResultSuccess(activityMap);
         }else {
             return JsonResult.ResultFail(204,activityMap.get("message").toString());
+        }
+    }
+
+    @PostMapping("/projectStatusSearch")
+    public JsonResult<Map<String, Object>> projectStatusSearch(@RequestBody ProjectCompetitonPMDTO projectCompetitonPMDTO){
+
+        Map<String,Object> projectStatusMap = iProjectManagementService.projectStatusSearch(projectCompetitonPMDTO);
+        if (projectStatusMap.get("data")!=null){
+            return JsonResult.ResultSuccess(projectStatusMap);
+        }else {
+            return JsonResult.ResultFail(204,projectStatusMap.get("message").toString());
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.university_project_platform_backend.mapper;
 
-import com.example.university_project_platform_backend.common.CreditsStudentDTO;
+import com.example.university_project_platform_backend.controller.dto.CreditsStudentDTO;
 import com.example.university_project_platform_backend.entity.Credits;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

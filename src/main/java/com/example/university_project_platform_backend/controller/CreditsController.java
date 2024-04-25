@@ -1,6 +1,6 @@
 package com.example.university_project_platform_backend.controller;
 
-import com.example.university_project_platform_backend.common.CreditsStudentDTO;
+import com.example.university_project_platform_backend.controller.dto.CreditsStudentDTO;
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.controller.dto.UserCreditsDTO;
 import com.example.university_project_platform_backend.entity.Credits;
@@ -9,7 +9,6 @@ import com.example.university_project_platform_backend.service.ICreditsOperation
 import com.example.university_project_platform_backend.service.ICreditsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Map;

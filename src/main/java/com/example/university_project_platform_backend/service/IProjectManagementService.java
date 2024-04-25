@@ -3,6 +3,7 @@ package com.example.university_project_platform_backend.service;
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectActivityDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectCompetitonPMDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.Project;
 import com.example.university_project_platform_backend.entity.ProjectManagement;
@@ -37,4 +38,6 @@ public interface IProjectManagementService extends IService<ProjectManagement> {
     Map<String, Object> projectManagementSubmitByMentor(Long mentorId, Project project);
 
     Map<String, Object> projectManagementSubmitForActivityByMentor(Long mentorId, ProjectActivityDTO projectActivityDTO);
+
+    Map<String, Object> projectStatusSearch(ProjectCompetitonPMDTO projectCompetitonPMDTO);
 }

@@ -1,6 +1,7 @@
 package com.example.university_project_platform_backend.mapper;
 
 import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
+import com.example.university_project_platform_backend.controller.dto.ProjectCompetitonPMDTO;
 import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
 import com.example.university_project_platform_backend.entity.Project;
 import com.example.university_project_platform_backend.entity.ProjectManagement;
@@ -23,6 +24,8 @@ public interface ProjectManagementMapper extends BaseMapper<ProjectManagement> {
     List<MentorProjectDTO> projectManagementSelectByCompetitionId(MentorProjectDTO mentorProjectDTO);
 
     List<ProjectProjectManagementDTO> getProjectProjectManagementDTOByProjectId(Long projectId,Long mentorId);
+
+    List<ProjectCompetitonPMDTO> projectStatusSearch(ProjectCompetitonPMDTO projectCompetitonPMDTO);
 
 //    Map<String,Object> projectManagementSubmit(ProjectManagement projectManagement);
 }

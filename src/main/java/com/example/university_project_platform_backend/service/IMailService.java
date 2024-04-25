@@ -4,6 +4,7 @@ import com.example.university_project_platform_backend.entity.Mail;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,4 +17,6 @@ import java.util.List;
 public interface IMailService extends IService<Mail> {
 
     List<Mail> getMailListByMail(Mail mail);
+
+    Map<String, Object> sendMailMessageForUserList(Mail mail);
 }
