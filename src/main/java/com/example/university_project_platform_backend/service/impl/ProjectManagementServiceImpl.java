@@ -192,6 +192,7 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
 
         projectManagement.setMentorId(mentorId);
         projectManagement.setProjectId(project.getProjectId());
+        projectManagement.setProjectStatusId((byte)1);
 
         try {
             iStudentGroupService.save(studentGroup);
@@ -249,6 +250,14 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
 
         }
         return projectMap;
+    }
+
+    @Override
+    public Map<String, Object> projectManagementSelectWithNameByMentorProjectDTO(MentorProjectDTO mentorProjectDTO) {
+        Map<String,Object> projectManagementMap = new HashMap<>();
+        List<MentorProjectDTO> projectManagementList = this.baseMapper.projectManagementSelectByCompetitionId(mentorProjectDTO);
+        projectManagementMap.put("data",projectManagementList);
+        return projectManagementMap;
     }
 
 }

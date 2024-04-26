@@ -40,4 +40,6 @@ public interface IProjectManagementService extends IService<ProjectManagement> {
     Map<String, Object> projectManagementSubmitForActivityByMentor(Long mentorId, ProjectActivityDTO projectActivityDTO);
 
     Map<String, Object> projectStatusSearch(ProjectCompetitonPMDTO projectCompetitonPMDTO);
+
+    Map<String, Object> projectManagementSelectWithNameByMentorProjectDTO(MentorProjectDTO mentorProjectDTO);
 }

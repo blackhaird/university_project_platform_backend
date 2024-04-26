@@ -40,4 +40,8 @@ public interface IStudentGroupService extends IService<StudentGroup> {
     Map<String, Object> studentGroupSave(StudentAudit studentAudit);
 
     boolean studentGroupStudentDeleteByMentorId(StudentGroup studentGroup);
+
+    Map<String, Object> studentGroupShowWithNameByStudentID(Long groupStudentId);
+
+    Map<String, Object> studentGroupShowByMentorIdWithName(Long groupMentorId);
 }

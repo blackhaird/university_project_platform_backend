@@ -19,4 +19,23 @@
           and project.project_id = project_management.project_id
           and  project_management.project_id = #{projectId};
     </select>
+    <select id="getCreditsWithNameFormTable"
+            resultType="com.example.university_project_platform_backend.controller.dto.CreditsAuditWithNameDTO">
+        select distinct
+            student.student_name as student_name,
+            mentor.mentor_name as mentor_name,
+            student_group.group_name as group_name,
+            project.project_name as project_name,
+            credits_audit.*
+        from credits_audit,
+             student,
+             mentor,
+             project,
+             student_group
+        where student.student_id = credits_audit.student_id
+          and mentor.mentor_id = credits_audit.mentor_id
+          and student_group.group_id = credits_audit.group_id
+          and credits_audit.project_id = project.project_id
+          and credits_audit.Competition_id = #{competitionId}
+    </select>
 </mapper>

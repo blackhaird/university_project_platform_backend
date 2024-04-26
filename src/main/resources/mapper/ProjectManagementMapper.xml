@@ -17,12 +17,32 @@
 
     <select id="projectManagementSelectByCompetitionId"
             resultType="com.example.university_project_platform_backend.controller.dto.MentorProjectDTO">
-        select *
+        select distinct
+        competition.Competition_id as competition_id,
+        competition.Competition_name as Competition_name,
+        student_group.group_id as group_id,
+        student_group.group_name as group_name,
+        mentor.mentor_id as mentor_id,
+        mentor.mentor_name as mentor_name,
+        project.*
         from project_management,
-             project
-        where project_management.mentor_id = #{mentorId}
-           or project_management.competition_id = #{competitionId}
-            and project.project_id = project_management.project_id
+        project,
+        mentor,
+        student_group,
+        competition
+        where  project.project_id = project_management.project_id
+        and project_management.mentor_id = mentor.mentor_id
+        and project_management.competition_id = competition.Competition_id
+        and project_management.Group_id = student_group.group_id
+        <!-- 使用动态 SQL 标签进行条件判断 -->
+        <if test="competitionId != null">
+            and project_management.competition_id = #{competitionId}
+        </if>
+        <if test="mentorId != null">
+            project_management.mentor_id = #{mentor_id}
+        </if>
+        ;
+
     </select>
     <select id="getProjectProjectManagementDTOByProjectId"
             resultType="com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO">

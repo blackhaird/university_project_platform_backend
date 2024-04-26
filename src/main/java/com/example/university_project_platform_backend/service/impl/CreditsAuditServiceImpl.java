@@ -2,6 +2,7 @@ package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.example.university_project_platform_backend.controller.dto.CreditsAuditWithNameDTO;
 import com.example.university_project_platform_backend.entity.Credits;
 import com.example.university_project_platform_backend.entity.CreditsAudit;
 import com.example.university_project_platform_backend.entity.ProjectManagement;
@@ -102,9 +103,10 @@ public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, Cre
     @Override
     public Map<String, Object> creditsAuditShowByCompetitionId(CreditsAudit creditsAudit) {
         Map<String, Object> map = new HashMap<>();
-        LambdaQueryWrapper<CreditsAudit> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(CreditsAudit::getCompetitionId, creditsAudit.getCompetitionId());
-        List<CreditsAudit> creditsAuditList = this.list(wrapper);
+//        LambdaQueryWrapper<CreditsAudit> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(CreditsAudit::getCompetitionId, creditsAudit.getCompetitionId());
+//        List<CreditsAudit> creditsAuditList = this.list(wrapper);
+        List<CreditsAuditWithNameDTO> creditsAuditList = this.baseMapper.getCreditsWithNameFormTable(creditsAudit);
         if (creditsAuditList.size() != 0) {
             map.put("data", creditsAuditList);
         } else {

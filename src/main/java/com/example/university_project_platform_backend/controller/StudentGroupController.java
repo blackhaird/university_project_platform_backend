@@ -28,7 +28,7 @@ public class StudentGroupController {
     public JsonResult<List<StudentGroup>> studentGroupShow()
     {
         List<StudentGroup> studentGroupList = istudentGroupService.list();
-        System.out.println(studentGroupList);
+//        System.out.println(studentGroupList);
         return JsonResult.ResultSuccess(studentGroupList);
     }
 

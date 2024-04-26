@@ -154,7 +154,7 @@ public class MentorController {
 
     @PostMapping("/studentGroupShow")
     public JsonResult<Map<String, Object>> mentorStudentGroupShow(@RequestBody StudentGroup studentGroup) {
-        Map<String, Object> studentGroupList = iStudentGroupService.studentGroupShowByMentorId(studentGroup.getGroupMentorId());
+        Map<String, Object> studentGroupList = iStudentGroupService.studentGroupShowByMentorIdWithName(studentGroup.getGroupMentorId());
         System.out.println(studentGroupList.toString());
         if (!studentGroupList.isEmpty()) {
             System.out.println("success");
@@ -204,7 +204,7 @@ public class MentorController {
 
     @PostMapping("/projectManagementShow")
     public JsonResult<Map<String, Object>> projectManagementShow(@RequestBody MentorProjectDTO mentorProjectDTO) {
-        Map<String, Object> data = iProjectManagementService.projectManagementSelectByMentorProjectDTO(mentorProjectDTO);
+        Map<String, Object> data = iProjectManagementService.projectManagementSelectWithNameByMentorProjectDTO(mentorProjectDTO);
         if (data != null) {
             return JsonResult.ResultSuccess(data);
         } else {
@@ -351,7 +351,7 @@ public class MentorController {
     }
     @PostMapping("/studentAuditSearch")
     public JsonResult<Map<String,Object>> studentAuditSearch(@RequestBody StudentAudit studentAudit){
-        Map<String,Object> map = iStudentAuditService.studentAuditSearch(studentAudit);
+        Map<String,Object> map = iStudentAuditService.studentAuditSearchWithName(studentAudit);
         if (map.get("data") != null){
             return JsonResult.ResultSuccess(map);
         }else {

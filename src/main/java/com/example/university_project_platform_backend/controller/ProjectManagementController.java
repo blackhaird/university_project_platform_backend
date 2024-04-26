@@ -1,7 +1,9 @@
 package com.example.university_project_platform_backend.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Controller;
  * @author blackhaird
  * @since 2024-03-03
  */
-@Controller
+@RestController
 @RequestMapping("/projectManagement")
 public class ProjectManagementController {
+
+
 
 }

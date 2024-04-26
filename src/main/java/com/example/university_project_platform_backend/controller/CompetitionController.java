@@ -100,7 +100,7 @@ public class CompetitionController {
 
     @PostMapping("/projectManagementShow")
     public JsonResult<Map<String,Object>> projectManagementShow(@RequestBody MentorProjectDTO mentorProjectDTO) {
-        Map<String,Object> projectManagementMap = iProjectManagementService.projectManagementSelectByMentorProjectDTO(mentorProjectDTO);
+        Map<String,Object> projectManagementMap = iProjectManagementService.projectManagementSelectWithNameByMentorProjectDTO(mentorProjectDTO);
         return JsonResult.ResultSuccess(projectManagementMap);
     }
 

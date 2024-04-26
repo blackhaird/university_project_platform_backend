@@ -139,7 +139,7 @@ public class StudentController {
 
     @PostMapping("/studentGroupShow")
     public JsonResult<Map<String, Object>> mentorStudentGroupShow(@RequestBody StudentGroup studentGroup) {
-        Map<String, Object> studentGroupList = iStudentGroupService.studentGroupShowByStudentID(studentGroup.getGroupStudentId());
+        Map<String, Object> studentGroupList = iStudentGroupService.studentGroupShowWithNameByStudentID(studentGroup.getGroupStudentId());
         System.out.println(studentGroupList.toString());
         if (!studentGroupList.isEmpty()) {
             System.out.println("success");

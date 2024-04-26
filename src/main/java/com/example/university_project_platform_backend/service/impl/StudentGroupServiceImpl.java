@@ -2,6 +2,8 @@ package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.university_project_platform_backend.controller.dto.CreditsAuditWithNameDTO;
+import com.example.university_project_platform_backend.controller.dto.StudentGroupWithNameDTO;
 import com.example.university_project_platform_backend.entity.Mentor;
 import com.example.university_project_platform_backend.entity.Student;
 import com.example.university_project_platform_backend.entity.StudentAudit;
@@ -233,6 +235,37 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
             return true;
         }else {
             return false;
+        }
+    }
+
+    @Override
+    public Map<String, Object> studentGroupShowWithNameByStudentID(Long groupStudentId) {
+        Map<String,Object> studentGroupMap = new HashMap<>();
+        LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StudentGroup::getGroupStudentId,groupStudentId);
+        List<StudentGroup> studentGroupList = this.list(wrapper);
+        if (studentGroupList!=null){
+            System.out.println("success");
+            studentGroupMap.put("data",studentGroupList);
+            return studentGroupMap;
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public Map<String, Object> studentGroupShowByMentorIdWithName(Long mentorId) {
+        Map<String,Object> studentGroupMap = new HashMap<>();
+//        LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(StudentGroup::getGroupMentorId,mentorId);
+//        List<StudentGroup> studentGroupList = this.list(wrapper);
+        List<StudentGroupWithNameDTO> studentGroupList = this.baseMapper.studentGroupShowByMentorIdWithName(mentorId);
+        if (studentGroupList!=null){
+            System.out.println("success");
+            studentGroupMap.put("data",studentGroupList);
+            return studentGroupMap;
+        }else {
+            return null;
         }
     }
 

@@ -22,7 +22,7 @@
     * [/student/studentAuditSearch [0\.4\.0 NEW]](#studentstudentauditsearch-040-new)
   * [Mentor](#mentor)
     * [/mentor/show &amp; add &amp; del &amp; change](#mentorshow--add--del--change)
-    * [/mentor/studentGroupShow](#mentorstudentgroupshow)
+    * [/mentor/studentGroupShow [0\.4\.6 UPDATE]](#mentorstudentgroupshow-046-update)
     * [/mentor/studentGroupSearch](#mentorstudentgroupsearch)
     * [/mentor/studentGroupAdd](#mentorstudentgroupadd)
     * [/mentor/studentGroupDel](#mentorstudentgroupdel)
@@ -41,7 +41,7 @@
     * [/mentor/showMentorProject](#mentorshowmentorproject)
     * [/mentor/studentAuditUpdate [0\.3\.6 NEW]](#mentorstudentauditupdate-036-new)
     * [/mentor/projectDone [0\.3\.9 NEW]](#mentorprojectdone-039-new)
-    * [/mentor/studentAuditSearch [0\.4\.0 NEW]](#mentorstudentauditsearch-040-new)
+    * [/mentor/studentAuditSearch [0\.4\.6 UPDATE]](#mentorstudentauditsearch-046-update)
     * [/mentor/mentorStudentAudit [0\.4\.0 NEW]](#mentormentorstudentaudit-040-new)
   * [StudentGroup](#studentgroup)
     * [/studentGroup/show &amp; add &amp; del &amp; change](#studentgroupshow--add--del--change)
@@ -51,7 +51,7 @@
     * [/competition/creditsAuditUpdate [0\.4\.0 UPDATE]](#competitioncreditsauditupdate-040-update)
     * [/competition/activityAdd [0\.4\.0 NEW]](#competitionactivityadd-040-new)
     * [/competition/activityShow [0\.4\.0 NEW]](#competitionactivityshow-040-new)
-    * [/competition/creditsAuditShow [0\.4\.0 NEW]](#competitioncreditsauditshow-040-new)
+    * [/competition/creditsAuditShow [0\.4\.6 UPDATE]](#competitioncreditsauditshow-046-update)
     * [/competition/projectManagementAdd](#competitionprojectmanagementadd)
     * [/competition/projectManagementShow](#competitionprojectmanagementshow)
     * [/competition/projectManagementReview](#competitionprojectmanagementreview)
@@ -797,7 +797,7 @@ create table mentor(
 接口与Student同理 
 ```
 
-### /mentor/studentGroupShow
+### /mentor/studentGroupShow [0.4.6 UPDATE]
 
 该接口主要用于再列表中显示该导师包含多少个学生组，并不提供查询报错的功能，如需要查询报错，请使用/mentor/studentGroupSearch
 
@@ -816,20 +816,106 @@ create table mentor(
   "data": {
     "data": [
       {
+        "groupNumber": 1,
         "groupId": 22000000001,
         "groupName": "一窝咸鱼",
         "groupMentorId": 11001000001,
-        "groupCaptainId": 12240020001,
-        "groupStudentId": 12240020001,
-        "groupCreateTime": "2024-03-19T00:10:07"
+        "groupCaptainId": 12000000001,
+        "groupStudentId": 12000000001,
+        "groupCreateTime": "2024-04-26T08:35:10",
+        "mentorId": null,
+        "mentorName": "苹果老师",
+        "competitionId": null,
+        "competitionName": null,
+        "studentId": null,
+        "studentName": "刘一",
+        "projectId": null,
+        "projectName": null
       },
       {
-        "groupId": 22000000002,
+        "groupNumber": 2,
+        "groupId": 22000000001,
         "groupName": "一窝咸鱼",
         "groupMentorId": 11001000001,
-        "groupCaptainId": 12240020001,
-        "groupStudentId": 12240020002,
-        "groupCreateTime": "2024-03-19T00:10:07"
+        "groupCaptainId": 12000000001,
+        "groupStudentId": 12000000002,
+        "groupCreateTime": "2024-04-26T08:35:10",
+        "mentorId": null,
+        "mentorName": "苹果老师",
+        "competitionId": null,
+        "competitionName": null,
+        "studentId": null,
+        "studentName": "陈二",
+        "projectId": null,
+        "projectName": null
+      },
+      {
+        "groupNumber": 3,
+        "groupId": 22000000001,
+        "groupName": "一窝咸鱼",
+        "groupMentorId": 11001000001,
+        "groupCaptainId": 12000000001,
+        "groupStudentId": 12000000003,
+        "groupCreateTime": "2024-04-26T08:35:10",
+        "mentorId": null,
+        "mentorName": "苹果老师",
+        "competitionId": null,
+        "competitionName": null,
+        "studentId": null,
+        "studentName": "张三",
+        "projectId": null,
+        "projectName": null
+      },
+      {
+        "groupNumber": 4,
+        "groupId": 22000000002,
+        "groupName": "烂泥扶不上墙",
+        "groupMentorId": 11001000001,
+        "groupCaptainId": 12000000001,
+        "groupStudentId": 12000000001,
+        "groupCreateTime": "2024-04-26T08:35:10",
+        "mentorId": null,
+        "mentorName": "苹果老师",
+        "competitionId": null,
+        "competitionName": null,
+        "studentId": null,
+        "studentName": "刘一",
+        "projectId": null,
+        "projectName": null
+      },
+      {
+        "groupNumber": 5,
+        "groupId": 22000000002,
+        "groupName": "烂泥扶不上墙",
+        "groupMentorId": 11001000001,
+        "groupCaptainId": 12000000001,
+        "groupStudentId": 12000000002,
+        "groupCreateTime": "2024-04-26T08:35:10",
+        "mentorId": null,
+        "mentorName": "苹果老师",
+        "competitionId": null,
+        "competitionName": null,
+        "studentId": null,
+        "studentName": "陈二",
+        "projectId": null,
+        "projectName": null
+      },
+      {
+        "groupNumber": 56,
+        "groupId": 22000000002,
+        "groupName": "烂泥扶不上墙",
+        "groupMentorId": 11001000001,
+        "groupCaptainId": 12000000001,
+        "groupStudentId": 12000000005,
+        "groupCreateTime": "2024-04-26T08:37:05",
+        "mentorId": null,
+        "mentorName": "苹果老师",
+        "competitionId": null,
+        "competitionName": null,
+        "studentId": null,
+        "studentName": "王五",
+        "projectId": null,
+        "projectName": null
       }
     ]
   }
@@ -1664,9 +1750,49 @@ project表数据写入完毕后，会自动生成新的projectManagement数据 �
 }
 ```
 
-### /mentor/studentAuditSearch [0.4.0 NEW]
+### /mentor/studentAuditSearch [0.4.6 UPDATE]
 
-见/studentAudit/search [0.4.0 NEW]
+`POST`
+
+```JSON
+//动态传参
+{
+  "studentAuditId": 1,
+  "studentId": 12000000001,
+  "mentorId": 11001000001,
+  "projectId": 31000000001,
+  "groupId": 22000000001,
+  "studentAuditStatus": 1,
+}
+```
+
+```JSON
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "studentAuditId": 1,
+        "studentId": 12000000001,
+        "mentorId": 11001000001,
+        "projectId": 31000000001,
+        "groupId": 22000000001,
+        "studentAuditStatus": 1,
+        "studentAuditStatusDescription": "暂无",
+        "mentorName": "苹果老师",
+        "competitionId": null,
+        "competitionName": null,
+        "groupName": "一窝咸鱼",
+        "studentName": "刘一",
+        "projectName": "一体化HPV检测仪器"
+      }
+    ]
+  }
+}
+```
+
+
 
 ### /mentor/mentorStudentAudit [0.4.0 NEW]
 
@@ -1906,13 +2032,75 @@ VALUES(22000000001,'一窝咸鱼',11001000001 ,12240020001,12240020001),
 }
 ```
 
-### /competition/creditsAuditShow [0.4.0 NEW]
+### /competition/creditsAuditShow [0.4.6 UPDATE]
 
 `post`
 
 ```JSON
 {
   "competitionId": 41001000001
+}
+```
+
+```JSON
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "creditsAuditId": 4,
+        "studentId": 12000000001,
+        "mentorId": 11001000001,
+        "projectId": 31000000002,
+        "groupId": 22000000002,
+        "competitionId": 41001000001,
+        "projectCredits": 3,
+        "creditsAuditStatus": 0,
+        "creditsAuditStatusDescription": "拒绝",
+        "creditsAuditTime": "2024-04-26T08:37:11",
+        "mentorName": "苹果老师",
+        "competitionName": null,
+        "groupName": "烂泥扶不上墙",
+        "studentName": "刘一",
+        "projectName": "一种面向金融风控的轻量型自动化机器学习(autoML）框架"
+      },
+      {
+        "creditsAuditId": 5,
+        "studentId": 12000000002,
+        "mentorId": 11001000001,
+        "projectId": 31000000002,
+        "groupId": 22000000002,
+        "competitionId": 41001000001,
+        "projectCredits": 3,
+        "creditsAuditStatus": 1,
+        "creditsAuditStatusDescription": "同意",
+        "creditsAuditTime": "2024-04-26T08:37:11",
+        "mentorName": "苹果老师",
+        "competitionName": null,
+        "groupName": "烂泥扶不上墙",
+        "studentName": "陈二",
+        "projectName": "一种面向金融风控的轻量型自动化机器学习(autoML）框架"
+      },
+      {
+        "creditsAuditId": 6,
+        "studentId": 12000000005,
+        "mentorId": 11001000001,
+        "projectId": 31000000002,
+        "groupId": 22000000002,
+        "competitionId": 41001000001,
+        "projectCredits": 3,
+        "creditsAuditStatus": 0,
+        "creditsAuditStatusDescription": "拒绝",
+        "creditsAuditTime": "2024-04-26T08:37:11",
+        "mentorName": "苹果老师",
+        "competitionName": null,
+        "groupName": "烂泥扶不上墙",
+        "studentName": "王五",
+        "projectName": "一种面向金融风控的轻量型自动化机器学习(autoML）框架"
+      }
+    ]
+  }
 }
 ```
 

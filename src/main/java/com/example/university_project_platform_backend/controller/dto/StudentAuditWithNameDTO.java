@@ -1,14 +1,12 @@
 package com.example.university_project_platform_backend.controller.dto;
 
-import com.example.university_project_platform_backend.entity.Project;
+import com.example.university_project_platform_backend.entity.StudentAudit;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@Setter
 @Getter
-@ToString
-public class MentorProjectDTO extends Project   {
+@Setter
+public class StudentAuditWithNameDTO extends StudentAudit {
     private Long mentorId;
     private String mentorName;
 
@@ -17,4 +15,10 @@ public class MentorProjectDTO extends Project   {
 
     private Long groupId;
     private String groupName;
+
+    private Long studentId;
+    private String studentName;
+
+    private Long projectId;
+    private String projectName;
 }
