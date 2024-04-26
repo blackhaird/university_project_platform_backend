@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2024-03-03
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+public class  UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired

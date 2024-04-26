@@ -260,7 +260,7 @@ public class WebSocketServer implements IWebSocketServer {
             queryWrapper.eq(Mail::getUserId, mail.getForuserId())
                     .eq(Mail::getForuserId, mail.getUserId());
         }
-        List<Mail> mailList = iMailService.getMailListByMail(mail);
+        List<Mail> mailList = iMailService.list(queryWrapper);
         mailUserMap.put("data", mailList);
         return mailUserMap;
     }
