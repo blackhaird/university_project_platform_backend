@@ -52,6 +52,18 @@ public class MailController {
         System.out.println(keys.size());
         return JsonResult.ResultSuccess(keys);
     }
+    @PostMapping("/getMessageSend")
+    public JsonResult<Map<String, Object>> getMessageSend(@RequestBody Mail mail){
+        Map<String,Object> keys =iWebSocketServer.getMessageSend(mail);
+        System.out.println(keys.size());
+        return JsonResult.ResultSuccess(keys);
+    }
+    @PostMapping("/getMessageBeSend")
+    public JsonResult<Map<String, Object>> getMessageBeSend(@RequestBody Mail mail){
+        Map<String,Object> keys =iWebSocketServer.getMessageBeSend(mail);
+        System.out.println(keys.size());
+        return JsonResult.ResultSuccess(keys);
+    }
     @PostMapping("/sendForUser")
     public JsonResult<Map<String, Object>> sendForUser(@RequestBody Mail mail ){
         System.out.println(mail.toString());

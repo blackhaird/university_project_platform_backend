@@ -308,4 +308,24 @@ public class WebSocketServer implements IWebSocketServer {
         return sendMessageForUserMap;
     }
 
+    @Override
+    public Map<String, Object> getMessageSend(Mail mail) {
+        Map<String, Object> mailUserMap = new HashMap<>();
+        LambdaQueryWrapper<Mail> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Mail::getUserId, mail.getUserId());
+        List<Mail> mailList = iMailService.list(queryWrapper);
+        mailUserMap.put("data", mailList);
+        return mailUserMap;
+    }
+
+    @Override
+    public Map<String, Object> getMessageBeSend(Mail mail) {
+        Map<String, Object> mailUserMap = new HashMap<>();
+        LambdaQueryWrapper<Mail> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Mail::getForuserId, mail.getForuserId());
+        List<Mail> mailList = iMailService.list(queryWrapper);
+        mailUserMap.put("data", mailList);
+        return mailUserMap;
+    }
+
 }

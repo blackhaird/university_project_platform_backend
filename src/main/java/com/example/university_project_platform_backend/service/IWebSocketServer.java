@@ -25,4 +25,8 @@ public interface IWebSocketServer {
     Map<String, Object> getMailUserMap(Mail mail);
 
     Map<String, Object> sendMailForUser(Mail mail);
+
+    Map<String, Object> getMessageSend(Mail mail);
+
+    Map<String, Object> getMessageBeSend(Mail mail);
 }

@@ -103,6 +103,8 @@
     * [/mail/sendForUser](#mailsendforuser)
     * [/mail/sendForUserList](#mailsendforuserlist)
     * [/mail/getMessage](#mailgetmessage)
+    * [/mail/getMessageSend](#mailgetmessagesend)
+    * [/mail/getMessageBeSend](#mailgetmessagebesend)
     * [/mail/uploadProjectImg [0\.4\.0 DEL]](#mailuploadprojectimg-040-del)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
@@ -3605,6 +3607,28 @@ function sendMessageFor() {
 其中的个人消息可以通过userId，foruserId指定两位的所有聊天记录
 
 多人聊天记录则需要指定groupId,获取本组信息
+
+### /mail/getMessageSend
+
+```json
+{
+  "userId": 11001000001,
+  "foruserId": 12000000001
+}
+```
+
+获取发送方发送的数据(userId)
+
+### /mail/getMessageBeSend
+
+```json
+{
+  "userId": 11001000001,
+  "foruserId": 12000000001
+}
+```
+
+获取被发送方发送的数据(foruserId)
 
 ### /mail/uploadProjectImg [0.4.0 DEL]
 
