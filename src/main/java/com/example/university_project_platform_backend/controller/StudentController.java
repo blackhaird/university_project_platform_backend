@@ -160,7 +160,7 @@ public class StudentController {
 
     @PostMapping("/studentAuditSearch")
     public JsonResult<Map<String,Object>> studentAuditSearch(@RequestBody StudentAudit studentAudit){
-        Map<String,Object> map = iStudentAuditService.studentAuditSearch(studentAudit);
+        Map<String,Object> map = iStudentAuditService.studentAuditSearchWithName(studentAudit);
         if (map.get("data") != null){
             return JsonResult.ResultSuccess(map);
         }else {
