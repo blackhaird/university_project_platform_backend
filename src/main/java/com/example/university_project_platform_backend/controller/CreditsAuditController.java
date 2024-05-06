@@ -3,6 +3,7 @@ package com.example.university_project_platform_backend.controller;
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.entity.CreditsAudit;
 import com.example.university_project_platform_backend.service.ICreditsAuditService;
+import com.example.university_project_platform_backend.service.ICreditsOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ import java.util.Map;
 public class CreditsAuditController {
     @Autowired
     ICreditsAuditService iCreditsAuditService;
+
+    @Autowired
+    ICreditsOperationService iCreditsOperationService;
     @GetMapping("/show")
     public JsonResult<List<CreditsAudit>> creditsAuditShow(){
         List<CreditsAudit> creditsAuditList = iCreditsAuditService.list();

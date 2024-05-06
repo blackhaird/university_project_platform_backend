@@ -50,7 +50,7 @@ public class  UserServiceImpl extends ServiceImpl<UserMapper, User> implements I
 
         if (loginUser != null) {
             String key = TokenCommon.createToken(loginUser.getUserName(), loginUser.getUserPassword());
-            redisTemplate.opsForValue().set(key, loginUser, 30, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(key, loginUser, 259200000, TimeUnit.MINUTES);
             Map<String, Object> data = new HashMap<>();
             data.put("data", loginUser);
             data.put("token", key);

@@ -3,7 +3,10 @@ package com.example.university_project_platform_backend.controller;
 import com.example.university_project_platform_backend.common.JsonResult;
 import com.example.university_project_platform_backend.entity.Activity;
 import com.example.university_project_platform_backend.service.IActivityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
@@ -24,6 +27,11 @@ import java.util.Map;
 public class ActivityController {
     @Autowired
     IActivityService iActivityService;
+
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    private static Logger logger = LoggerFactory.getLogger(ActivityController.class);
     @GetMapping("/show")
     public JsonResult<List<Activity>> activityShow(){
         List<Activity> activityList = iActivityService.list();
@@ -76,12 +84,20 @@ public class ActivityController {
     }
     @GetMapping("/getActivityNew")
     public JsonResult<Map<String, Object>> getActivityNew() {
-        Map<String, Object> activityList = iActivityService.getActivityNew();
-        if (activityList != null) {
-            System.out.println("success");
-            return JsonResult.ResultSuccess(activityList);
-        } else {
-            return JsonResult.ResultFail("查询不到该导师存在导师组");
+
+        Object obj = redisTemplate.opsForValue().get("projectPost");
+        if (obj ==null) {
+            Map<String, Object> activityList = iActivityService.getActivityNew();
+            if (activityList != null) {
+                System.out.println("success");
+                return JsonResult.ResultSuccess(activityList);
+            } else {
+                return JsonResult.ResultFail("查询不到该导师存在导师组");
+            }
+        }else {
+            logger.info("redis have data project");
+            return JsonResult.ResultSuccess((Map<String, Object>) obj);
         }
+
     }
 }

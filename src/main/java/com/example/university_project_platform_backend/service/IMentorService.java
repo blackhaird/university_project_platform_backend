@@ -16,6 +16,7 @@ import java.util.Map;
  */
 public interface IMentorService extends IService<Mentor> {
     boolean isMentorFromMentorID(String mentorID);
+
     Map<String,Object> getMentorsFormMentorID(long mentorID);
 
     boolean mentorDelete(long mentorID);

@@ -9,6 +9,7 @@ import com.example.university_project_platform_backend.entity.ProjectManagement;
 import com.example.university_project_platform_backend.mapper.CreditsAuditMapper;
 import com.example.university_project_platform_backend.service.ICreditsAuditService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.university_project_platform_backend.service.ICreditsOperationService;
 import com.example.university_project_platform_backend.service.ICreditsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,8 @@ import java.util.Map;
 public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, CreditsAudit> implements ICreditsAuditService {
     @Autowired
     private ICreditsService iCreditsService;
+    @Autowired
+    private ICreditsOperationService iCreditsOperationService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -52,25 +55,28 @@ public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, Cre
     }
 
     @Override
-//    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> creditsAuditUpdate(CreditsAudit creditsAudit) {
         Map<String, Object> map = new HashMap<>();
         try {
+            //将学分审核状态更新
             LambdaUpdateWrapper<CreditsAudit> wrapper = new LambdaUpdateWrapper<>();
             wrapper.eq(CreditsAudit::getCompetitionId, creditsAudit.getCompetitionId());
             wrapper.eq(CreditsAudit::getProjectId, creditsAudit.getProjectId());
             wrapper.eq(CreditsAudit::getStudentId, creditsAudit.getStudentId());
             boolean rowsAffected = this.update(creditsAudit, wrapper);
 
+            //查询更新的学生状态
             LambdaQueryWrapper<CreditsAudit> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(CreditsAudit::getCompetitionId, creditsAudit.getCompetitionId())
                     .eq(CreditsAudit::getProjectId, creditsAudit.getProjectId())
                     .eq(CreditsAudit::getStudentId, creditsAudit.getStudentId());
             CreditsAudit originalCreditsAudit = this.getOne(queryWrapper);
             System.out.println("rowsAffected：" + rowsAffected);
-            if (rowsAffected) {
 
-                System.out.println("rowsAffected：" + rowsAffected);
+            //查询插入状态验证情况
+            if (rowsAffected) {
+                //若需要运行改学分审核成功
                 if (creditsAudit.getCreditsAuditStatus() == 1) {
                     LambdaQueryWrapper<Credits> wrapperCredits = new LambdaQueryWrapper<>();
                     wrapperCredits.eq(Credits::getStudentId, creditsAudit.getStudentId());
@@ -81,6 +87,7 @@ public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, Cre
                     credits.setCreditsValue(credits_after);
                     iCreditsService.updateById(credits);
                     System.out.println("success");
+
                     map.put("message", "[" + credits.getCreditsId() + "] 的学分更新更新成功 :" + credits_now + " + " + originalCreditsAudit.getProjectCredits());
 
                     LambdaQueryWrapper<CreditsAudit> wrapper2 = new LambdaQueryWrapper<>();
@@ -89,6 +96,8 @@ public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, Cre
                     wrapper2.eq(CreditsAudit::getStudentId, creditsAudit.getStudentId());
                     List<CreditsAudit> creditsAuditList = this.list(wrapper2);
                     map.put("data", creditsAuditList);
+                }else {
+                    map.put("message", "已经拒绝 [" + creditsAudit.getStudentId() + "] 的学分更新 :" );
                 }
             } else {
                 map.put("message", "更新失败");

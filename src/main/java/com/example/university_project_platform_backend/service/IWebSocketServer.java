@@ -9,11 +9,6 @@ import java.util.Map;
 public interface IWebSocketServer {
     void onOpen(Session session, String loginName);
 
-    //    void sendOneMessage(String userId, String jsonString);
-//
-//    void sendAllMessage(String jsonString);
-//
-//    void sendMoreMessage(String[] strings, String jsonString);
     Map<String, Object> sendMessageForUser(Websocket webSocketUser);
 
     Map<String, Object> getWebSocketUserMap();

@@ -38,10 +38,12 @@ public class FileController {
     }
 
     @RequestMapping("/upload/{fileLocation}")
-    public JsonResult<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file,@PathVariable("fileLocation") String fileLocation) throws IOException {
+    public JsonResult<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file,
+                                                      @PathVariable("fileLocation") String fileLocation) throws IOException {
         // 保存文件到服务器的代码
         Map<String,Object> map = new HashMap<>();
-        String url = iFileService.uploadFile(file,fileLocation , UUID.randomUUID().toString().substring(0, 10) + "_" + file.getOriginalFilename());
+        String url = iFileService.uploadFile(file,fileLocation , UUID.randomUUID().toString().substring(0, 10) + "_" +
+                file.getOriginalFilename());
         map.put("url", url);
         System.out.println(JsonResult.ResultSuccess(map));
         return JsonResult.ResultSuccess(map);
@@ -49,7 +51,8 @@ public class FileController {
 
 
     @RequestMapping("/download/{fileLocation}/{fileName}")
-    public void downloadFile(@PathVariable("fileName") String fileName, @PathVariable("fileLocation") String fileLocation,HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void downloadFile(@PathVariable("fileName") String fileName, @PathVariable("fileLocation")
+    String fileLocation,HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 保存文件到服务器的代码
         iFileService.downloadFile(fileName,fileLocation,request,response);
     }

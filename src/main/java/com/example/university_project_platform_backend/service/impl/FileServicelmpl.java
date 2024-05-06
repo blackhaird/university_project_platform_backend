@@ -40,6 +40,7 @@ public class FileServicelmpl implements IFileService {
         String filePath = STORE_PATH + fileLocation + "\\" + fileName;
         System.out.println("filePath:"+filePath);
         try {
+            //声明contentType和setHeader发送的数据属于什么文件类型
             response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);
             response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" +  fileName);
             Files.copy(new File(filePath).toPath(), response.getOutputStream());
