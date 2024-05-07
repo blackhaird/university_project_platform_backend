@@ -127,12 +127,19 @@ public class StudentAuditServiceImpl extends ServiceImpl<StudentAuditMapper, Stu
     @Override
     public Map<String, Object> getStudentAuditByMentorId(StudentAudit studentAudit) {
         Map<String,Object> map = new HashMap<>();
-        LambdaQueryWrapper<StudentAudit> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StudentAudit::getMentorId, studentAudit.getMentorId());
-        if (studentAudit.getStudentAuditStatus() != null){
-            wrapper.eq(StudentAudit::getStudentAuditStatus, studentAudit.getStudentAuditStatus());
-        }
-        List<StudentAudit> studentAuditStudentDTOList = this.list(wrapper);
+//        LambdaQueryWrapper<StudentAudit> wrapper = new LambdaQueryWrapper<>();
+//        wrapper.eq(StudentAudit::getMentorId, studentAudit.getMentorId());
+//        if (studentAudit.getStudentAuditStatus() != null){
+//            wrapper.eq(StudentAudit::getStudentAuditStatus, studentAudit.getStudentAuditStatus());
+//        }
+//        List<StudentAudit> studentAuditStudentDTOList = this.list(wrapper);
+//        if (!studentAuditStudentDTOList.isEmpty()){
+//            map.put("data", studentAuditStudentDTOList);
+//        }else {
+//            map.put("message", "未找到该导师的学生提交审核记录");
+//        }
+
+        List<StudentAuditWithNameDTO> studentAuditStudentDTOList = this.baseMapper.getStudentAuditByMentorId(studentAudit);
         if (!studentAuditStudentDTOList.isEmpty()){
             map.put("data", studentAuditStudentDTOList);
         }else {

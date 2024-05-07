@@ -22,4 +22,6 @@ public interface ProjectMapper extends BaseMapper<Project> {
     List<ProjectAddDataDTO> getStudentsProjectByMentorId(Long mentorId);
 
     List<ProjectAddDataDTO> getProjectSearchWithStudentMentorData(ProjectAddDataDTO projectAddDataDTO);
+
+    List<ProjectAddDataDTO> projectShowWithData();
 }

@@ -220,4 +220,11 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         return projectMap;
     }
 
+    @Override
+    public List<ProjectAddDataDTO> projectShowWithData() {
+
+        List<ProjectAddDataDTO> projectList = this.baseMapper.projectShowWithData();
+        return projectList;
+    }
+
 }

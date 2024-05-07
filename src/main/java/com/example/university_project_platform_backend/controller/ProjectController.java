@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author blackhaird
@@ -33,6 +33,7 @@ public class ProjectController {
     private IProjectService iProjectService;
 
     private static Logger logger = LoggerFactory.getLogger(ProjectController.class);
+
     @GetMapping("/show")
     public JsonResult<List<Project>> projectShow() {
         List<Project> projectList = iProjectService.list();
@@ -40,19 +41,27 @@ public class ProjectController {
         return JsonResult.ResultSuccess(projectList);
     }
 
-    @PostMapping("/showPost")
-    public JsonResult<List<Project>> projectShowPost() {
+    @PostMapping("/showPostNoData")
+    public JsonResult<List<Project>> projectShowPostNoData() {
         Object obj = redisTemplate.opsForValue().get("projectPost");
-        if (obj ==null) {
+        if (obj == null) {
             List<Project> projectList = iProjectService.list();
             System.out.println(projectList);
             redisTemplate.opsForValue().set("projectPost", projectList, 14400000, TimeUnit.MINUTES);
             return JsonResult.ResultSuccess(projectList);
-        }else {
+        } else {
             logger.info("redis have data project");
             return JsonResult.ResultSuccess((List<Project>) obj);
         }
     }
+
+    @PostMapping("/showPost")
+    public JsonResult<List<ProjectAddDataDTO>> projectShowPost() {
+
+        List<ProjectAddDataDTO> projectList = iProjectService.projectShowWithData();
+        return JsonResult.ResultSuccess(projectList);
+    }
+
     @PostMapping("/projectSearch")
     public JsonResult<Map<String, Object>> projectSearch(@RequestBody Project project) {
         Map<String, Object> projectList = iProjectService.projectSearchByProject(project);
@@ -76,11 +85,10 @@ public class ProjectController {
     }
 
 
-
     @GetMapping("/getProjectNew")
     public JsonResult<Map<String, Object>> getProjectNew() {
         Object obj = redisTemplate.opsForValue().get("getProjectNew");
-        if (obj ==null) {
+        if (obj == null) {
             Map<String, Object> projectList = iProjectService.getProjectNew();
             if (projectList != null) {
                 redisTemplate.opsForValue().set("projectPost", projectList, 14400000, TimeUnit.MINUTES);
@@ -89,7 +97,7 @@ public class ProjectController {
             } else {
                 return JsonResult.ResultFail("查询不到该导师存在导师组");
             }
-        }else {
+        } else {
             logger.info("redis have data project");
             return JsonResult.ResultSuccess((Map<String, Object>) obj);
         }
@@ -99,7 +107,7 @@ public class ProjectController {
     @GetMapping("/getProjectLevelTop5")
     public JsonResult<Map<String, Object>> getProjectLevelTop5() {
         Object obj = redisTemplate.opsForValue().get("getProjectLevelTop5");
-        if (obj ==null) {
+        if (obj == null) {
             Map<String, Object> projectList = iProjectService.getProjectLevelTop5();
             redisTemplate.opsForValue().set("getProjectLevelTop5", projectList, 14400000, TimeUnit.MINUTES);
             if (projectList != null) {
@@ -108,7 +116,7 @@ public class ProjectController {
             } else {
                 return JsonResult.ResultFail();
             }
-        }else {
+        } else {
             logger.info("redis have data project");
             return JsonResult.ResultSuccess((Map<String, Object>) obj);
         }
@@ -117,7 +125,7 @@ public class ProjectController {
     @GetMapping("/showWithData")
     public JsonResult<Map<String, Object>> projectShowWithData() {
         Object obj = redisTemplate.opsForValue().get("showWithData");
-        if (obj ==null) {
+        if (obj == null) {
             Map<String, Object> projectList = iProjectService.getProjectWithStudentMentorData();
             if (projectList != null) {
                 System.out.println("success");
@@ -126,7 +134,7 @@ public class ProjectController {
             } else {
                 return JsonResult.ResultFail("查询不到该导师存在导师组");
             }
-        }else {
+        } else {
             logger.info("redis have data project");
             return JsonResult.ResultSuccess((Map<String, Object>) obj);
         }

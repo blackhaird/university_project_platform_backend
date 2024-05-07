@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class ProjectCompetitonPMDTO  extends Project {
     private Long competitionId;
+
     /**
      * 项目状态id 0代表未通过 1代表通过 2代表审核中
      */

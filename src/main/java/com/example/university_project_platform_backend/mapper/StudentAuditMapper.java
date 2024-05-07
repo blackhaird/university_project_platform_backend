@@ -21,4 +21,6 @@ public interface StudentAuditMapper extends BaseMapper<StudentAudit> {
     List<StudentAudit> studentAuditIsExist(StudentAudit studentAudit, int studentAuditStatus);
 
     List<StudentAuditWithNameDTO> studentAuditSearchWithName(StudentAudit studentAudit);
+
+    List<StudentAuditWithNameDTO> getStudentAuditByMentorId(StudentAudit studentAudit);
 }

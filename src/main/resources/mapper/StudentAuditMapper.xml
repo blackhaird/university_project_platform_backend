@@ -43,5 +43,22 @@
             AND student_audit.student_audit_status = #{studentAuditStatus}
         </if>
     </select>
+    <select id="getStudentAuditByMentorId"
+            resultType="com.example.university_project_platform_backend.controller.dto.StudentAuditWithNameDTO">
+        select distinct
+        student.student_name as student_name,
+        mentor.mentor_name as mentor_name,
+        project.project_name as project_name,
+        student_group.group_name as group_name,
+        student_audit.*
+        from student_audit,student,mentor,project,student_group
+        where student.student_id = student_audit.student_id
+        and mentor.mentor_id = student_audit.mentor_id
+        and project.project_id= student_audit.project_id
+        and student_audit.mentor_id = #{mentorId}
+        <if test="studentAuditStatus != null">
+            AND student_audit.student_audit_status = #{studentAuditStatus}
+        </if>
+    </select>
 
 </mapper>

@@ -3,14 +3,16 @@
 <mapper namespace="com.example.university_project_platform_backend.mapper.ProjectMapper">
     <select id="getStudentsProjectByStudentId"
             resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
-        select student.student_id, student_name, project.*
+        select distinct student.student_id, student_name,student_group.group_name,mentor_name, project.*
         from project,
              project_management,
              student_group,
-             student
+             student,
+             mentor
         where project_management.Group_id = student_group.group_id
           and project.project_id = project_management.project_id
           and student_group.group_student_id = student_id
+          and mentor.mentor_id = project_management.mentor_id
           and student.student_id = #{studentId};
 
     </select>
@@ -28,12 +30,14 @@
     </select>
     <select id="getStudentsProjectByMentorId"
             resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
-        select mentor.mentor_id, mentor_name, project.*
+        select distinct mentor.mentor_id, mentor_name,student_group.group_name, project.*
         from project,
              project_management,
-             mentor
+             mentor,
+             student_group
         where project_management.mentor_id = mentor.mentor_id
           and project.project_id = project_management.project_id
+          and student_group.group_id = project_management.Group_id;
           and mentor.mentor_id = #{mentorId};
 
     </select>
@@ -83,6 +87,10 @@
                 #{status}
             </foreach>
         </if>
+    </select>
+    <select id="projectShowWithData"
+            resultType="com.example.university_project_platform_backend.controller.dto.ProjectAddDataDTO">
+        select distinct * from project,student_group,mentor where project.mentor_id = mentor.mentor_id ;
     </select>
 
 
