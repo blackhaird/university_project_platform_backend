@@ -227,4 +227,14 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         return projectList;
     }
 
+    @Override
+    public boolean projectUpdateDoneStatus(Project project) {
+        LambdaUpdateWrapper<Project> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(Project::getProjectId,project.getProjectId());
+        wrapper.set(Project::getProjectDoneStatus,project.getProjectDoneStatus());
+        boolean flag = this.update(project,wrapper);
+        return flag;
+
+    }
+
 }

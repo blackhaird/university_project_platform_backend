@@ -42,4 +42,8 @@ public interface IProjectManagementService extends IService<ProjectManagement> {
     Map<String, Object> projectStatusSearch(ProjectCompetitonPMDTO projectCompetitonPMDTO);
 
     Map<String, Object> projectManagementSelectWithNameByMentorProjectDTO(MentorProjectDTO mentorProjectDTO);
+
+    boolean projectManagementReject(Long competitionId,ProjectManagement projectManagement);
+
+    boolean projectManagementUpdate(ProjectManagement projectManagement);
 }

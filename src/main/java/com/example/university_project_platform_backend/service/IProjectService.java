@@ -43,4 +43,6 @@ public interface IProjectService extends IService<Project> {
     Map<String, Object> getProjectLevelTop5();
 
     List<ProjectAddDataDTO> projectShowWithData();
+
+    boolean projectUpdateDoneStatus(Project project);
 }

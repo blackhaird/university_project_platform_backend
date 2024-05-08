@@ -260,4 +260,50 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
         return projectManagementMap;
     }
 
+    @Override
+    public boolean projectManagementReject(Long competitionId,ProjectManagement projectManagement) {
+        Map<String,Object> projectManagementMap = new HashMap<>();
+        if (competitionId.equals(projectManagement.getCompetitionId())){
+            LambdaUpdateWrapper<ProjectManagement> projectManagementUpdateWrapper =   new LambdaUpdateWrapper<>();
+            projectManagementUpdateWrapper.set(ProjectManagement::getProjectStatusId,projectManagement.getProjectStatusId());
+            projectManagementUpdateWrapper.set(ProjectManagement::getProjectStatusDescription,projectManagement.getProjectStatusDescription());
+            projectManagementUpdateWrapper.eq(ProjectManagement::getCompetitionId,competitionId);
+            projectManagementUpdateWrapper.eq(ProjectManagement::getProjectId,projectManagement.getProjectId());
+            int projectManagementFlag = this.baseMapper.update(projectManagement,projectManagementUpdateWrapper);
+            System.out.println(projectManagementFlag);
+            if (projectManagementFlag!=0){
+                LambdaQueryWrapper<ProjectManagement> projectManagementQueryWrapper = new LambdaQueryWrapper<>();
+                projectManagementQueryWrapper.eq(ProjectManagement::getCompetitionId,competitionId);
+                projectManagementQueryWrapper.eq(ProjectManagement::getProjectId,projectManagement.getProjectId());
+                List<ProjectManagement> projectManagementList = this.list(projectManagementQueryWrapper);
+                projectManagementMap.put("data",projectManagementList);
+            }else {
+                projectManagementMap.put("data",null);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean projectManagementUpdate(ProjectManagement projectManagement) {
+        LambdaUpdateWrapper<ProjectManagement> projectManagementUpdateWrapper =   new LambdaUpdateWrapper<>();
+        if (projectManagement.getProjectStatusId()!=null){
+            projectManagementUpdateWrapper.set(ProjectManagement::getProjectStatusId,projectManagement.getProjectStatusId());
+        }
+        if (projectManagement.getProjectStatusDescription()!=null){
+            projectManagementUpdateWrapper.set(ProjectManagement::getProjectStatusDescription,projectManagement.getProjectStatusDescription());
+        }
+        if (projectManagement.getGroupId()!=null){
+            projectManagementUpdateWrapper.set(ProjectManagement::getGroupId,projectManagement.getGroupId());
+        }
+        projectManagementUpdateWrapper.eq(ProjectManagement::getCompetitionId,projectManagement.getCompetitionId());
+        projectManagementUpdateWrapper.eq(ProjectManagement::getProjectId,projectManagement.getProjectId());
+//        projectManagementUpdateWrapper.eq(ProjectManagement::getMentorId,projectManagement.getMentorId());
+        if (this.update(projectManagementUpdateWrapper)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 }
