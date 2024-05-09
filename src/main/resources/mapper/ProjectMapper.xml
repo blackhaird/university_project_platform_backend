@@ -37,7 +37,7 @@
              student_group
         where project_management.mentor_id = mentor.mentor_id
           and project.project_id = project_management.project_id
-          and student_group.group_id = project_management.Group_id;
+          and student_group.group_id = project_management.Group_id
           and mentor.mentor_id = #{mentorId};
 
     </select>
