@@ -81,14 +81,23 @@ public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, Cre
                     LambdaQueryWrapper<Credits> wrapperCredits = new LambdaQueryWrapper<>();
                     wrapperCredits.eq(Credits::getStudentId, creditsAudit.getStudentId());
                     Credits credits = iCreditsService.getOne(wrapperCredits);
-                    int credits_now = credits.getCreditsValue();
-                    System.out.println("credits_now:"+credits_now);
-                    int credits_after = credits.getCreditsValue() + originalCreditsAudit.getProjectCredits();
-                    credits.setCreditsValue(credits_after);
-                    iCreditsService.updateById(credits);
-                    System.out.println("success");
+                    if (credits == null) {
+                        Credits newCredits = new Credits();
+                        newCredits.setStudentId(creditsAudit.getStudentId());
+                        newCredits.setCreditsValue(originalCreditsAudit.getProjectCredits());
+                        iCreditsService.save(newCredits);
+                        map.put("message", "[" + newCredits.getCreditsId() + "] 的学分新增更新成功 :"  + originalCreditsAudit.getProjectCredits());
+                    } else {
+                        int credits_now = credits.getCreditsValue();
+                        System.out.println("credits_now:"+credits_now);
+                        int credits_after = credits.getCreditsValue() + originalCreditsAudit.getProjectCredits();
+                        credits.setCreditsValue(credits_after);
+                        iCreditsService.updateById(credits);
+                        System.out.println("success");
 
-                    map.put("message", "[" + credits.getCreditsId() + "] 的学分更新更新成功 :" + credits_now + " + " + originalCreditsAudit.getProjectCredits());
+                        map.put("message", "[" + credits.getCreditsId() + "] 的学分更新更新成功 :" + credits_now + " + " + originalCreditsAudit.getProjectCredits());
+
+                    }
 
                     LambdaQueryWrapper<CreditsAudit> wrapper2 = new LambdaQueryWrapper<>();
                     wrapper2.eq(CreditsAudit::getCompetitionId, creditsAudit.getCompetitionId());
