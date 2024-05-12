@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.university_project_platform_backend.controller.dto.*;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.mapper.ProjectManagementMapper;
+import com.example.university_project_platform_backend.service.ICompetitionService;
 import com.example.university_project_platform_backend.service.IProjectManagementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.university_project_platform_backend.service.IProjectService;
@@ -31,8 +32,8 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
     IProjectService iProjectService;
     @Autowired
     IStudentGroupService iStudentGroupService;
-
-
+    @Autowired
+    ICompetitionService iComponentetitionService;
     @Override
     public Map<String, Object> projectManagementSubmitByProjectMentorDTO(MentorProjectDTO mentorProjectDTO) {
         Map<String, Object> resultMap = new HashMap<>();
@@ -193,6 +194,14 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
         }
         projectManagement.setMentorId(mentorId);
         projectManagement.setProjectId(project.getProjectId());
+
+
+        LambdaUpdateWrapper<Competition> competitionLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        competitionLambdaUpdateWrapper.eq(Competition::getCompetitionFrom,project.getProjectBelong());
+        Competition competition = iComponentetitionService.getOne(competitionLambdaUpdateWrapper);
+
+        projectManagement.setCompetitionId(competition.getCompetitionId());
+
         projectManagement.setProjectStatusId((byte)1);
         projectManagement.setCompetitionId(project.getCompetitionId());
         try {
@@ -227,7 +236,12 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
         }
         projectManagement.setMentorId(mentorId);
         projectManagement.setProjectId(projectActivityDTO.getProjectId());
-        projectManagement.setCompetitionId(projectActivityDTO.getCompetitionId());
+
+        LambdaUpdateWrapper<Competition> competitionLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        competitionLambdaUpdateWrapper.eq(Competition::getCompetitionFrom,projectActivityDTO.getProjectBelong());
+        Competition competition = iComponentetitionService.getOne(competitionLambdaUpdateWrapper);
+
+        projectManagement.setCompetitionId(competition.getCompetitionId());
         projectManagement.setProjectStatusId((byte)2);
 
         try {

@@ -1311,6 +1311,8 @@ create table mentor(
 
 project表数据写入完毕后，会自动生成新的projectManagement数据和StudentGroup的新数据（如果要求可以调用老的StudentGroup新联系我修改）
 
+competitionId 根据 projectBelong 对应的字段获取
+
 ```json
 //最后几项由 [0.5.4 更新] 字段为强制必须
 {
@@ -1333,7 +1335,7 @@ project表数据写入完毕后，会自动生成新的projectManagement数据�
     
     
   "groupName":"测试小组",
-  "competitionId":41001000005
+  
 }
 ```
 
