@@ -86,7 +86,7 @@ public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, Cre
                         newCredits.setStudentId(creditsAudit.getStudentId());
                         newCredits.setCreditsValue(originalCreditsAudit.getProjectCredits());
                         iCreditsService.save(newCredits);
-                        map.put("message", "[" + newCredits.getCreditsId() + "] 的学分新增更新成功 :"  + originalCreditsAudit.getProjectCredits());
+                        map.put("message", "[" + newCredits.getStudentId() + "] 的学分新增更新成功 :"  + originalCreditsAudit.getProjectCredits());
                     } else {
                         int credits_now = credits.getCreditsValue();
                         System.out.println("credits_now:"+credits_now);
@@ -95,7 +95,7 @@ public class CreditsAuditServiceImpl extends ServiceImpl<CreditsAuditMapper, Cre
                         iCreditsService.updateById(credits);
                         System.out.println("success");
 
-                        map.put("message", "[" + credits.getCreditsId() + "] 的学分更新更新成功 :" + credits_now + " + " + originalCreditsAudit.getProjectCredits());
+                        map.put("message", "[" + credits.getStudentId() + "] 的学分更新更新成功 :" + credits_now + " + " + originalCreditsAudit.getProjectCredits());
 
                     }
 
