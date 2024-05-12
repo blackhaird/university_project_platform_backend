@@ -285,7 +285,7 @@ public class MentorController {
      * [0.3.5]
      */
     @PostMapping("/projectAdd")
-    public JsonResult<Map<String, Object>> projectAdd(@RequestBody Project project) {
+    public JsonResult<Map<String, Object>> projectAdd(@RequestBody ProjectAddDataDTO project) {
         Long mentorId = project.getMentorId();
         boolean projectFlag = iProjectService.save(project);
         if (projectFlag) {

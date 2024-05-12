@@ -13,10 +13,15 @@ public class ProjectActivityDTO extends Project {
      * 活动名称
      */
     private String activityName;
+
+    private Long groupId;
+
+    private String groupName;
     /**
      * 竞赛处ID
      */
     private Long competitionId;
+    private Long competitionName;
 
     /**
      * 活动范围

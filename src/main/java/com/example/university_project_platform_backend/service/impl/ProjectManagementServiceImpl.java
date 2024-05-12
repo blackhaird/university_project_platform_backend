@@ -2,10 +2,7 @@ package com.example.university_project_platform_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectActivityDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectCompetitonPMDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
+import com.example.university_project_platform_backend.controller.dto.*;
 import com.example.university_project_platform_backend.entity.*;
 import com.example.university_project_platform_backend.mapper.ProjectManagementMapper;
 import com.example.university_project_platform_backend.service.IProjectManagementService;
@@ -183,17 +180,21 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Map<String, Object> projectManagementSubmitByMentor(Long mentorId, Project project) {
+    public Map<String, Object> projectManagementSubmitByMentor(Long mentorId, ProjectAddDataDTO project) {
         Map<String,Object> projectMap =  new HashMap<>();
         ProjectManagement projectManagement = new ProjectManagement();
         StudentGroup studentGroup = new StudentGroup();
         studentGroup.setGroupMentorId(mentorId);
         studentGroup.setGroupId(iStudentGroupService.getMaxStudentGroupId() + 1);
-
+        if (project.getGroupName()==null){
+            studentGroup.setGroupName(project.getProjectName());
+        }else {
+            studentGroup.setGroupName(project.getGroupName());
+        }
         projectManagement.setMentorId(mentorId);
         projectManagement.setProjectId(project.getProjectId());
         projectManagement.setProjectStatusId((byte)1);
-
+        projectManagement.setCompetitionId(project.getCompetitionId());
         try {
             iStudentGroupService.save(studentGroup);
             projectManagement.setGroupId(studentGroup.getGroupId());
@@ -216,17 +217,22 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
          * 项目状态id 0代表未通过 1代表通过 2代表审核中
          */
         ProjectManagement projectManagement = new ProjectManagement();
-//        StudentGroup studentGroup = new StudentGroup();
-//        studentGroup.setGroupMentorId(mentorId);
-//        studentGroup.setGroupId(iStudentGroupService.getMaxStudentGroupId() + 1);
-
+        StudentGroup studentGroup = new StudentGroup();
+        studentGroup.setGroupMentorId(mentorId);
+        studentGroup.setGroupId(iStudentGroupService.getMaxStudentGroupId() + 1);
+        if (projectActivityDTO.getGroupName()==null){
+            studentGroup.setGroupName(projectActivityDTO.getProjectName());
+        }else {
+            studentGroup.setGroupName(projectActivityDTO.getGroupName());
+        }
         projectManagement.setMentorId(mentorId);
         projectManagement.setProjectId(projectActivityDTO.getProjectId());
         projectManagement.setCompetitionId(projectActivityDTO.getCompetitionId());
         projectManagement.setProjectStatusId((byte)2);
 
         try {
-//            iStudentGroupService.save(studentGroup);
+            iStudentGroupService.save(studentGroup);
+            projectManagement.setGroupId(studentGroup.getGroupId());
             this.save(projectManagement);
 
         } catch (Exception e) {

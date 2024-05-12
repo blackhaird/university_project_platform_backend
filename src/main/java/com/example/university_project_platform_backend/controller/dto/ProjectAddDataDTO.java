@@ -26,4 +26,11 @@ public class ProjectAddDataDTO extends Project {
 
     private List<Integer> projectDoneStatusList;
 
+    private Long competitionId;
+
+    /**
+     * 竞赛处名字
+     */
+    private String competitionName;
+
 }

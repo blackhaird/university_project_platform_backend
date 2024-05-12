@@ -1,10 +1,7 @@
 package com.example.university_project_platform_backend.service;
 
 import com.example.university_project_platform_backend.common.JsonResult;
-import com.example.university_project_platform_backend.controller.dto.MentorProjectDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectActivityDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectCompetitonPMDTO;
-import com.example.university_project_platform_backend.controller.dto.ProjectProjectManagementDTO;
+import com.example.university_project_platform_backend.controller.dto.*;
 import com.example.university_project_platform_backend.entity.Project;
 import com.example.university_project_platform_backend.entity.ProjectManagement;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -35,7 +32,7 @@ public interface IProjectManagementService extends IService<ProjectManagement> {
 
     Map<String, Object> projectManagementSearchByMentorProjectDTO(ProjectManagement projectManagement);
 
-    Map<String, Object> projectManagementSubmitByMentor(Long mentorId, Project project);
+    Map<String, Object> projectManagementSubmitByMentor(Long mentorId, ProjectAddDataDTO project);
 
     Map<String, Object> projectManagementSubmitForActivityByMentor(Long mentorId, ProjectActivityDTO projectActivityDTO);
 
