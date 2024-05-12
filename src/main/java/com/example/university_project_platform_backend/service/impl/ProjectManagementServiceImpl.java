@@ -203,7 +203,7 @@ public class ProjectManagementServiceImpl extends ServiceImpl<ProjectManagementM
         projectManagement.setCompetitionId(competition.getCompetitionId());
 
         projectManagement.setProjectStatusId((byte)1);
-        projectManagement.setCompetitionId(project.getCompetitionId());
+        projectManagement.setCompetitionId(competition.getCompetitionId());
         try {
             iStudentGroupService.save(studentGroup);
             projectManagement.setGroupId(studentGroup.getGroupId());
