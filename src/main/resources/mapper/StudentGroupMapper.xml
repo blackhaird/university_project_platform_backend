@@ -17,13 +17,17 @@
     </select>
     <select id="studentGroupShowByMentorIdWithName"
             resultType="com.example.university_project_platform_backend.controller.dto.StudentGroupWithNameDTO">
-        select distinct
-            mentor.mentor_name as mentor_name,
-            student.student_name as student_name,
+        SELECT
+            mentor.mentor_name AS mentor_name,
+            student.student_name AS student_name,
             student_group.*
-        from student_group,mentor,student
-        where mentor.mentor_id = student_group.group_mentor_id
-          and student.student_id = student_group.group_student_id
-          and student_group.group_mentor_id = #{mentorId};
+        FROM
+            student_group
+                LEFT JOIN
+            mentor ON mentor.mentor_id = student_group.group_mentor_id
+                LEFT JOIN
+            student ON student.student_id = student_group.group_student_id AND student_group.group_student_id IS NOT NULL
+        WHERE
+           student_group.group_mentor_id = #{mentorId};
     </select>
 </mapper>

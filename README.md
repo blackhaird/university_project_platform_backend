@@ -32,8 +32,8 @@
     * [/mentor/projectManagementDel](#mentorprojectmanagementdel)
     * [/mentor/projectManagementUpdate](#mentorprojectmanagementupdate)
     * [/mentor/projectManagementShow](#mentorprojectmanagementshow)
-    * [/mentor/projectAdd [0\.3\.5 NEW]](#mentorprojectadd-035-new)
-    * [/mentor/projectAddForActivity [0\.4\.0 NEW]](#mentorprojectaddforactivity-040-new)
+    * [/mentor/projectAdd [0\.3\.5 NEW] [0\.5\.4 UPDATE]](#mentorprojectadd-035-new-054-update)
+    * [/mentor/projectAddForActivity [0\.4\.0 NEW] [0\.5\.4 UPDATE]](#mentorprojectaddforactivity-040-new-054-update)
     * [/mentor/projectDel](#mentorprojectdel)
     * [/mentor/projectUpdate](#mentorprojectupdate)
     * [/mentor/showMentorStudent](#mentorshowmentorstudent)
@@ -1305,13 +1305,14 @@ create table mentor(
 }
 ```
 
-### /mentor/projectAdd [0.3.5 NEW]
+### /mentor/projectAdd [0.3.5 NEW] [0.5.4 UPDATE]
 
 `post`
 
 project表数据写入完毕后，会自动生成新的projectManagement数据和StudentGroup的新数据（如果要求可以调用老的StudentGroup新联系我修改）
 
 ```json
+//最后几项由 [0.5.4 更新] 字段为强制必须
 {
   "projectName": "测试23",
   "projectImage": "1.12.37.222/1.png",
@@ -1328,7 +1329,11 @@ project表数据写入完毕后，会自动生成新的projectManagement数据�
   "projectDoneStatus": 1,
   "projectDoneTime": null,
   "projectDoneDescription": "暂无",
-  "projectLevel": 0
+  "projectLevel": 0,
+    
+    
+  "groupName":"测试小组",
+  "competitionId":41001000005
 }
 ```
 
@@ -1367,7 +1372,7 @@ project表数据写入完毕后，会自动生成新的projectManagement数据�
 }
 ```
 
-### /mentor/projectAddForActivity [0.4.0 NEW]
+### /mentor/projectAddForActivity [0.4.0 NEW] [0.5.4 UPDATE]
 
 `post`
 
