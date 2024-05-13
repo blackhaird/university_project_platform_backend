@@ -148,6 +148,7 @@ public class StudentGroupServiceImpl extends ServiceImpl<StudentGroupMapper, Stu
         LambdaQueryWrapper<StudentGroup> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(StudentGroup::getGroupId,studentGroup.getGroupId());
         wrapper.eq(StudentGroup::getGroupMentorId,groupMentorId);
+        wrapper.eq(StudentGroup::getGroupNumber,studentGroup.getGroupNumber());
         boolean studentGroupFlag = this.update(studentGroup,wrapper);
         if (studentGroupFlag){
             StudentGroup studentGroupList = this.getOne(wrapper);
