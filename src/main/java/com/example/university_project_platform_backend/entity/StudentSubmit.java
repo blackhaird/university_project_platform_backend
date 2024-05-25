@@ -2,8 +2,8 @@ package com.example.university_project_platform_backend.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,14 +17,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Student implements Serializable {
+@TableName("student_submit")
+public class StudentSubmit implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "student_submit_id", type = IdType.AUTO)
+    private Integer studentSubmitId;
+
     /**
-     * 学生id
+     * studentID
      */
-    @TableId(value = "student_id", type = IdType.AUTO)
     private Long studentId;
 
     /**
@@ -33,32 +36,22 @@ public class Student implements Serializable {
     private String studentName;
 
     /**
-     * 学生性别(男1 女0)
+     * 项目id
      */
-    private Boolean studentSex;
+    private Long projectId;
 
     /**
-     * 入学年份
+     * 项目名称
      */
-    private LocalDateTime studentAdmissionTime;
+    private String projectName;
 
     /**
-     * 学生年龄
+     * 学生技能
      */
-    private Integer studentAge;
+    private String studentSkill;
 
     /**
-     * 手机号码
+     * 学生经验
      */
-    private String studentPhoneNumber;
-
-    /**
-     * 学生邮箱(固定格式:xxx@graduation)
-     */
-    private String studentEmail;
-
-    /**
-     * 学生班级
-     */
-    private String studentClass;
+    private String studentExper;
 }

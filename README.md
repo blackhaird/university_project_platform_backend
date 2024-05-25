@@ -106,6 +106,10 @@
     * [/mail/getMessageSend](#mailgetmessagesend)
     * [/mail/getMessageBeSend](#mailgetmessagebesend)
     * [/mail/uploadProjectImg [0\.4\.0 DEL]](#mailuploadprojectimg-040-del)
+  * [StudentSubmit [0\.6\.0]](#studentsubmit-060)
+    * [/studentSubmit/show](#studentsubmitshow)
+    * [/studentSubmit/add](#studentsubmitadd)
+    * [/studentSubmit/showById](#studentsubmitshowbyid)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
 
@@ -3644,4 +3648,77 @@ function sendMessageFor() {
 此后文件上传走：/file/upload/{fileLocation} 
 
 文件下载走：/file/download/{fileLocation}/{fileName} 两个接口
+
+
+
+## StudentSubmit [0.6.0]
+
+### /studentSubmit/show
+
+`get`
+
+### /studentSubmit/add
+
+`post`
+
+```json
+{
+  "studentId": 12000000002,
+  "studentName": "测试名字2",
+  "projectId": 31000000002,
+  "projectName": "项目测试2",
+  "studentSkill": "代码能力",
+  "studentExper": "大创第一名"
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": {
+      "studentSubmitId": 2,
+      "studentId": 12000000002,
+      "studentName": "测试名字2",
+      "projectId": 31000000002,
+      "projectName": "项目测试2",
+      "studentSkill": "代码能力",
+      "studentExper": "大创第一名"
+    }
+  }
+}
+```
+
+### /studentSubmit/showById
+
+`post`
+
+```json
+//其中"projectId" 为可选字段
+{
+  "studentId": 12000000002,
+  "projectId": 31000000002
+}
+```
+
+```json
+{
+  "code": 200,
+  "message": "Success",
+  "data": {
+    "data": [
+      {
+        "studentSubmitId": 2,
+        "studentId": 12000000002,
+        "studentName": "测试名字2",
+        "projectId": 31000000002,
+        "projectName": "项目测试2",
+        "studentSkill": "代码能力",
+        "studentExper": "大创第一名"
+      }
+    ]
+  }
+}
+```
 

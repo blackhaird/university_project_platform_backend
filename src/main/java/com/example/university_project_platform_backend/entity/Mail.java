@@ -13,7 +13,7 @@ import lombok.Setter;
  * </p>
  *
  * @author blackhaird
- * @since 2024-04-21
+ * @since 2024-05-26
  */
 @Getter
 @Setter
@@ -28,7 +28,8 @@ public class Mail implements Serializable {
 
     private String foruserId;
 
-    private String groupId;
+    private Long groupId;
+
     private String mailMessage;
 
     private String mailFile;
